@@ -1,4 +1,5 @@
 import { Legend } from '@/components/ui/line-graph/legend/legend'
+import { Tooltip } from '@/components/ui/tooltip'
 import { ResponsiveLine } from '@nivo/line'
 
 import s from './line-graph.module.scss'
@@ -11,10 +12,14 @@ export type LineGraphProps = {
     }[]
     id: string
   }[]
+  isTooltip?: boolean
+  legend?: boolean
+  points?: boolean
+  variant?: 'catmullRom' | 'linear'
 }
 
 export const LineGraph = (props: LineGraphProps) => {
-  const { data } = props
+  const { data, isTooltip = false, legend = true, points = false, variant = 'linear' } = props
   const theme = {
     fontSize: 12,
     textColor: 'var(--color-black-60)',
@@ -47,13 +52,17 @@ export const LineGraph = (props: LineGraphProps) => {
               tickSize: 0,
             }}
             colors={colors}
+            curve={variant}
             data={data}
             enableGridX={false}
-            enablePoints={false}
+            enablePoints={points}
             lineWidth={3}
             margin={{ bottom: 80, left: 60, right: 20, top: 50 }}
+            pointColor={{ from: 'color', modifiers: [] }}
+            pointSize={10}
             theme={theme}
-            useMesh
+            tooltip={point => isTooltip && <Tooltip point={point.point} />}
+            useMesh={isTooltip}
             xScale={{ type: 'point' }}
             yFormat={' >-.2f'}
             yScale={{
@@ -63,7 +72,7 @@ export const LineGraph = (props: LineGraphProps) => {
             }}
           />
         </div>
-        <Legend colors={colors} data={data} />
+        {legend && <Legend colors={colors} data={data} />}
       </div>
     </>
   )

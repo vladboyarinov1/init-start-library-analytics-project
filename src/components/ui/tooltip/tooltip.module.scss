@@ -1,0 +1,27 @@
+.tooltip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 50px;
+  height: 30px;
+
+  color: var(--color-white);
+  text-align: center;
+
+  background-color: var(--tooltip-color); // Используем переменную для цвета фона
+  border-radius: 6px;
+
+  &::after {
+    content: '';
+
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    border-top: 10px solid var(--triangle-color, #e0e0e0); // Используем переменную для цвета псевдоэлемента
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;
+  }
+}

@@ -113,7 +113,7 @@ export function App() {
     <div>
       <Card height={'auto'} maxWidth={1140}>
         <div>Title</div>
-        <LineGraph data={data} />
+        <LineGraph data={data} isTooltip legend={false} variant={'linear'} />
       </Card>
     </div>
   )

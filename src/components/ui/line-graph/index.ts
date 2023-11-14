@@ -1,1 +1,1 @@
-export { LineGraph } from './line-graph.tsx'
+export { LineGraph } from './line-graph'

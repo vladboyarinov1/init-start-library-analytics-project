@@ -1,0 +1,10 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.radialBar {
+  width: 100%;
+  min-width: 0;
+  height: 400px;
+}

@@ -5,6 +5,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "deploy": "vite build && gh-pages -d dist",
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
@@ -17,6 +18,7 @@
     "@fontsource/roboto": "^5.0.8",
     "@nivo/circle-packing": "^0.83.1",
     "@nivo/line": "^0.83.0",
+    "@nivo/radial-bar": "^0.83.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
@@ -42,6 +44,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
     "eslint-plugin-storybook": "^0.6.15",
+    "gh-pages": "^6.0.0",
     "sass": "^1.69.5",
     "storybook": "^7.5.3",
     "stylelint": "^15.11.0",

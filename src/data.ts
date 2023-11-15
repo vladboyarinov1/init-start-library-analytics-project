@@ -3,7 +3,7 @@ export const data = [
     data: [
       {
         x: '2018',
-        y: 0,
+        y: 3,
       },
       {
         x: '2019',
@@ -45,7 +45,7 @@ export const data = [
     data: [
       {
         x: '2018',
-        y: 0,
+        y: 2,
       },
       {
         x: '2019',
@@ -61,6 +61,59 @@ export const data = [
       },
     ],
     id: 'State University of Informatics and Radioelectronics',
+  },
+]
+export const radialData = [
+  {
+    data: [
+      {
+        x: 'Belarusian National Technical University',
+        y: 3,
+      },
+      {
+        x: 'Belarusian State University',
+        y: 3,
+      },
+      {
+        x: 'State University of Informatics and Radioelectronics',
+        y: 2,
+      },
+    ],
+    id: '2018',
+  },
+  {
+    data: [
+      {
+        x: 'Belarusian National Technical University',
+        y: 23,
+      },
+      {
+        x: 'Belarusian State University',
+        y: 17,
+      },
+      {
+        x: 'State University of Informatics and Radioelectronics',
+        y: 20,
+      },
+    ],
+    id: '2019',
+  },
+  {
+    data: [
+      {
+        x: 'Belarusian National Technical University',
+        y: 25,
+      },
+      {
+        x: 'Belarusian State University',
+        y: 12,
+      },
+      {
+        x: 'State University of Informatics and Radioelectronics',
+        y: 16,
+      },
+    ],
+    id: '2020',
   },
 ]
 export const CirclePackingData = {

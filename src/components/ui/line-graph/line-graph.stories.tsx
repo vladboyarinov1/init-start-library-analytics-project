@@ -1,5 +1,5 @@
 import { LineGraphProps } from '@/components/ui/line-graph/line-graph'
-import { Meta } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react'
 
 import { LineGraph } from './'
 
@@ -14,9 +14,10 @@ const meta: Meta<LineGraphProps> = {
   title: 'Components/LineGraph',
 }
 
+type Story = StoryObj<typeof meta>
 export default meta
 
-export const LineGraphView = (args: LineGraphProps) => (
+export const LineGraphView: Story = (args: LineGraphProps) => (
   <div>
     <LineGraph {...args} />
   </div>

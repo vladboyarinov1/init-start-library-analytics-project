@@ -3,7 +3,7 @@ import { ResponsiveRadialBar } from '@nivo/radial-bar'
 
 import s from './radial-bar.module.scss'
 
-export type RadialBarProps = {
+type RadialBarProps = {
   data: any
 }
 

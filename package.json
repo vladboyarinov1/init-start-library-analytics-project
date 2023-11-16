@@ -19,6 +19,8 @@
     "@nivo/circle-packing": "^0.83.1",
     "@nivo/line": "^0.83.0",
     "@nivo/radial-bar": "^0.83.1",
+    "@nivo/treemap": "^0.83.1",
+    "axios": "^1.6.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

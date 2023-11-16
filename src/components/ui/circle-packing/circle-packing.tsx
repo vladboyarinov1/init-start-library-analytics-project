@@ -8,6 +8,7 @@ export type CirclePackingProps = {
   data: any
   padding?: number
 }
+
 export const CirclePacking = ({
   borderColor = 'var(--color-white)',
   borderWidth,
@@ -32,12 +33,13 @@ export const CirclePacking = ({
         data={data}
         enableLabels
         id={'name'}
-        label={d => `${d.id}`}
-        labelTextColor={'var(--color-white)'}
+        labelTextColor={'var(--color-black)'}
+        labelsSkipRadius={19}
         leavesOnly
-        // margin={{ bottom: 10, left: 10, right: 10, top: 10 }}
+        // margin={{ bottom: 0, left: 5, right: 5, top: 0 }}
         padding={padding}
-        value={'loc'}
+        theme={{ labels: { text: { fontSize: 9 } } }}
+        value={'score'}
       />
     </div>
   )

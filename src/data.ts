@@ -135,3 +135,184 @@ export const CirclePackingData = {
   ],
   name: 'root',
 }
+export const treeMapData = {
+  children: [
+    {
+      children: [
+        {
+          loc: 4079,
+          name: 'Europe',
+        },
+        {
+          loc: 3457,
+          name: 'Asia',
+        },
+        {
+          loc: 2178,
+          name: 'North America',
+        },
+        {
+          loc: 342,
+          name: 'Africa',
+        },
+        {
+          loc: 121,
+          name: 'South America',
+        },
+        {
+          loc: 80,
+          name: 'Oceania',
+        },
+      ],
+      name: 'Computer science',
+    },
+    {
+      children: [
+        {
+          loc: 1204,
+          name: 'Europe',
+        },
+        {
+          loc: 738,
+          name: 'Asia',
+        },
+        {
+          loc: 652,
+          name: 'North America',
+        },
+        {
+          loc: 87,
+          name: 'Africa',
+        },
+        {
+          loc: 14,
+          name: 'South America',
+        },
+        {
+          loc: 8,
+          name: 'Oceania',
+        },
+      ],
+      color: 'hsl(343, 70%, 50%)',
+      name: 'Chemical engineering',
+    },
+    {
+      children: [
+        {
+          loc: 4079,
+          name: 'Europe',
+        },
+        {
+          loc: 3457,
+          name: 'Asia',
+        },
+        {
+          loc: 2178,
+          name: 'North America',
+        },
+        {
+          loc: 342,
+          name: 'Africa',
+        },
+        {
+          loc: 121,
+          name: 'South America',
+        },
+        {
+          loc: 80,
+          name: 'Oceania',
+        },
+      ],
+      name: 'Chemical engineering',
+    },
+  ],
+  name: 'root',
+}
+
+//  {
+//       children: [
+//         {
+//           loc: 4079,
+//           name: 'Europe',
+//         },
+//         {
+//           loc: 3457,
+//           name: 'Asia',
+//         },
+//         {
+//           loc: 2178,
+//           name: 'North America',
+//         },
+//         {
+//           loc: 342,
+//           name: 'Africa',
+//         },
+//         {
+//           loc: 121,
+//           name: 'South America',
+//         },
+//         {
+//           loc: 80,
+//           name: 'Oceania',
+//         },
+//       ],
+//       name: 'Computer science',
+//     },
+//     {
+//       children: [
+//         {
+//           loc: 1204,
+//           name: 'Europe',
+//         },
+//         {
+//           loc: 738,
+//           name: 'Asia',
+//         },
+//         {
+//           loc: 652,
+//           name: 'North America',
+//         },
+//         {
+//           loc: 87,
+//           name: 'Africa',
+//         },
+//         {
+//           loc: 14,
+//           name: 'South America',
+//         },
+//         {
+//           loc: 8,
+//           name: 'Oceania',
+//         },
+//       ],
+//       name: 'Thermodynamics',
+//     },
+//     {
+//       children: [
+//         {
+//           loc: 4079,
+//           name: 'Europe',
+//         },
+//         {
+//           loc: 3457,
+//           name: 'Asia',
+//         },
+//         {
+//           loc: 2178,
+//           name: 'North America',
+//         },
+//         {
+//           loc: 342,
+//           name: 'Africa',
+//         },
+//         {
+//           loc: 121,
+//           name: 'South America',
+//         },
+//         {
+//           loc: 80,
+//           name: 'Oceania',
+//         },
+//       ],
+//       name: 'Chemical engineering',
+//     },

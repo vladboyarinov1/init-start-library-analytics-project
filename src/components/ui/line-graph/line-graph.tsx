@@ -61,12 +61,11 @@ export const LineGraph = (props: LineGraphProps) => {
             pointColor={{ from: 'color', modifiers: [] }}
             pointSize={10}
             theme={theme}
-            tooltip={point => isTooltip && <Tooltip point={point.point} />}
+            // tooltip={point => isTooltip && <Tooltip point={point.point} />}
             useMesh={isTooltip}
             xScale={{ type: 'point' }}
             yFormat={' >-.2f'}
             yScale={{
-              max: 90,
               min: 0,
               type: 'linear',
             }}

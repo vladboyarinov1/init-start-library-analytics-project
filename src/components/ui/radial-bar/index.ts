@@ -1,1 +1,1 @@
-export { RadialBar, RadialBarProps } from './radial-bar'
+export { RadialBar } from './radial-bar'

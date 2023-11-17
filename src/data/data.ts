@@ -1,4 +1,4 @@
-import { CirclePacking, Linear, RadialBar, TreeMap } from '@/data/types.ts'
+import { CirclePacking, Linear, PieChart, RadialBar, TreeMap } from '@/data/types'
 
 export const data: Linear[] = [
   {
@@ -221,3 +221,8 @@ export const treeMapData: TreeMap = {
     },
   ],
 }
+export const PieData: PieChart[] = [
+  { id: 'БНТУ', value: '3000' },
+  { id: 'БГУИР', value: '2000' },
+  { id: 'БГУ', value: '6000' },
+]

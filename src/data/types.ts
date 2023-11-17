@@ -27,3 +27,8 @@ export type TreeMap = {
     name: string
   }[]
 }
+export type PieChart = {
+  id: string
+  label?: string
+  value: string
+}

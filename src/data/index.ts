@@ -1,2 +1,2 @@
-export { CirclePackingData, data, radialData, treeMapData } from './data'
-export type { CirclePacking, Linear, RadialBar, TreeMap } from './types'
+export { CirclePackingData, PieData, data, radialData, treeMapData } from './data'
+export type { CirclePacking, Linear, PieChart, RadialBar, TreeMap } from './types'

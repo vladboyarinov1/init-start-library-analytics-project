@@ -3,9 +3,10 @@ import { useState } from 'react'
 import { Card } from '@/components/ui/card'
 import { CirclePacking } from '@/components/ui/circle-packing'
 import { LineGraph } from '@/components/ui/line-graph'
+import { PieChart } from '@/components/ui/pie-chart'
 import { RadialBar } from '@/components/ui/radial-bar'
 import { TreeMap } from '@/components/ui/tree-map'
-import { data, radialData, treeMapData } from '@/data'
+import { PieData, data, radialData, treeMapData } from '@/data'
 import axios from 'axios'
 
 export function App() {
@@ -65,6 +66,9 @@ export function App() {
       </Card>
       <Card background={'white'} height={'auto'} maxWidth={1100}>
         <TreeMap data={treeMapData} />
+      </Card>
+      <Card background={'white'} height={'auto'} maxWidth={1100}>
+        <PieChart data={PieData} />
       </Card>
     </div>
   )

@@ -1,38 +1,67 @@
+import { TreeMap as TreeMapType } from '@/data'
 import { ResponsiveTreeMap } from '@nivo/treemap'
+
+import s from './tree-map.module.scss'
+
 export type TreeMapProps = {
-  data: any
+  data: TreeMapType
 }
+
 export const TreeMap = ({ data }: TreeMapProps) => {
   const colors = [
-    'var(--color-green-primary)',
+    // 'var(--color-green-primary)',
     'var(--color-lime)',
-    'var(--color-dark)',
-    'var(--color-blue)',
-    'var(--color-pink)',
+    'var(--color-green-40)',
+    // 'var(--color-dark)',
+    // 'var(--color-blue)',
+    // 'var(--color-pink)',
     'var(--color-purple-light)',
   ]
+  const renderLegendItems = () => {
+    return data.children.map((child: any, index: number) => (
+      <div className={s.legendWrapper} key={index}>
+        <span
+          className={s.legendCircleColor}
+          style={{
+            backgroundColor: colors[index % colors.length],
+          }}
+        ></span>
+        <span>{child.name}</span>
+      </div>
+    ))
+  }
 
   return (
-    <div style={{ height: 400 }}>
-      <ResponsiveTreeMap
-        borderColor={{
-          from: 'color',
-          modifiers: [['darker', 0.1]],
-        }}
-        colors={colors}
-        data={data}
-        identity={'name'}
-        labelSkipSize={12}
-        leavesOnly
-        margin={{ bottom: 10, left: 10, right: 10, top: 10 }}
-        parentLabelPosition={'left'}
-        parentLabelTextColor={{
-          from: 'color',
-          modifiers: [['darker', 2]],
-        }}
-        value={'loc'}
-        valueFormat={'.02s'}
-      />
+    <div>
+      <div className={s.treeMap}>
+        <ResponsiveTreeMap
+          borderColor={{
+            from: 'color',
+            modifiers: [['darker', 0.5]],
+          }}
+          borderWidth={0}
+          colors={colors}
+          data={data}
+          enableParentLabel
+          identity={'name'}
+          innerPadding={3}
+          label={'id'}
+          labelSkipSize={40}
+          labelTextColor={'var(--color-white)'}
+          leavesOnly
+          nodeOpacity={1}
+          outerPadding={2}
+          parentLabelPosition={'left'}
+          parentLabelTextColor={{
+            from: 'color',
+            modifiers: [['darker', 2]],
+          }}
+          theme={{ labels: { text: { fontSize: 14 } } }}
+          value={'score'}
+          valueFormat={' >-0,.2~f'}
+        />
+      </div>
+      <div style={{ display: 'flex', flexWrap: 'wrap' }}> {renderLegendItems()}</div>
     </div>
   )
 }

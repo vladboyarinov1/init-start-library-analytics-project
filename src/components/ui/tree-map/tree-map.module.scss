@@ -1,0 +1,22 @@
+.treeMap {
+  position: relative;
+  height: 500px;
+  font-weight: var(--font-weight-bold);
+}
+
+.legendWrapper {
+  display: flex;
+  align-items: center;
+
+  //margin: 16px;
+}
+
+.legendCircleColor {
+  display: inline-block;
+
+  min-width: 16px;
+  min-height: 16px;
+  margin-right: 16px;
+
+  border-radius: 50%;
+}

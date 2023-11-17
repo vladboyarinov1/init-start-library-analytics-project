@@ -1,4 +1,6 @@
-export const data = [
+import { CirclePacking, Linear, RadialBar, TreeMap } from '@/data/types.ts'
+
+export const data: Linear[] = [
   {
     data: [
       {
@@ -63,7 +65,8 @@ export const data = [
     id: 'State University of Informatics and Radioelectronics',
   },
 ]
-export const radialData = [
+
+export const radialData: RadialBar[] = [
   {
     data: [
       {
@@ -116,52 +119,44 @@ export const radialData = [
     id: '2020',
   },
 ]
-export const CirclePackingData = {
+
+export const CirclePackingData: CirclePacking = {
   children: [
-    { loc: 20, name: 'Physics' },
-    { loc: 5, name: 'Chemistry' },
-    { loc: 3, name: 'Biology' },
-    { loc: 8, name: 'Mathematics' },
-    { loc: 12, name: 'Computer Science' },
-    { loc: 6, name: 'Psychology' },
-    { loc: 9, name: 'Sociology' },
-    { loc: 15, name: 'Economics' },
-    { loc: 4, name: 'History' },
-    { loc: 7, name: 'Philosophy' },
-    { loc: 10, name: 'Linguistics' },
-    { loc: 2, name: 'Art' },
-    { loc: 11, name: 'Geography' },
-    { loc: 13, name: 'Political Science' },
+    { name: 'Physics', score: 20 },
+    { name: 'Chemistry', score: 5 },
+    { name: 'Biology', score: 3 },
+    { name: 'Mathematics', score: 8 },
+    { name: 'Computer Science', score: 12 },
   ],
-  name: 'root',
 }
-export const treeMapData = {
+
+export const treeMapData: TreeMap = {
   children: [
     {
       children: [
         {
-          loc: 4079,
           name: 'Europe',
+          score: 4079,
         },
         {
-          loc: 3457,
           name: 'Asia',
+          score: 3457,
         },
         {
-          loc: 2178,
           name: 'North America',
+          score: 2178,
         },
         {
-          loc: 342,
           name: 'Africa',
+          score: 342,
         },
         {
-          loc: 121,
           name: 'South America',
+          score: 121,
         },
         {
-          loc: 80,
           name: 'Oceania',
+          score: 80,
         },
       ],
       name: 'Computer science',
@@ -169,150 +164,60 @@ export const treeMapData = {
     {
       children: [
         {
-          loc: 1204,
           name: 'Europe',
+          score: 2079,
         },
         {
-          loc: 738,
           name: 'Asia',
+          score: 1457,
         },
         {
-          loc: 652,
           name: 'North America',
+          score: 1178,
         },
         {
-          loc: 87,
           name: 'Africa',
+          score: 342,
         },
         {
-          loc: 14,
           name: 'South America',
+          score: 121,
         },
         {
-          loc: 8,
           name: 'Oceania',
+          score: 80,
         },
       ],
-      color: 'hsl(343, 70%, 50%)',
       name: 'Chemical engineering',
     },
     {
       children: [
         {
-          loc: 4079,
           name: 'Europe',
+          score: 1204,
         },
         {
-          loc: 3457,
           name: 'Asia',
+          score: 738,
         },
         {
-          loc: 2178,
           name: 'North America',
+          score: 652,
         },
         {
-          loc: 342,
           name: 'Africa',
+          score: 87,
         },
         {
-          loc: 121,
           name: 'South America',
+          score: 14,
         },
         {
-          loc: 80,
           name: 'Oceania',
+          score: 8,
         },
       ],
-      name: 'Chemical engineering',
+      name: 'Thermodynamics',
     },
   ],
-  name: 'root',
 }
-
-//  {
-//       children: [
-//         {
-//           loc: 4079,
-//           name: 'Europe',
-//         },
-//         {
-//           loc: 3457,
-//           name: 'Asia',
-//         },
-//         {
-//           loc: 2178,
-//           name: 'North America',
-//         },
-//         {
-//           loc: 342,
-//           name: 'Africa',
-//         },
-//         {
-//           loc: 121,
-//           name: 'South America',
-//         },
-//         {
-//           loc: 80,
-//           name: 'Oceania',
-//         },
-//       ],
-//       name: 'Computer science',
-//     },
-//     {
-//       children: [
-//         {
-//           loc: 1204,
-//           name: 'Europe',
-//         },
-//         {
-//           loc: 738,
-//           name: 'Asia',
-//         },
-//         {
-//           loc: 652,
-//           name: 'North America',
-//         },
-//         {
-//           loc: 87,
-//           name: 'Africa',
-//         },
-//         {
-//           loc: 14,
-//           name: 'South America',
-//         },
-//         {
-//           loc: 8,
-//           name: 'Oceania',
-//         },
-//       ],
-//       name: 'Thermodynamics',
-//     },
-//     {
-//       children: [
-//         {
-//           loc: 4079,
-//           name: 'Europe',
-//         },
-//         {
-//           loc: 3457,
-//           name: 'Asia',
-//         },
-//         {
-//           loc: 2178,
-//           name: 'North America',
-//         },
-//         {
-//           loc: 342,
-//           name: 'Africa',
-//         },
-//         {
-//           loc: 121,
-//           name: 'South America',
-//         },
-//         {
-//           loc: 80,
-//           name: 'Oceania',
-//         },
-//       ],
-//       name: 'Chemical engineering',
-//     },

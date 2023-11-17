@@ -1,11 +1,12 @@
+import { CirclePacking as CirclePackingType } from '@/data/types'
 import { ResponsiveCirclePacking } from '@nivo/circle-packing'
 
 import s from './circle-packing.module.scss'
 
-export type CirclePackingProps = {
+type CirclePackingProps = {
   borderColor?: string
   borderWidth?: number
-  data: any
+  data: CirclePackingType
   padding?: number
 }
 

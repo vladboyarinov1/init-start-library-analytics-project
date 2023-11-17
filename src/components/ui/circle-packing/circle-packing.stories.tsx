@@ -1,7 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { CirclePacking, CirclePackingProps } from './circle-packing'
+import { CirclePacking as CirclePackingType } from '@/data'
 
+import { CirclePacking } from './circle-packing'
+type CirclePackingProps = {
+  borderColor?: string
+  borderWidth?: number
+  data: CirclePackingType
+  padding?: number
+}
 const meta = {
   component: CirclePacking,
   tags: ['autodocs'],
@@ -17,23 +24,17 @@ export const CirclePackingView: Story = (args: CirclePackingProps) => (
   </div>
 )
 CirclePackingView.args = {
+  borderColor: 'blue',
+  borderWidth: 2,
   data: {
     children: [
-      { loc: 20, name: 'Physics' },
-      { loc: 5, name: 'Chemistry' },
-      { loc: 3, name: 'Biology' },
-      { loc: 8, name: 'Mathematics' },
-      { loc: 12, name: 'Computer Science' },
-      { loc: 6, name: 'Psychology' },
-      { loc: 9, name: 'Sociology' },
-      { loc: 15, name: 'Economics' },
-      { loc: 4, name: 'History' },
-      { loc: 7, name: 'Philosophy' },
-      { loc: 10, name: 'Linguistics' },
-      { loc: 2, name: 'Art' },
-      { loc: 11, name: 'Geography' },
-      { loc: 13, name: 'Political Science' },
+      { name: 'Chemistry', score: 5 },
+      { name: 'Biology', score: 3 },
+      { name: 'Mathematics', score: 8 },
+      { name: 'Physics', score: 10 },
+      { name: 'Computer Science', score: 12 },
+      { name: 'Psychology', score: 6 },
     ],
-    name: 'root',
   },
+  padding: 4,
 }

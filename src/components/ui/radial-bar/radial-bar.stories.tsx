@@ -1,7 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { RadialBar, RadialBarProps } from './radial-bar'
+import { RadialBar as RadialBarType } from '@/data'
 
+import { RadialBar } from './radial-bar'
+
+type RadialBarProps = {
+  data: RadialBarType[]
+}
 const meta = {
   component: RadialBar,
   tags: ['autodocs'],

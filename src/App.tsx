@@ -5,7 +5,7 @@ import { CirclePacking } from '@/components/ui/circle-packing'
 import { LineGraph } from '@/components/ui/line-graph'
 import { RadialBar } from '@/components/ui/radial-bar'
 import { TreeMap } from '@/components/ui/tree-map'
-import { data, treeMapData } from '@/data'
+import { data, radialData, treeMapData } from '@/data'
 import axios from 'axios'
 
 export function App() {
@@ -38,7 +38,6 @@ export function App() {
 
   const result = {
     children: a,
-    name: 'root',
   }
 
   return (
@@ -46,21 +45,23 @@ export function App() {
       <Card background={'white'} height={'auto'} maxWidth={1140}>
         <LineGraph data={data} isTooltip legend variant={'linear'} />
       </Card>
-      {result && (
+      <div>
+        <input
+          onChange={e => {
+            setRor(e.currentTarget.value)
+          }}
+          placeholder={'inter ror'}
+          type={'text'}
+        />
+        <button onClick={sendGet}>GET DATA</button>
+      </div>
+      {dataget.length && result && (
         <Card background={'white'} height={'auto'} maxWidth={1140}>
-          <input
-            onChange={e => {
-              setRor(e.currentTarget.value)
-            }}
-            placeholder={'inter ror'}
-            type={'text'}
-          />
-          <button onClick={sendGet}>GET DATA</button>
           <CirclePacking data={result} padding={6} />
         </Card>
       )}
       <Card background={'white'} height={'auto'} maxWidth={560}>
-        <RadialBar data={data} />
+        <RadialBar data={radialData} />
       </Card>
       <Card background={'white'} height={'auto'} maxWidth={1100}>
         <TreeMap data={treeMapData} />

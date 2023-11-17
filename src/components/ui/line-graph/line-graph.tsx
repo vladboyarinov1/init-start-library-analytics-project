@@ -1,10 +1,9 @@
 import { Legend } from '@/components/ui/line-graph/legend/legend'
-import { Tooltip } from '@/components/ui/tooltip'
 import { ResponsiveLine } from '@nivo/line'
 
 import s from './line-graph.module.scss'
 
-export type LineGraphProps = {
+type LineGraphProps = {
   data: {
     data: {
       x: string

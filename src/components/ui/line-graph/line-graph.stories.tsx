@@ -1,8 +1,20 @@
-import { LineGraphProps } from '@/components/ui/line-graph/line-graph'
 import { Meta, StoryObj } from '@storybook/react'
 
 import { LineGraph } from './'
 
+type LineGraphProps = {
+  data: {
+    data: {
+      x: string
+      y: number
+    }[]
+    id: string
+  }[]
+  isTooltip?: boolean
+  legend?: boolean
+  points?: boolean
+  variant?: 'catmullRom' | 'linear'
+}
 const meta: Meta<LineGraphProps> = {
   argTypes: {
     variant: {

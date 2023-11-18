@@ -226,3 +226,37 @@ export const PieData: PieChart[] = [
   { id: 'БГУИР', value: '2000' },
   { id: 'БГУ', value: '6000' },
 ]
+export const BarChartData = [
+  {
+    count: 57,
+    country: 'Belarus',
+  },
+  {
+    count: 121,
+    country: 'Russia1',
+  },
+  {
+    count: 57,
+    country: 'Belarus1',
+  },
+  {
+    count: 121,
+    country: 'Russia2',
+  },
+  {
+    count: 57,
+    country: 'Belarus2',
+  },
+  {
+    count: 121,
+    country: 'Russia3',
+  },
+  {
+    count: 57,
+    country: 'Belarus4',
+  },
+  {
+    count: 121,
+    country: 'Russia5',
+  },
+]

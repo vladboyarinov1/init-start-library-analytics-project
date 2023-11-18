@@ -1,0 +1,15 @@
+.legendWrapper {
+  position: absolute;
+  left: 0;
+
+  display: flex;
+  justify-content: space-between;
+
+  width: 100%;
+}
+
+.name,
+.value {
+  font-size: 14px;
+  font-weight: var(--font-weight-bold);
+}

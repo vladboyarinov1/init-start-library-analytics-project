@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@fontsource/roboto": "^5.0.8",
+    "@nivo/bar": "^0.83.1",
     "@nivo/circle-packing": "^0.83.1",
     "@nivo/line": "^0.83.0",
     "@nivo/pie": "^0.83.1",

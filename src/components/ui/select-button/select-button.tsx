@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 
+import { RadioButton } from '@/components/ui/radio-button'
 import { ArrowDown, ArrowUp, Export } from '@/icons'
 import * as Select from '@radix-ui/react-select'
 import clsx from 'clsx'
@@ -26,7 +27,7 @@ export const SelectButton = ({ itemsData, title, variant }: SelectButtonProps) =
       console.log('Export in ' + activeValueName)
       setActiveValueName('')
     } else {
-      console.log('select value!')
+      console.log('select-button value!')
     }
   }
   const WrapperClass = clsx(s.SelectTrigger, {
@@ -113,13 +114,18 @@ const CustomSelectItem = React.forwardRef<
       <Select.ItemText>{children}</Select.ItemText>
       {variant != 'primary' && (
         <div className={s.SelectItemIndicator}>
-          <input
+          <RadioButton
             checked={activeValueName === children ?? false}
             id={children?.toString()}
             name={children?.toString()}
-            onChange={() => {}}
-            type={'radio'}
           />
+          {/*<input*/}
+          {/*  checked={activeValueName === children ?? false}*/}
+          {/*  id={children?.toString()}*/}
+          {/*  name={children?.toString()}*/}
+          {/*  onChange={() => {}}*/}
+          {/*  type={'radio'}*/}
+          {/*/>*/}
         </div>
       )}
     </Select.Item>

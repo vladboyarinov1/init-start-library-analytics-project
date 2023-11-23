@@ -63,12 +63,13 @@ button {
 }
 
 .SelectViewport {
-  padding: 0;
+  padding: 2px;
   color: #000;
 }
 
 .SelectItemIndicator {
   position: absolute;
+  top: 0;
   left: 0;
 
   display: inline-flex;

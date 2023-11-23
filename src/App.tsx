@@ -10,11 +10,7 @@
 // import { BarChartData, PieData, data, radialData, treeMapData } from '@/data'
 // import axios from 'axios'
 
-import React from 'react'
-
-import { SelectButton } from '@/components/ui/Select'
-import { Card } from '@/components/ui/card'
-import { Export } from '@/icons'
+import { SelectButton } from '@/components/ui/select-button'
 
 export function App() {
   // const [dataget, setDataget] = useState<any>([])
@@ -81,7 +77,7 @@ export function App() {
     //     <BarChar data={BarChartData} />
     //   </Card>
     // </div>
-    <>
+    <div style={{ margin: 100 }}>
       <SelectButton
         itemsData={[
           {
@@ -92,8 +88,8 @@ export function App() {
           },
         ]}
         title={'Сортировать'}
-        variant={'export'}
+        variant={'sort'}
       />
-    </>
+    </div>
   )
 }

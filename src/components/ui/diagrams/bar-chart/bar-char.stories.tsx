@@ -1,11 +1,7 @@
-import { PieChart as PieChartType } from '@/data'
 import { Meta, StoryObj } from '@storybook/react'
 
 import { BarChar } from './bar-char'
 
-// export type TreeMapProps = {
-//   data: PieChartType[]
-// }
 const meta = {
   component: BarChar,
   tags: ['autodocs'],

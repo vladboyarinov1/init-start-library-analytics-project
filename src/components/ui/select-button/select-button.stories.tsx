@@ -2,9 +2,6 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 import { SelectButton } from './select-button'
 
-export type TreeMapProps = {
-  data: TreeMapType
-}
 const meta = {
   component: SelectButton,
   tags: ['autodocs'],

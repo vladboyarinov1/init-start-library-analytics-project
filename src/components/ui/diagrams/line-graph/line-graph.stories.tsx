@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react'
 
-import { LineGraph } from './'
+import { LineGraph } from './index.ts'
 
 type LineGraphProps = {
   data: {

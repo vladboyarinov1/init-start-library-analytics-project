@@ -1,4 +1,4 @@
-import s from '@/components/ui/line-graph/legend/legend.module.scss'
+import s from '@/components/ui/diagrams/line-graph/legend/legend.module.scss'
 
 type RadialDataItem = {
   data: {

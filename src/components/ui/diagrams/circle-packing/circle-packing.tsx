@@ -1,4 +1,4 @@
-import { CirclePacking as CirclePackingType } from '@/data/types'
+import { CirclePacking as CirclePackingType } from '@/data/types.ts'
 import { ResponsiveCirclePacking } from '@nivo/circle-packing'
 
 import s from './circle-packing.module.scss'

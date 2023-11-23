@@ -3,9 +3,9 @@ import { Meta, StoryObj } from '@storybook/react'
 
 import { BarChar } from './bar-char'
 
-export type TreeMapProps = {
-  data: PieChartType[]
-}
+// export type TreeMapProps = {
+//   data: PieChartType[]
+// }
 const meta = {
   component: BarChar,
   tags: ['autodocs'],
@@ -15,7 +15,7 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const BarCharView: Story = (args: TreeMapProps) => (
+export const BarCharView: Story = (args: any) => (
   <div>
     <BarChar {...args} />
   </div>
@@ -23,36 +23,36 @@ export const BarCharView: Story = (args: TreeMapProps) => (
 BarCharView.args = {
   data: [
     {
+      count: 57,
       country: 'Belarus',
-      'hot dog': 57,
     },
     {
+      count: 121,
       country: 'Russia1',
-      'hot dog': 121,
     },
     {
+      count: 57,
       country: 'Belarus1',
-      'hot dog': 57,
     },
     {
+      count: 121,
       country: 'Russia2',
-      'hot dog': 121,
     },
     {
+      count: 57,
       country: 'Belarus2',
-      'hot dog': 57,
     },
     {
+      count: 121,
       country: 'Russia3',
-      'hot dog': 121,
     },
     {
+      count: 57,
       country: 'Belarus4',
-      'hot dog': 57,
     },
     {
+      count: 121,
       country: 'Russia5',
-      'hot dog': 121,
     },
   ],
 }

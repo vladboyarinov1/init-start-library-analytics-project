@@ -1,4 +1,4 @@
-import { RLegend } from '@/components/ui/radial-bar/legend/radial-legend'
+import { RLegend } from '@/components/ui/diagrams/radial-bar/legend/radial-legend.tsx'
 import { RadialBar as RadialBarType } from '@/data'
 import { ResponsiveRadialBar } from '@nivo/radial-bar'
 

@@ -22,7 +22,10 @@
     "@nivo/pie": "^0.83.1",
     "@nivo/radial-bar": "^0.83.1",
     "@nivo/treemap": "^0.83.1",
+    "@radix-ui/colors": "^3.0.0",
+    "@radix-ui/react-select": "^2.0.0",
     "axios": "^1.6.2",
+    "clsx": "^2.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

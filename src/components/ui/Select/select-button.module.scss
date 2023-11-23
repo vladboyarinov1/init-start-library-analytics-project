@@ -1,0 +1,111 @@
+@import '@radix-ui/colors/black-alpha.css';
+@import '@radix-ui/colors/mauve.css';
+@import '@radix-ui/colors/violet.css';
+
+button {
+  all: unset;
+  margin: 0;
+  padding: 0;
+}
+
+.SelectSeparator {
+  height: 1px;
+  margin: 10px 0;
+  background-color: #f2f2f2;
+}
+
+.SelectTrigger {
+  display: inline-flex;
+  gap: 8px;
+
+  padding: 8px 5px;
+
+  color: var(--color-green-primary);
+
+  background-color: white;
+  border: 1px solid var(--color-green-primary);
+  border-radius: 6px;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    background-color: var(--color-green-desaturated);
+  }
+}
+
+.PrimarySelectTrigger {
+  color: var(--color-black);
+  background-color: white;
+  border: 1px solid var(--color-black-20);
+  border-radius: 6px;
+
+  &:hover {
+    background-color: var(--color-black-desaturated);
+  }
+}
+
+.SelectContent {
+  max-height: var(--radix-select-content-available-height);
+  margin-top: 3px;
+  padding: 12px;
+
+  background-color: var(--color-white);
+  border-radius: 6px;
+  box-shadow:
+    0 1px 3px 0 rgb(0 0 0 / 30%),
+    0 4px 8px 3px rgb(0 0 0 / 15%);
+}
+
+.ExportSelectContent {
+  margin-left: -28px;
+}
+
+.SelectViewport {
+  padding: 0;
+  color: #000;
+}
+
+.SelectItemIndicator {
+  position: absolute;
+  left: 0;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.SelectItem {
+  user-select: none;
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  margin-bottom: 16px;
+  padding: 0 35px 0 25px;
+
+  border-radius: 6px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &:hover,
+  &:focus {
+    background-color: transparent;
+    outline: none;
+  }
+}
+
+.PrimarySelectItem {
+  margin-bottom: 0;
+  padding: 10px;
+
+  &:hover {
+    color: var(--color-green-primary);
+    background-color: var(--color-green-20);
+  }
+}

@@ -1,4 +1,4 @@
-import { Legend } from '@/components/ui/line-graph/legend/legend'
+import { Legend } from '@/components/ui/diagrams/line-graph/legend/legend.tsx'
 import { ResponsiveLine } from '@nivo/line'
 
 import s from './line-graph.module.scss'

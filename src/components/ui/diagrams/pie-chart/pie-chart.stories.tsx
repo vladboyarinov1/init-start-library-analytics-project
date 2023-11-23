@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 import { PieChart as PieChartType } from '@/data'
 
-import { PieChart } from './pie-chart'
+import { PieChart } from './pie-chart.tsx'
 
 export type TreeMapProps = {
   data: PieChartType[]

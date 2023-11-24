@@ -43,9 +43,10 @@ export const SelectButton = ({ itemsData, title, variant }: SelectButtonProps) =
   return (
     <div className={WrapperClass}>
       {variant === 'export' && (
-        <div style={{ display: 'block', textAlign: 'center' }}>
-          <Select.Icon className={s.SelectIcon}>
+        <div>
+          <Select.Icon>
             <div className={s.ExportButton} onClick={a}>
+              {/*la*/}
               <Export size={20} />
             </div>
           </Select.Icon>
@@ -60,7 +61,13 @@ export const SelectButton = ({ itemsData, title, variant }: SelectButtonProps) =
         >
           <Select.Trigger
             aria-label={'Food'}
-            style={{ alignItems: 'center', display: 'flex', gap: 8 }}
+            style={{
+              alignItems: 'center',
+              cursor: 'pointer',
+              display: 'flex',
+              gap: 8,
+              padding: '8px 5px',
+            }}
           >
             <Select.Value placeholder={title} />
             <Select.Icon className={s.SelectIcon}>

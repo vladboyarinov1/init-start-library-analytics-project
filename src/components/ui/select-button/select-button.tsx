@@ -22,6 +22,8 @@ export const SelectButton = ({ itemsData, title, variant }: SelectButtonProps) =
   const toggleOpen = () => {
     setOpen(!open)
   }
+
+  console.log(activeValueName)
   const a = () => {
     if (activeValueName) {
       console.log('Export in ' + activeValueName)

@@ -10,6 +10,7 @@
 // import { BarChartData, PieData, data, radialData, treeMapData } from '@/data'
 // import axios from 'axios'
 
+import { CheckboxItem } from '@/components/ui/checkbox-item'
 import { SelectButton } from '@/components/ui/select-button'
 
 export function App() {
@@ -81,15 +82,13 @@ export function App() {
       <SelectButton
         itemsData={[
           {
-            items: [{ label: 'По странам ' }, { label: 'По количеству публикаций' }],
-          },
-          {
-            items: [{ label: 'По возрастанию ' }, { label: 'По убыванию' }],
+            items: [{ label: 'експорт в эксель ' }, { label: 'експорт в word' }],
           },
         ]}
-        title={'Сортировать'}
-        variant={'sort'}
+        title={'export'}
+        variant={'export'}
       />
+      <CheckboxItem />
     </div>
   )
 }

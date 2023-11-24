@@ -2,14 +2,9 @@ import s from './legend.module.scss'
 
 type LegendProps = {
   colors: string[]
-  data: {
-    data: {
-      x: string
-      y: number
-    }[]
-    id: string
-  }[]
+  data: any[]
 }
+// data: { id: string; label?: string; value: string }[]
 export const Legend = ({ colors, data }: LegendProps) => {
   return (
     <div>

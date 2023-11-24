@@ -1,4 +1,4 @@
-import { IconProps, IconWrapper } from '../icon-wrapper'
+import { IconProps, IconWrapper } from '@/icons'
 
 export const VerticalLine = (allProps: IconProps) => {
   const { svgProps: props, ...restProps } = allProps

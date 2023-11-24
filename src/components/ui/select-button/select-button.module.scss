@@ -4,8 +4,6 @@
 
 button {
   all: unset;
-  margin: 0;
-  padding: 0;
 }
 
 .SelectSeparator {
@@ -14,11 +12,20 @@ button {
   background-color: #f2f2f2;
 }
 
+.ExportButton {
+  cursor: pointer;
+  padding: 8px;
+
+  //padding: 15px 0;
+  //border: 0.5px solid red;
+}
+
 .SelectTrigger {
   display: inline-flex;
-  gap: 8px;
 
-  padding: 8px 5px;
+  //gap: 8px;
+
+  //padding: 8px 5px;
 
   color: var(--color-green-primary);
 
@@ -48,7 +55,7 @@ button {
 
 .SelectContent {
   max-height: var(--radix-select-content-available-height);
-  margin-top: 3px;
+  margin-top: -5px;
   padding: 12px;
 
   background-color: var(--color-white);

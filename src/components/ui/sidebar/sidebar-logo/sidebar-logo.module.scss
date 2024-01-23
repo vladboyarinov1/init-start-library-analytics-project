@@ -1,0 +1,25 @@
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 10px;
+
+  font-family: var(--font-family-slab);
+
+  background-color: white;
+
+  &_text {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.2;
+
+    &_bntu {
+      color: var(--color-green-primary);
+    }
+
+    &_science {
+      color: var(--color-black);
+    }
+  }
+}

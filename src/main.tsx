@@ -4,6 +4,8 @@ import { createRoot } from 'react-dom/client'
 
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/700.css'
+// Supports weights 100-900
+import '@fontsource-variable/roboto-slab'
 import './styles/index.scss'
 
 import { App } from './App'

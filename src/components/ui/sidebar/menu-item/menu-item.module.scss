@@ -1,0 +1,44 @@
+li {
+  //height: auto !important;
+  //white-space: normal !important;
+
+  //display: flex !important;
+  //align-items: center !important;
+}
+
+.toggle {
+  margin-top: 17px;
+}
+
+.logo_button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 0;
+}
+
+.menu_bar {
+  position: fixed;
+  top: 0;
+  left: 0; /* Ширина вашего сайдбара, укажите свою величину */
+
+  overflow-y: auto;
+
+  height: 100%;
+
+  font-size: 14px;
+
+  //border-inline-end: 0;
+  border-inline-end: 0 !important;
+  border-radius: 0 0 10px;
+}
+
+.sub_menu {
+  border: 1px solid darkblue;
+}
+
+.menu_item > span {
+  //height: auto !important;
+  //line-height: 1.4 !important;
+  //white-space: normal;
+}

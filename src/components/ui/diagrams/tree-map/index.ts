@@ -1,1 +1,1 @@
-export { TreeMap } from './tree-map.tsx'
+export { TreeMap } from './tree-map'

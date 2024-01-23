@@ -12,6 +12,7 @@
 
 import { CheckboxItem } from '@/components/ui/checkbox-item'
 import { SelectButton } from '@/components/ui/select-button'
+import { Sidebar } from '@/components/ui/sidebar'
 
 export function App() {
   // const [dataget, setDataget] = useState<any>([])
@@ -78,17 +79,18 @@ export function App() {
     //     <BarChar data={BarChartData} />
     //   </Card>
     // </div>
-    <div style={{ margin: 100 }}>
-      <SelectButton
-        itemsData={[
-          {
-            items: [{ label: 'експорт в эксель ' }, { label: 'експорт в word' }],
-          },
-        ]}
-        title={'export'}
-        variant={'export'}
-      />
-      <CheckboxItem />
+    <div>
+      {/*<SelectButton*/}
+      {/*  itemsData={[*/}
+      {/*    {*/}
+      {/*      items: [{ label: 'експорт в эксель ' }, { label: 'експорт в word' }],*/}
+      {/*    },*/}
+      {/*  ]}*/}
+      {/*  title={'export'}*/}
+      {/*  variant={'export'}*/}
+      {/*/>*/}
+      {/*<CheckboxItem />*/}
+      <Sidebar />
     </div>
   )
 }

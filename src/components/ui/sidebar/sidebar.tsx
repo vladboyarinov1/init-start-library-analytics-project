@@ -11,10 +11,8 @@ export const Sidebar = () => {
   const [collapsed, setCollapsed] = useState(false)
 
   return (
-    <Layout style={{ backgroundColor: 'var(--color-green-desaturated)' }}>
-      <Sider className={s.sidebar} collapsed={collapsed} collapsible trigger={null}>
-        <MenuItem collapsed={collapsed} setCollapsed={setCollapsed} />
-      </Sider>
-    </Layout>
+    <Sider className={s.sidebar} collapsed={collapsed} collapsible trigger={null} width={256}>
+      <MenuItem collapsed={collapsed} setCollapsed={setCollapsed} />
+    </Sider>
   )
 }

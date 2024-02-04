@@ -1,5 +1,7 @@
-import { useState } from 'react'
+import { Fragment, useState } from 'react'
+import { Link } from 'react-router-dom'
 
+import { useBreadcrumbs } from '@/components/ui/sidebar/bread-crumbs.tsx'
 import { SidebarLogo } from '@/components/ui/sidebar/sidebar-logo'
 import {
   AnalyticsChart,
@@ -29,19 +31,80 @@ type MenuItemProps = {
   setCollapsed: any
 }
 
-export const MenuItem = ({ collapsed, setCollapsed }: MenuItemProps) => {
-  const [logoVisible, setLogoVisible] = useState(true)
+const menuData = [
+  {
+    icon: <SystemSearch />,
+    key: 'about_search',
+    label: 'О системе поиска',
+  },
+  {
+    icon: <SearchSquare />,
+    key: 'data_search',
+    label: 'Поиск данных',
+    submenu: [
+      { icon: <AnalyticsGraph />, key: 'publications', label: 'Публикации' },
+      { icon: <Author />, key: 'authors', label: 'Авторы' },
+      { icon: <Campus />, key: 'organizations', label: 'Организации' },
+      { icon: <Quotes />, key: 'citation', label: 'Цитирование' },
+      { icon: <Science />, key: 'scientific_direction', label: 'Научное направление' },
+      { icon: <IndexH />, key: 'index_h', label: 'Индекс h' },
+    ],
+  },
+  {
+    icon: <AnalyticsGraph />,
+    key: 'analytics',
+    label: 'Аналитика и визуализация',
+    submenu: [
+      { icon: <Bubbles />, key: 'analysis_publications', label: 'Организации: анализ публикаций' },
+      { icon: <AnalyticsChart />, key: 'dynamics', label: 'Динамика публикаций/цитирований' },
+      {
+        icon: <List />,
+        key: 'analysis_publications_and_keywords',
+        label: 'Издания: анализ публикаций и ключевых слов',
+      },
+      {
+        icon: <DocumentText />,
+        key: 'publications_by_keywords',
+        label: 'Публикации по ключевым словам',
+      },
+      { icon: <MdAnalistics />, key: 'keyword_network', label: 'Сеть ключевого слова' },
+      {
+        icon: <AtomicScience />,
+        key: 'scientific_field_organizations',
+        label: 'Научная сфера организации',
+      },
+    ],
+  },
+  {
+    icon: <ProtectedDirectory />,
+    key: 'confidentiality',
+    label: 'Конфиденциальность',
+  },
+  {
+    icon: <Contacts />,
+    key: 'contacts',
+    label: 'Контакты',
+  },
+]
 
+export const MenuItem = ({ collapsed, setCollapsed }: MenuItemProps) => {
+  const [_logoVisible, setLogoVisible] = useState(true)
+  const { selectedKeys, setSelectedKeys } = useBreadcrumbs()
+
+  console.log(selectedKeys)
   const toggleSidebar = () => {
     setCollapsed(!collapsed)
     setTimeout(() => setLogoVisible(!collapsed), collapsed ? 300 : 0)
+  }
+  const handleMenuClick = ({ keyPath }: any) => {
+    setSelectedKeys(keyPath.reverse())
   }
 
   const menuItemStyle: React.CSSProperties | undefined = !collapsed
     ? {
         height: 'auto',
         lineHeight: '1.3',
-        padding: '5px 10px 5px 48px',
+        padding: '5px 10px 5px 25px',
         whiteSpace: 'normal',
       }
     : undefined
@@ -63,6 +126,7 @@ export const MenuItem = ({ collapsed, setCollapsed }: MenuItemProps) => {
       <Menu
         className={s.menu_bar}
         mode={'inline'}
+        onClick={handleMenuClick}
         style={{ width: `${collapsed ? '80px' : '256px'}` }}
       >
         <div className={s.logo_button}>
@@ -76,95 +140,48 @@ export const MenuItem = ({ collapsed, setCollapsed }: MenuItemProps) => {
           </div>
           <div> {!collapsed && <SidebarLogo />}</div>
         </div>
-        <Menu.Item className={s.menu_item} icon={<SystemSearch />} key={'about_search'}>
-          О системе поиска
-        </Menu.Item>
-        <Menu.SubMenu
-          className={s.menu_item}
-          icon={<SearchSquare />}
-          key={'data_search'}
-          title={'Поиск данных'}
-        >
-          <Menu.Item className={s.menu_item} icon={<AnalyticsGraph />} key={'publications'}>
-            Публикации
-          </Menu.Item>
-          <Menu.Item className={s.menu_item} icon={<Author />} key={'authors'}>
-            Авторы
-          </Menu.Item>
-          <Menu.Item className={s.menu_item} icon={<Campus />} key={'organizations'}>
-            Организации
-          </Menu.Item>
-          <Menu.Item className={s.menu_item} icon={<Quotes />} key={'citation'}>
-            Цитирование
-          </Menu.Item>
-          <Menu.Item className={s.menu_item} icon={<Science />} key={'scientific_direction'}>
-            Научное направление
-          </Menu.Item>
-          <Menu.Item className={s.menu_item} icon={<IndexH />} key={'index_h'}>
-            Индекс h
-          </Menu.Item>
-        </Menu.SubMenu>
-        <Menu.SubMenu
-          className={s.menu_item}
-          icon={<AnalyticsGraph />}
-          key={'analytics'}
-          title={'Аналитика и визуализация'}
-        >
-          <Menu.Item
-            className={s.menu_item}
-            icon={<Bubbles />}
-            key={'analysis_publications'}
-            style={menuItemStyle}
-          >
-            Организации: анализ публикаций
-          </Menu.Item>
-          <Menu.Item
-            className={s.menu_item}
-            icon={<AnalyticsChart />}
-            key={'dynamics'}
-            style={menuItemStyle}
-          >
-            Динамика публикаций/цитирований
-          </Menu.Item>
-          <Menu.Item
-            className={s.menu_item}
-            icon={<List />}
-            key={'analysis_publications_and_keywords'}
-            style={menuItemStyle}
-          >
-            Издания: анализ публикаций и ключевых слов
-          </Menu.Item>
-          <Menu.Item
-            className={s.menu_item}
-            icon={<DocumentText />}
-            key={'publications_by_keywords'}
-            style={menuItemStyle}
-          >
-            Публикации по ключевым словам
-          </Menu.Item>
-          <Menu.Item
-            className={s.menu_item}
-            icon={<MdAnalistics />}
-            key={'keyword_network'}
-            style={menuItemStyle}
-          >
-            Сеть ключевого слова
-          </Menu.Item>
-          <Menu.Item
-            className={s.menu_item}
-            icon={<AtomicScience />}
-            key={'scientific_field_organizations'}
-            style={menuItemStyle}
-          >
-            Научная сфера организации
-          </Menu.Item>
-        </Menu.SubMenu>
-        <Menu.Item className={s.menu_item} icon={<ProtectedDirectory />} key={'confidentiality'}>
-          Конфиденциальность
-        </Menu.Item>
-        <Menu.Item className={s.menu_item} icon={<Contacts />} key={'contacts'}>
-          Контакты
-        </Menu.Item>
+
+        {menuData.map(menuItem => (
+          <Fragment key={menuItem.key}>
+            {menuItem.submenu ? (
+              <Menu.SubMenu
+                className={s.menu_item}
+                icon={menuItem.icon}
+                key={menuItem.label}
+                title={menuItem.label}
+              >
+                {menuItem.submenu.map(subItem => (
+                  <Menu.Item
+                    className={s.menu_item}
+                    icon={subItem.icon}
+                    key={subItem.label}
+                    style={
+                      !collapsed
+                        ? {
+                            height: 'auto',
+                            lineHeight: 1.3,
+                            padding: '7px 0 7px 40px',
+                            whiteSpace: 'normal',
+                          }
+                        : {}
+                    }
+                  >
+                    <Link to={`/${subItem.key}`}>{subItem.label}</Link>
+                  </Menu.Item>
+                ))}
+              </Menu.SubMenu>
+            ) : (
+              <Menu.Item
+                className={s.menu_item}
+                icon={menuItem.icon}
+                key={menuItem.label}
+                style={menuItemStyle}
+              >
+                <Link to={`/${menuItem.key}`}>{menuItem.label}</Link>
+              </Menu.Item>
+            )}
+          </Fragment>
+        ))}
       </Menu>
     </ConfigProvider>
   )

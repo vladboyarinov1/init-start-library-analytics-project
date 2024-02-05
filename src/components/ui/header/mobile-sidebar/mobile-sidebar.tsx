@@ -17,7 +17,7 @@ import {
   Science,
   SearchSquare,
 } from '@/icons'
-import { SystemSearch } from '@/icons/components/system-search.tsx'
+import { SystemSearch } from '@/icons/components/system-search'
 import { CloseOutlined } from '@ant-design/icons'
 import { ConfigProvider, Menu, MenuProps } from 'antd'
 

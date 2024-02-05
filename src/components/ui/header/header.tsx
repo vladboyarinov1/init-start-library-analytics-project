@@ -10,7 +10,15 @@ export const MainHeader = () => {
   const handleOpen = () => setOpen(true)
 
   return (
-    <Header style={{ backgroundColor: 'snow' }}>
+    <Header
+      style={{
+        backgroundColor: 'transparent',
+        display: 'flex',
+        justifyContent: 'end',
+        position: 'fixed',
+        width: '100%',
+      }}
+    >
       <MenuOutlined onClick={handleOpen} />
       <Sidebar handleClose={handleClose} isDark={false} open={open} width />
     </Header>

@@ -2,7 +2,6 @@ import { Fragment, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { useBreadcrumbs } from '@/components/ui/sidebar/bread-crumbs'
-import { SidebarLogo } from '@/components/ui/sidebar/sidebar-logo'
 import {
   AnalyticsChart,
   AnalyticsGraph,
@@ -25,6 +24,8 @@ import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
 import { Button, ConfigProvider, Menu } from 'antd'
 
 import s from './menu-item.module.scss'
+
+import { SidebarLogo } from '../sidebar-logo/sidebar-logo'
 
 type MenuItemProps = {
   collapsed: boolean

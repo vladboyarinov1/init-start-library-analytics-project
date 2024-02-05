@@ -89,7 +89,7 @@ const menuData = [
 
 export const MenuItem = ({ collapsed, setCollapsed }: MenuItemProps) => {
   const [_logoVisible, setLogoVisible] = useState(true)
-  const { selectedKeys, setSelectedKeys } = useBreadcrumbs()
+  const { setSelectedKeys } = useBreadcrumbs()
 
   const toggleSidebar = () => {
     setCollapsed(!collapsed)

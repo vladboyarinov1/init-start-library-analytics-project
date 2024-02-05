@@ -15,7 +15,7 @@ export const MainHeader = () => {
         backgroundColor: 'transparent',
         display: 'flex',
         justifyContent: 'end',
-        position: 'fixed',
+        // position: 'fixed',
         width: '100%',
       }}
     >

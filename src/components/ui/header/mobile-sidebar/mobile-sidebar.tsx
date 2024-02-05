@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 import {
   AnalyticsChart,
@@ -30,6 +31,7 @@ type PropsType = {
   width: boolean
 }
 type MenuItem = Required<MenuProps>['items'][number]
+
 function getItem(
   label: React.ReactNode,
   key: React.Key,
@@ -45,32 +47,74 @@ function getItem(
     type,
   } as MenuItem
 }
+
 const items: MenuItem[] = [
-  getItem('О системе поиска', 'sub1', <SystemSearch />),
-  getItem('Поиск данных', 'sub2', <SearchSquare />, [
-    getItem('Публикации', '3', <AnalyticsGraph />),
-    getItem('Авторы', '4', <Author />),
-    getItem('Организации', '5', <Campus />),
-    getItem('Цитирование', '6', <Quotes />),
-    getItem('Научное направление', '7', <Science />),
-    getItem('Индекс h', '8', <IndexH />),
+  getItem(<Link to={'about_search'}>О системе поиска</Link>, 'about_search', <SystemSearch />),
+  getItem('Поиск данных', 'data_search', <SearchSquare />, [
+    getItem(<Link to={'publications'}>Публикации</Link>, 'publications', <AnalyticsGraph />),
+    getItem(<Link to={'authors'}>Авторы</Link>, 'authors', <Author />),
+    getItem(<Link to={'organizations'}>Организации</Link>, 'organizations', <Campus />),
+    getItem(<Link to={'citation'}>Цитирование</Link>, 'citation', <Quotes />),
+    getItem(
+      <Link to={'scientific_direction'}>Научное направление</Link>,
+      'scientific_direction',
+      <Science />
+    ),
+    getItem(<Link to={'index_h'}>Индекс h</Link>, 'index_h', <IndexH />),
   ]),
-  getItem('Аналитика и визуализация', 'sub4', <AnalyticsGraph />, [
-    getItem('Организации: анализ публикаций', '9', <Bubbles />),
-    getItem('Динамика публикаций/цитирований', '10', <AnalyticsChart />),
-    getItem('Издания: анализ публикаций и ключевых слов', '11', <List />),
-    getItem('Публикации по ключевым словам', '12', <DocumentText />),
-    getItem('Сеть ключевого слова', '12', <MdAnalistics />),
-    getItem('Научная сфера организации', '13', <AtomicScience />),
+  getItem('Аналитика и визуализация', 'analytics', <AnalyticsGraph />, [
+    getItem(
+      <Link to={'analysis_publications'}>Организации: анализ публикаций</Link>,
+      'analysis_publications',
+      <Bubbles />
+    ),
+    getItem(
+      <Link to={'dynamics'}>Динамика публикаций/цитирований</Link>,
+      'dynamics',
+      <AnalyticsChart />
+    ),
+    getItem(
+      <Link to={'analysis_publications_and_keywords'}>
+        Издания: анализ публикаций и ключевых слов
+      </Link>,
+      'analysis_publications_and_keywords',
+      <List />
+    ),
+    getItem(
+      <Link to={'publications_by_keywords'}>Публикации по ключевым словам</Link>,
+      'publications_by_keywords',
+      <DocumentText />
+    ),
+    getItem(
+      <Link to={'keyword_network'}>Сеть ключевого слова</Link>,
+      'keyword_network',
+      <MdAnalistics />
+    ),
+    getItem(
+      <Link to={'scientific_field_organizations'}>Научная сфера организации</Link>,
+      'scientific_field_organizations',
+      <AtomicScience />
+    ),
   ]),
-  getItem('Конфиденциальность', 'sub5', <ProtectedDirectory />),
-  getItem('Контакты', 'sub6', <Contacts />),
+  getItem(
+    <Link to={'confidentiality'}>Конфиденциальность</Link>,
+    'confidentiality',
+    <ProtectedDirectory />
+  ),
+  getItem(<Link to={'contacts'}>Контакты</Link>, 'contacts', <Contacts />),
 ]
 
 export const Sidebar = ({ handleClose, open }: PropsType) => {
   const sidebarClass = s.sidebar + (open ? ' ' + s.open : '')
-  const [openKeys, setOpenKeys] = useState(['sub1'])
-  const rootSubmenuKeys = ['sub1', 'sub2', 'sub4']
+  const [openKeys, setOpenKeys] = useState(['about_search'])
+
+  const rootSubmenuKeys = [
+    'about_search',
+    'data_search',
+    'analytics',
+    'confidentiality',
+    'contacts',
+  ]
   const onOpenChange: MenuProps['onOpenChange'] = keys => {
     const latestOpenKey = keys.find(key => openKeys.indexOf(key) === -1)
 
@@ -106,7 +150,13 @@ export const Sidebar = ({ handleClose, open }: PropsType) => {
           <button className={open ? s.close : s.closeNotOpen} onClick={handleClose}>
             <CloseOutlined />
           </button>
-          <Menu items={items} mode={'inline'} onOpenChange={onOpenChange} openKeys={openKeys} />
+          <Menu
+            items={items}
+            mode={'inline'}
+            onClick={handleClose}
+            onOpenChange={onOpenChange}
+            openKeys={openKeys}
+          />
         </aside>
       </ConfigProvider>
     </>

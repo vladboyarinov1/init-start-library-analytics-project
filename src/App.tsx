@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 
 import { LineGraph } from '@/components/ui/diagrams/line-graph'
-import { MainHeader } from '@/components/ui/header/header.tsx'
+import { MainHeader } from '@/components/ui/header/header'
 import { Sidebar } from '@/components/ui/sidebar'
 import { useBreadcrumbs } from '@/components/ui/sidebar/bread-crumbs'
 import { data } from '@/data'

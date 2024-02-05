@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import { useBreadcrumbs } from '@/components/ui/sidebar/bread-crumbs.tsx'
+import { useBreadcrumbs } from '@/components/ui/sidebar/bread-crumbs'
 import { SidebarLogo } from '@/components/ui/sidebar/sidebar-logo'
 import {
   AnalyticsChart,
@@ -91,7 +91,6 @@ export const MenuItem = ({ collapsed, setCollapsed }: MenuItemProps) => {
   const [_logoVisible, setLogoVisible] = useState(true)
   const { selectedKeys, setSelectedKeys } = useBreadcrumbs()
 
-  console.log(selectedKeys)
   const toggleSidebar = () => {
     setCollapsed(!collapsed)
     setTimeout(() => setLogoVisible(!collapsed), collapsed ? 300 : 0)

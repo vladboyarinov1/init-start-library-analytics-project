@@ -12,7 +12,7 @@ import { Content } from 'antd/es/layout/layout'
 export function App() {
   const { selectedKeys } = useBreadcrumbs()
   const { width } = useWindowSize()
-  const isMobile = width && width <= 725
+  const isMobile = width && width <= 730
 
   console.log(width)
 

@@ -21,7 +21,7 @@ import {
 } from '@/icons'
 import { SystemSearch } from '@/icons/components/system-search'
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
-import { Button, ConfigProvider, Menu, MenuProps } from 'antd'
+import { Button, ConfigProvider, Menu } from 'antd'
 
 import s from './menu-item.module.scss'
 
@@ -87,24 +87,6 @@ const menuData = [
     label: 'Контакты',
   },
 ]
-
-function getItem(
-  label: React.ReactNode,
-  key: React.Key,
-  icon?: React.ReactNode,
-  children?: MenuItem[],
-  type?: 'group'
-): MenuItem {
-  return {
-    children,
-    icon,
-    key,
-    label,
-    type,
-  } as MenuItem
-}
-type MenuItem = Required<MenuProps>['items'][number]
-const items: MenuItem[] = []
 
 export const MenuItem = ({ collapsed, setCollapsed }: MenuItemProps) => {
   const [_logoVisible, setLogoVisible] = useState(true)

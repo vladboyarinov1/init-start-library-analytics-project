@@ -9,7 +9,7 @@ import { Header } from 'antd/es/layout/layout'
 export const MainHeader = () => {
   const [open, setOpen] = useState(false)
   const scrollPosition = useScrollPosition()
-  const fixedHeader = scrollPosition >= 80
+  const fixedHeader = scrollPosition >= 40
 
   console.log(fixedHeader)
   const handleClose = () => setOpen(false)
@@ -22,8 +22,7 @@ export const MainHeader = () => {
         display: 'flex',
         justifyContent: `${fixedHeader ? 'space-around' : 'space-around'}`,
         padding: `${fixedHeader ? '0' : '16px'}`,
-        position: `${fixedHeader ? 'fixed' : 'relative'}`,
-        transition: 'background-color 0.2s, padding 0.2s, position 0.2s',
+        position: 'fixed',
         width: '100%',
         zIndex: 2,
       }}

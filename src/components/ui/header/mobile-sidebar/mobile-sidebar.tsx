@@ -148,9 +148,10 @@ export const Sidebar = ({ handleClose, open }: PropsType) => {
       >
         <aside className={sidebarClass}>
           <button className={open ? s.close : s.closeNotOpen} onClick={handleClose}>
-            <CloseOutlined />
+            <CloseOutlined style={{ fontSize: 20, zIndex: '2' }} />
           </button>
           <Menu
+            className={s.menu}
             items={items}
             mode={'inline'}
             onClick={handleClose}

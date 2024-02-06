@@ -1,4 +1,5 @@
-.logo {
+.logo,
+.logoHide {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -7,7 +8,8 @@
 
   font-family: var(--font-family-slab);
 
-  background-color: white;
+  opacity: 1;
+  background-color: transparent;
 
   &_text {
     font-size: 20px;
@@ -22,4 +24,8 @@
       color: var(--color-black);
     }
   }
+}
+
+.logoHide {
+  opacity: 0;
 }

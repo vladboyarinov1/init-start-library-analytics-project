@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { Sidebar } from '@/components/ui/header/mobile-sidebar/mobile-sidebar'
 import { SidebarLogo } from '@/components/ui/sidebar/sidebar-logo'
-import useScrollPosition from '@/hooks/use-scroll-position.ts'
+import useScrollPosition from '@/hooks/use-scroll-position'
 import { MenuOutlined } from '@ant-design/icons'
 import { Header } from 'antd/es/layout/layout'
 
@@ -25,7 +25,7 @@ export const MainHeader = () => {
         position: `${fixedHeader ? 'fixed' : 'relative'}`,
         transition: 'background-color 0.3s, padding 0.3s, position 0.3s',
         width: '100%',
-        zIndex: 0,
+        zIndex: 2,
       }}
     >
       {<SidebarLogo visible={!fixedHeader} />}

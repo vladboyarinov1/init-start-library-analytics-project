@@ -20,7 +20,12 @@ export function App() {
     <Layout style={{ backgroundColor: 'var(--color-green-desaturated)' }}>
       <Layout>
         {isMobile ? <MainHeader /> : <Sidebar />}
-        <Layout style={{ backgroundColor: 'var(--color-green-desaturated)' }}>
+        <Layout
+          style={{
+            backgroundColor: 'var(--color-green-desaturated)',
+            marginTop: `${isMobile ? '60px' : 0}`,
+          }}
+        >
           <Content
             style={{
               margin: '0 20px',

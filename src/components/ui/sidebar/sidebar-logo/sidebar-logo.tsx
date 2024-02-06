@@ -3,7 +3,7 @@ import s from './sidebar-logo.module.scss'
 type SidebarLogoProps = {
   visible?: boolean
 }
-export const SidebarLogo = ({ visible }: SidebarLogoProps) => {
+export const SidebarLogo = ({ visible = true }: SidebarLogoProps) => {
   return (
     <div className={visible ? s.logo : s.logoHide}>
       <div className={s.logo_text}>

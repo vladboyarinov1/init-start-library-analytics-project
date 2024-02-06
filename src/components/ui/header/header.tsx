@@ -23,7 +23,7 @@ export const MainHeader = () => {
         justifyContent: `${fixedHeader ? 'space-around' : 'space-around'}`,
         padding: `${fixedHeader ? '0' : '16px'}`,
         position: `${fixedHeader ? 'fixed' : 'relative'}`,
-        transition: 'background-color 0.3s, padding 0.3s, position 0.3s',
+        transition: 'background-color 0.2s, padding 0.2s, position 0.2s',
         width: '100%',
         zIndex: 2,
       }}

@@ -6,29 +6,25 @@ import useScrollPosition from '@/hooks/use-scroll-position'
 import { MenuOutlined } from '@ant-design/icons'
 import { Header } from 'antd/es/layout/layout'
 
+import s from './header.module.scss'
+
 export const MainHeader = () => {
   const [open, setOpen] = useState(false)
   const scrollPosition = useScrollPosition()
   const fixedHeader = scrollPosition >= 40
 
-  console.log(fixedHeader)
   const handleClose = () => setOpen(false)
   const handleOpen = () => setOpen(true)
 
   return (
     <Header
+      className={s.header}
       style={{
         backgroundColor: `${fixedHeader ? 'transparent' : 'white'}`,
-        display: 'flex',
-        justifyContent: `${fixedHeader ? 'space-around' : 'space-around'}`,
-        padding: `${fixedHeader ? '0' : '16px'}`,
-        position: 'fixed',
-        width: '100%',
-        zIndex: 2,
       }}
     >
       {<SidebarLogo visible={!fixedHeader} />}
-      <MenuOutlined onClick={handleOpen} style={{ fontSize: 20, zIndex: '2' }} />
+      <MenuOutlined className={s.burgerIcon} onClick={handleOpen} />
       <Sidebar handleClose={handleClose} isDark={false} open={open} width />
     </Header>
   )

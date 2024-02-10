@@ -14,11 +14,9 @@ export function App() {
   const { width } = useWindowSize()
   const isMobile = width && width <= 730
 
-  console.log(width)
-
   return (
     <Layout style={{ backgroundColor: 'var(--color-green-desaturated)' }}>
-      <Layout>
+      <Layout style={{ backgroundColor: 'var(--color-green-desaturated)' }}>
         {isMobile ? <MainHeader /> : <Sidebar />}
         <Layout
           style={{

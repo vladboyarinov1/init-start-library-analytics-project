@@ -127,7 +127,9 @@ export const MenuItem = ({ collapsed, setCollapsed }: MenuItemProps) => {
         className={s.menu_bar}
         mode={'inline'}
         onClick={handleMenuClick}
-        style={{ width: `${collapsed ? '80px' : '256px'}` }}
+        style={{
+          width: `${collapsed ? '80px' : '256px'}`,
+        }}
       >
         <div className={s.logo_button}>
           <div>

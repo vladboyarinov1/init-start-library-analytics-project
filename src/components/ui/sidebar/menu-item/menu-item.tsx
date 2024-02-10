@@ -101,26 +101,18 @@ const items: MenuItemType[] = [
   ),
   getItem(<Link to={'contacts'}>Контакты</Link>, 'contacts', <Contacts />),
 ]
+const rootSubmenuKeys = ['about_search', 'data_search', 'analytics', 'confidentiality', 'contacts']
 
 export const MenuItem = ({ collapsed }: MenuItemProps) => {
+  const [openKeys, setOpenKeys] = useState(['about_search'])
   const { setSelectedKeys } = useBreadcrumbs()
 
   const handleMenuClick = ({ keyPath }: any) => {
     setSelectedKeys(keyPath.reverse())
   }
-  const [openKeys, setOpenKeys] = useState(['about_search'])
 
-  const rootSubmenuKeys = [
-    'about_search',
-    'data_search',
-    'analytics',
-    'confidentiality',
-    'contacts',
-  ]
   const onOpenChange: MenuProps['onOpenChange'] = keys => {
     const latestOpenKey = keys.find(key => openKeys.indexOf(key) === -1)
-
-    console.log(latestOpenKey)
 
     if (latestOpenKey && rootSubmenuKeys.indexOf(latestOpenKey!) === -1) {
       setOpenKeys(keys)
@@ -156,8 +148,9 @@ export const MenuItem = ({ collapsed }: MenuItemProps) => {
         className={s.menu_bar}
         items={items}
         mode={'inline'}
-        onClick={handleMenuClick}
+        // onClick={handleMenuClick}
         onOpenChange={onOpenChange}
+        openKeys={openKeys}
         style={{
           width: `${collapsed ? '80px' : '256px'}`,
         }}

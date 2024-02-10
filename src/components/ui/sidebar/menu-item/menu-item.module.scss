@@ -12,15 +12,13 @@
 .menu_bar {
   position: fixed;
   top: 0;
-  left: 0; /* Ширина вашего сайдбара, укажите свою величину */
+  left: 0;
 
   overflow-y: auto;
 
   height: 100%;
 
   font-size: 14px;
-
-  //border-inline-end: 0;
   border-inline-end: 0 !important;
   border-radius: 0 0 10px;
 }

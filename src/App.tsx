@@ -18,7 +18,7 @@ export function App() {
     <Layout
       style={{
         backgroundColor: 'var(--color-green-desaturated)',
-        height: '100vh',
+        height: isMobile ? '' : '100vh',
       }}
     >
       <Layout

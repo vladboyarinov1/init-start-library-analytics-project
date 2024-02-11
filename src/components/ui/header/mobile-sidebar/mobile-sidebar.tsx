@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
+import { useBreadcrumbs } from '@/components/ui/sidebar/bread-crumbs.tsx'
 import {
   AnalyticsChart,
   AnalyticsGraph,
@@ -103,9 +104,29 @@ const items: MenuItem[] = [
   ),
   getItem(<Link to={'contacts'}>Контакты</Link>, 'contacts', <Contacts />),
 ]
+const breadcrumbMapping: any = {
+  about_search: 'О системе поиска',
+  analysis_publications: 'Организации: анализ публикаций',
+  analysis_publications_and_keywords: 'Издания: анализ публикаций и ключевых слов',
+  analytics: 'Аналитика и визуализация',
+  authors: 'Авторы',
+  citation: 'Цитирование',
+  confidentiality: 'Конфиденциальность',
+  contacts: 'Контакты',
+  data_search: 'Поиск данных',
+  dynamics: 'Динамика публикаций/цитирований',
+  index_h: 'Индекс h',
+  keyword_network: 'Сеть ключевого слова',
+  organizations: 'Организации',
+  publications: 'Публикации',
+  publications_by_keywords: 'Публикации по ключевым словам',
+  scientific_direction: 'Научное направление',
+  scientific_field_organizations: 'Научная сфера организации',
+}
 
 export const Sidebar = ({ handleClose, open }: PropsType) => {
   const sidebarClass = s.sidebar + (open ? ' ' + s.open : '')
+  const { setSelectedKeys } = useBreadcrumbs()
   const [openKeys, setOpenKeys] = useState(['about_search'])
 
   const rootSubmenuKeys = [
@@ -115,6 +136,13 @@ export const Sidebar = ({ handleClose, open }: PropsType) => {
     'confidentiality',
     'contacts',
   ]
+  const handleMenuClick = ({ keyPath }: any) => {
+    const russianTitles = keyPath.map((key: string) => breadcrumbMapping[key] || key)
+
+    setSelectedKeys(russianTitles.reverse())
+    handleClose()
+  }
+
   const onOpenChange: MenuProps['onOpenChange'] = keys => {
     const latestOpenKey = keys.find(key => openKeys.indexOf(key) === -1)
 
@@ -154,7 +182,7 @@ export const Sidebar = ({ handleClose, open }: PropsType) => {
             className={s.menu}
             items={items}
             mode={'inline'}
-            onClick={handleClose}
+            onClick={handleMenuClick}
             onOpenChange={onOpenChange}
             openKeys={openKeys}
           />

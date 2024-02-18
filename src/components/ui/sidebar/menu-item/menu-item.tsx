@@ -46,6 +46,12 @@ function getItem(
   } as MenuItemType
 }
 
+// const menuItemStyle: React.CSSProperties | undefined = {
+//   height: 'auto',
+//   lineHeight: '0.5',
+//   // padding: '5px 10px 5px 25px',
+//   whiteSpace: 'normal',
+// }
 const items: MenuItemType[] = [
   getItem(<Link to={'about_search'}>О системе поиска</Link>, 'about_search', <SystemSearch />),
   getItem('Поиск данных', 'data_search', <SearchSquare />, [
@@ -165,7 +171,8 @@ export const MenuItem = ({ collapsed }: MenuItemProps) => {
         onOpenChange={onOpenChange}
         openKeys={openKeys}
         style={{
-          width: `${collapsed ? '80px' : '256px'}`,
+          lineHeight: '1 !important',
+          width: `${collapsed ? '80px' : '258px'}`,
         }}
       />
     </ConfigProvider>

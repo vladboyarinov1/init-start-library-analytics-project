@@ -2,17 +2,21 @@
   margin-top: 17px;
 }
 
-.menu_bar {
-  //position: fixed;
-  //left: 0;
-  //
+.menu_bar > li > ul > li {
+  height: auto !important;
+  padding: 5px 0;
 
-  //height: 700px;
+  line-height: 1.2 !important;
+  white-space: normal !important;
 
-  font-size: 14px;
   border-inline-end: 0 !important;
-  border-radius: 0 0 10px;
 }
+
+//.menu_bar > li > ul > li {
+//  font-weight: 700;
+//  color: red !important;
+//  border: 1px solid saddlebrown;
+//}
 
 .sub_menu {
   border: 1px solid darkblue;

@@ -13,8 +13,6 @@ export const MainHeader = () => {
   const scrollPosition = useScrollPosition()
   const fixedHeader = scrollPosition >= 40
 
-  console.log(fixedHeader)
-
   const handleClose = () => setOpen(false)
   const handleOpen = () => setOpen(true)
 

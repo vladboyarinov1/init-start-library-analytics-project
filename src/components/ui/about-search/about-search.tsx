@@ -28,17 +28,17 @@ export const AboutSearch = () => {
           </li>
         </ul>
       </nav>
-      <Card className={s.container} height={'auto'} maxWidth={'100%'} px={120} py={57}>
+      <Card className={s.container} height={'auto'} maxWidth={'100%'}>
         <div className={s.logo}>
           <Logo size={90} />
         </div>
         <div className={s.title}>
           <h1>БНТУ Наукометрия</h1>
         </div>
-        <div>
+        <div className={s.subtitle}>
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
         </div>
-        <button>Поиск данных</button>
+        <button className={s.button}>Поиск данных</button>
         <div className={s.cards}>
           <Cards />
         </div>

@@ -28,7 +28,7 @@ export const AboutSearch = () => {
           </li>
         </ul>
       </nav>
-      <Card className={s.container} height={'100%'} maxWidth={'100%'}>
+      <div>
         <div className={s.logo}>
           <Logo size={90} />
         </div>
@@ -42,7 +42,7 @@ export const AboutSearch = () => {
         <div className={s.cards}>
           <Cards />
         </div>
-      </Card>
+      </div>
     </div>
   )
 }

@@ -1,11 +1,12 @@
 import { useState } from 'react'
 
 import { MenuItem } from '@/components/ui/sidebar/menu-item'
-import { SidebarLogo } from '@/components/ui/sidebar/sidebar-logo'
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
 import { Button, Layout } from 'antd'
 
 import s from './sidebar.module.scss'
+
+import { SidebarLogo } from './sidebar-logo'
 
 const { Sider } = Layout
 

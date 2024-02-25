@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 
 import { Cards } from '@/components/ui/about-search/cards'
-import { Card } from '@/components/ui/card'
 import { Logo } from '@/icons'
 
 import s from './about-search.module.scss'

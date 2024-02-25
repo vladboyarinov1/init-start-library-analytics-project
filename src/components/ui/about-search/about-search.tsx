@@ -28,7 +28,7 @@ export const AboutSearch = () => {
           </li>
         </ul>
       </nav>
-      <Card className={s.container} height={'auto'} maxWidth={'100%'}>
+      <Card className={s.container} height={'100%'} maxWidth={'100%'}>
         <div className={s.logo}>
           <Logo size={90} />
         </div>

@@ -27,7 +27,7 @@ export const AboutSearch = () => {
           </li>
         </ul>
       </nav>
-      <div>
+      <div className={s.container}>
         <div className={s.logo}>
           <Logo size={90} />
         </div>

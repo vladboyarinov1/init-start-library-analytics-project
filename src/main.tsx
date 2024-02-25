@@ -1,4 +1,4 @@
-import { BrowserRouter } from 'react-router-dom'
+import { HashRouter } from 'react-router-dom'
 
 import { BreadcrumbsProvider } from '@/components/ui/sidebar'
 import { createRoot } from 'react-dom/client'
@@ -12,9 +12,9 @@ import '@fontsource-variable/roboto-slab'
 import { App } from './App'
 
 createRoot(document.getElementById('root') as HTMLElement).render(
-  <BrowserRouter>
+  <HashRouter>
     <BreadcrumbsProvider>
       <App />
     </BreadcrumbsProvider>
-  </BrowserRouter>
+  </HashRouter>
 )

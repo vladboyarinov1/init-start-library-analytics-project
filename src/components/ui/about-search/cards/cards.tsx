@@ -8,7 +8,7 @@ const cards = [
     id: 1,
     img: <Search color={'white'} size={20} />,
     path: '/path1',
-    subtitle: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+    subtitle: 'Lorem ipsum dolor sit amet, consectetur adipisicing elitt.',
     title: 'Поиск данных',
   },
   {

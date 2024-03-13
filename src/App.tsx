@@ -77,6 +77,7 @@ export function App() {
                   }
                   path={'/publications'}
                 />
+                <Route element={<AboutSearch />} />
               </Routes>
             </div>
           </Content>

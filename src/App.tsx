@@ -15,7 +15,6 @@ export function App() {
   const { width } = useWindowSize()
   const location = useLocation()
 
-  // Теперь у вас есть доступ к location.pathname
   const currentPath = location.pathname
 
   const isMobile = width && width <= 730

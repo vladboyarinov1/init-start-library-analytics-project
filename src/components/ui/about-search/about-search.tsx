@@ -1,13 +1,14 @@
 import { Link } from 'react-router-dom'
 
 import { Cards } from '@/components/ui/about-search/cards'
+import { Button } from '@/components/ui/button'
 import { Logo } from '@/icons'
 
 import s from './about-search.module.scss'
 
 export const AboutSearch = () => {
   return (
-    <div>
+    <div className={s.wrapper}>
       <nav className={s.nav}>
         <ul>
           <li>
@@ -37,7 +38,10 @@ export const AboutSearch = () => {
         <div className={s.subtitle}>
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
         </div>
-        <button className={s.button}>Поиск данных</button>
+        {/*<button className={s.button}>Поиск данных</button>*/}
+        <div className={s.button}>
+          <Button>Поиск данных</Button>
+        </div>
         <div className={s.cards}>
           <Cards />
         </div>

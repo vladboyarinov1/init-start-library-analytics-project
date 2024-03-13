@@ -1,12 +1,14 @@
+.wrapper {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-bottom: 145px;
+}
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  //height: auto;
   padding: 57px 120px;
   border-radius: 16px;
-  //height: 100vh;
 
   background-color: var(--color-white);
 
@@ -52,17 +54,7 @@
 }
 
 .button {
-  cursor: pointer;
-
   margin: 40px 0 80px;
-  padding: 12px;
-
-  color: var(--color-white);
-  white-space: nowrap;
-
-  background-color: var(--color-green-primary);
-  border: none;
-  border-radius: 6px;
 }
 
 .cards {

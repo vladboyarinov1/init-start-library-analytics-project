@@ -1,4 +1,4 @@
-import { Route, Routes, useLocation } from 'react-router-dom'
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 
 import { MainHeader } from '@/components/ui/components/header/header'
 import { Sidebar } from '@/components/ui/components/sidebar'
@@ -68,6 +68,7 @@ export function App() {
             >
               <Routes>
                 <Route element={<AboutSearch />} path={'/about_search'} />
+                <Route element={<Navigate to={'/about_search'} />} path={'/'} />
                 <Route
                   element={
                     <div>
@@ -76,7 +77,7 @@ export function App() {
                   }
                   path={'/publications'}
                 />
-                <Route element={<AboutSearch />} />
+                {/*<Route element={<AboutSearch />} path={'/'} />*/}
               </Routes>
             </div>
           </Content>

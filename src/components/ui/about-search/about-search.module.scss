@@ -1,7 +1,10 @@
 .wrapper {
   max-width: 1440px;
   margin: 0 auto;
-  padding-bottom: 145px;
+
+  @media screen and (max-width: 600px) {
+    padding-bottom: 70px;
+  }
 }
 .container {
   display: flex;

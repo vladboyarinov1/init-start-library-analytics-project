@@ -1,0 +1,32 @@
+.primary {
+  cursor: pointer;
+
+  padding: 12px;
+
+  color: var(--color-white);
+  white-space: nowrap;
+
+  background-color: var(--color-green-primary);
+  border: none;
+  border-radius: 6px;
+  &:hover {
+    background-color: var(--color-green-hover);
+  }
+  &:active {
+    background-color: var(--color-green-hover);
+  }
+}
+.link {
+  background-color: transparent;
+  border: 0;
+  margin-top: 20px;
+  font-weight: var(--font-weight-bold);
+
+  & > a {
+    color: var(--color-green-primary);
+    text-decoration: underline;
+    &:hover {
+      color: var(--color-green-hover);
+    }
+  }
+}

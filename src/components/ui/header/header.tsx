@@ -11,7 +11,7 @@ import s from './header.module.scss'
 export const MainHeader = () => {
   const [open, setOpen] = useState(false)
   const scrollPosition = useScrollPosition()
-  const fixedHeader = scrollPosition >= 40
+  const fixedHeader = scrollPosition >= 80
 
   const handleClose = () => setOpen(false)
   const handleOpen = () => setOpen(true)

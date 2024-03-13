@@ -18,14 +18,15 @@ export function App() {
   // Теперь у вас есть доступ к location.pathname
   const currentPath = location.pathname
 
-  console.log(currentPath)
   const isMobile = width && width <= 730
 
   return (
     <Layout
       style={{
         backgroundColor: 'var(--color-green-desaturated)',
-        height: isMobile ? '' : '100vh',
+        // height: isMobile ? '' : '100vh',
+        height: '100vh',
+        overflowY: 'auto',
       }}
     >
       <Layout
@@ -33,7 +34,7 @@ export function App() {
           backgroundColor: 'white',
         }}
       >
-        {currentPath !== '/about_search' ? isMobile ? <MainHeader /> : <Sidebar /> : ''}
+        {currentPath !== '/about_search' ? isMobile ? <MainHeader /> : <Sidebar /> : null}
         <Layout
           style={{
             backgroundColor: 'var(--color-green-desaturated)',

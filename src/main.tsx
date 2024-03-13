@@ -1,6 +1,6 @@
 import { BrowserRouter } from 'react-router-dom'
 
-import { BreadcrumbsProvider } from '@/components/ui/sidebar'
+import { BreadcrumbsProvider } from '@/components/ui/components/sidebar'
 import { createRoot } from 'react-dom/client'
 
 import './styles/index.scss'

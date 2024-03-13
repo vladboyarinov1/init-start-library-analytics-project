@@ -20,21 +20,30 @@ export const Sidebar = () => {
   }
 
   return (
-    <div style={{ overflowY: 'auto' }}>
-      <div className={s.logo_button}>
-        <div>
-          <Button
-            className={collapsed ? s.toggle : ''}
-            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-            onClick={toggleSidebar}
-            type={'text'}
-          />
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+      }}
+    >
+      <div>
+        <div className={s.logo_button}>
+          <div>
+            <Button
+              className={collapsed ? s.toggle : ''}
+              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+              onClick={toggleSidebar}
+              type={'text'}
+            />
+          </div>
+          <div> {!collapsed && <SidebarLogo />}</div>
         </div>
-        <div> {!collapsed && <SidebarLogo />}</div>
+        <Sider className={s.sidebar} collapsed={collapsed} collapsible trigger={null} width={256}>
+          <MenuItem collapsed={collapsed} setCollapsed={setCollapsed} />
+        </Sider>
       </div>
-      <Sider className={s.sidebar} collapsed={collapsed} collapsible trigger={null} width={256}>
-        <MenuItem collapsed={collapsed} setCollapsed={setCollapsed} />
-      </Sider>
+      {!collapsed && <div className={s.bottomText}>Анализ данных научных публикаций</div>}
     </div>
   )
 }

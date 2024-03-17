@@ -1,10 +1,11 @@
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 
+import { Footer } from '@/components/ui/components/footer'
 import { MainHeader } from '@/components/ui/components/header/header'
 import { Sidebar } from '@/components/ui/components/sidebar'
 import { useBreadcrumbs } from '@/components/ui/components/sidebar/bread-crumbs'
+import { Timeline } from '@/components/ui/components/timeline'
 import { LineGraph } from '@/components/ui/diagrams/line-graph'
-import { AboutSearch } from '@/components/ui/pages/about-search'
 import { data } from '@/data'
 import { useWindowSize } from '@/hooks/use-window-size'
 import { Breadcrumb, Layout } from 'antd'
@@ -42,9 +43,9 @@ export function App() {
           }}
         >
           <Content
-            style={{
-              margin: '0 20px',
-            }}
+          // style={{
+          //   margin: '0 20px',
+          // }}
           >
             {currentPath !== '/about_search' ? (
               <Breadcrumb
@@ -67,7 +68,15 @@ export function App() {
             // }}
             >
               <Routes>
-                <Route element={<AboutSearch />} path={'/about_search'} />
+                <Route
+                  element={
+                    <div>
+                      <Timeline />
+                      <Footer />
+                    </div>
+                  }
+                  path={'/about_search'}
+                />
                 <Route element={<Navigate to={'/about_search'} />} path={'/'} />
                 <Route
                   element={
@@ -77,7 +86,6 @@ export function App() {
                   }
                   path={'/publications'}
                 />
-                {/*<Route element={<AboutSearch />} path={'/'} />*/}
               </Routes>
             </div>
           </Content>

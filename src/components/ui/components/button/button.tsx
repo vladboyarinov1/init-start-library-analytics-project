@@ -5,7 +5,7 @@ import s from './button.module.scss'
 export type ButtonProps<T extends ElementType = 'button'> = {
   as?: T
   fullWidth?: boolean
-  variant?: 'link' | 'primary' | 'secondary' | 'tertiary'
+  variant?: 'link' | 'primary'
 } & ComponentPropsWithoutRef<T> //default props for a or button
 
 export const Button = <T extends ElementType = 'button'>(

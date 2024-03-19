@@ -1,34 +1,87 @@
+import { useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
+
+import { changeLink } from '@/components/ui/components/bread-crumbs-redux/bread-crumbs-redux-slice'
 import { Author, Campus, DocumentText, IndexH, Printer, Quotes, Science } from '@/icons'
 
 import s from './timeline.module.scss'
 
 const timelineData = [
-  { img: <DocumentText size={40} />, title: 'Публикации' },
-  { img: <Author size={40} />, title: 'Авторы' },
-  { img: <Campus size={40} />, title: 'Организации' },
-  { img: <Quotes size={40} />, title: 'Организации' },
-  { img: <Science size={40} />, title: 'Научное направление' },
-  { img: <IndexH size={40} />, title: 'Индекс h' },
-  { img: <Printer size={40} />, title: 'Источник публикаций' },
+  {
+    breadcrumbs: ['Поиск данных', 'Публикации'],
+    img: <DocumentText size={40} />,
+    link: '/publications',
+    title: 'Публикации',
+  },
+  {
+    breadcrumbs: ['Поиск данных', 'Авторы'],
+    img: <Author size={40} />,
+    link: '/authors',
+    title: 'Авторы',
+  },
+  {
+    breadcrumbs: ['Поиск данных', 'Организации'],
+    img: <Campus size={40} />,
+    link: '/organizations',
+    title: 'Организации',
+  },
+  {
+    breadcrumbs: ['Поиск данных', 'Цитирования'],
+    img: <Quotes size={40} />,
+    link: '/citation',
+    title: 'Цитирования',
+  },
+  {
+    breadcrumbs: ['Поиск данных', 'Научное направление'],
+    img: <Science size={40} />,
+    link: '/scientific_direction',
+    title: 'Научное направление',
+  },
+  {
+    breadcrumbs: ['Поиск данных', 'Индекс h'],
+    img: <IndexH size={40} />,
+    link: '/index_h',
+    title: 'Индекс h',
+  },
+  {
+    breadcrumbs: ['Поиск данных', 'Источник публикаций(Уточнить)'],
+    img: <Printer size={40} />,
+    link: '/source_publications',
+    title: 'Источник публикаций(Уточнить)',
+  },
 ]
 
-const TimelineItem = ({ data }: any) => (
-  <div className={s.timelineItem}>
-    <div className={s.timelineItemContent}>
-      <div className={s.timelineItemInfo}>
-        <div className={s.img}>{data.img}</div>
-        <div className={s.title}>{data.title}</div>
-      </div>
-      <span className={s.circle} />
-    </div>
-  </div>
-)
+const TimelineItem = ({ data }: any) => {
+  const dispatch = useDispatch()
+  const onClickHandler = (link: string) => {
+    dispatch(changeLink({ link }))
+  }
 
-export const Timeline = () =>
-  timelineData.length > 0 && (
-    <div className={s.timelineContainer}>
-      {timelineData.map((data, idx) => (
-        <TimelineItem data={data} key={idx} />
-      ))}
+  return (
+    <div className={s.timelineItem}>
+      <div className={s.timelineItemContent}>
+        <Link
+          className={s.timelineItemInfo}
+          onClick={() => onClickHandler(data.breadcrumbs)}
+          to={data.link}
+        >
+          <div className={s.img}>{data.img}</div>
+          <div className={s.title}>{data.title}</div>
+        </Link>
+        <span className={s.circle} />
+      </div>
     </div>
   )
+}
+
+export const Timeline = () => {
+  return (
+    timelineData.length > 0 && (
+      <div className={s.timelineContainer}>
+        {timelineData.map((data, idx) => (
+          <TimelineItem data={data} key={idx} />
+        ))}
+      </div>
+    )
+  )
+}

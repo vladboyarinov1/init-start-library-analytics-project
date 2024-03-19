@@ -27,6 +27,7 @@
 }
 .column {
   max-width: 210px;
+  //padding: 0 6px;
 }
 
 .title {
@@ -38,6 +39,11 @@
 .items {
   & li {
     margin-bottom: 8px;
+    & > a {
+      box-sizing: border-box;
+      color: var(--color-black);
+      //transition: all 0.3s ease;
+    }
 
     &:last-child {
       margin: 0;
@@ -48,13 +54,14 @@
   margin-top: 65px;
   display: flex;
   justify-content: flex-end;
+
   & > a {
     margin-right: 10px;
     &:last-child {
       margin-right: 0;
     }
   }
-  @media screen and (max-width: 700px) {
+  @media screen and (max-width: 820px) {
     justify-content: center;
     margin-top: 45px;
   }

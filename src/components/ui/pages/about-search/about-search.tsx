@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 
-import { Timeline } from '@/components/ui/components/timeline'
 import { Cards } from '@/components/ui/pages/about-search/cards'
 import { Logo } from '@/icons'
 
@@ -47,7 +46,6 @@ export const AboutSearch = () => {
         <div className={s.cards}>
           <Cards />
         </div>
-        <Timeline />
       </div>
     </div>
   )

@@ -1,6 +1,7 @@
+import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 
-import { BreadcrumbsProvider } from '@/components/ui/components/sidebar'
+import { store } from '@/app/store'
 import { createRoot } from 'react-dom/client'
 
 import './styles/index.scss'
@@ -12,9 +13,11 @@ import '@fontsource-variable/roboto-slab'
 import { App } from './App'
 
 createRoot(document.getElementById('root') as HTMLElement).render(
-  <BrowserRouter>
-    <BreadcrumbsProvider>
+  <Provider store={store}>
+    <BrowserRouter>
+      {/*<BreadcrumbsProvider>*/}
       <App />
-    </BreadcrumbsProvider>
-  </BrowserRouter>
+      {/*</BreadcrumbsProvider>*/}
+    </BrowserRouter>
+  </Provider>
 )

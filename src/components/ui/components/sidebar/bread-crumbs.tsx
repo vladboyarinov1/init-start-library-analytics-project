@@ -1,4 +1,11 @@
-import React, { Dispatch, ReactNode, SetStateAction, createContext, useContext } from 'react'
+import React, {
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  createContext,
+  useContext,
+  useState,
+} from 'react'
 
 type BreadcrumbsContextType = {
   selectedKeys: string[]
@@ -12,7 +19,9 @@ type BreadcrumbsProviderProps = {
 }
 
 export const BreadcrumbsProvider: React.FC<BreadcrumbsProviderProps> = ({ children }) => {
-  const [selectedKeys, setSelectedKeys] = React.useState<string[]>([''])
+  const [selectedKeys, setSelectedKeys] = useState<string[]>([''])
+
+  console.log(selectedKeys)
 
   return (
     <BreadcrumbsContext.Provider value={{ selectedKeys, setSelectedKeys }}>

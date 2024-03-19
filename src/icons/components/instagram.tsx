@@ -7,7 +7,7 @@ export const Instagram = (allProps: IconProps) => {
     <IconWrapper
       icon={
         <svg
-          fill={'none'}
+          fill={'currentColor'}
           height={'100%'}
           viewBox={'0 0 40 40'}
           width={'100%'}

@@ -2,7 +2,8 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  margin-top: 40px;
+  //padding-top: 40px;
+  background-color: var(--color-white);
 }
 
 .timelineContainer::after {
@@ -118,7 +119,7 @@
 }
 
 .timelineItemContent a::after {
-  content: '►';
+  content: '';
   font-size: 12px;
 }
 

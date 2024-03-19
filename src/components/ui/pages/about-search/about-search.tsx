@@ -47,7 +47,6 @@ export const AboutSearch = () => {
         <div className={s.cards}>
           <Cards />
         </div>
-        <Timeline />
       </div>
     </div>
   )

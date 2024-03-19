@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import { changeLink } from '@/components/ui/components/bread-crumbs-redux/bread-crumbs-redux-slice'
+import { changeLink } from '@/components/ui/components/breadcrumbs/breadcrumbs-slice.ts'
 import { Author, Campus, DocumentText, IndexH, Printer, Quotes, Science } from '@/icons'
 
 import s from './timeline.module.scss'
@@ -53,8 +53,8 @@ const timelineData = [
 
 const TimelineItem = ({ data }: any) => {
   const dispatch = useDispatch()
-  const onClickHandler = (link: string) => {
-    dispatch(changeLink({ link }))
+  const onClickHandler = (path: string) => {
+    dispatch(changeLink({ path }))
   }
 
   return (

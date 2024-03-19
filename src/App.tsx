@@ -18,7 +18,7 @@ export function App() {
   const currentPath = location.pathname
 
   const isMobile = width && width <= 730
-  const url = useAppSelector(state => state.breadCrumbs.link)
+  const url = useAppSelector(state => state.breadCrumbs.breadcrumbPath)
 
   return (
     <Layout
@@ -49,7 +49,7 @@ export function App() {
           >
             {currentPath !== '/about_search' ? (
               <Breadcrumb
-                items={url.map(i => ({ title: i }))}
+                items={url.map((i: string) => ({ title: i }))}
                 separator={'>'}
                 style={{
                   fontSize: 16,

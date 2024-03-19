@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import { changeLink } from '@/components/ui/components/bread-crumbs-redux/bread-crumbs-redux-slice'
+import { changeLink } from '@/components/ui/components/breadcrumbs/breadcrumbs-slice.ts'
 import {
   AnalyticsChart,
   AnalyticsGraph,
@@ -131,7 +131,7 @@ export const MenuItem = ({ collapsed }: MenuItemProps) => {
   const handleMenuClick = ({ keyPath }: any) => {
     const russianTitles = keyPath.map((key: string) => breadcrumbMapping[key] || key)
 
-    dispatch(changeLink({ link: russianTitles.reverse() }))
+    dispatch(changeLink({ path: russianTitles.reverse() }))
   }
 
   const onOpenChange: MenuProps['onOpenChange'] = keys => {

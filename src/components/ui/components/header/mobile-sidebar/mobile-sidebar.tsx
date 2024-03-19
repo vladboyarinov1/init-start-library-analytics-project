@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import { changeLink } from '@/components/ui/components/bread-crumbs-redux/bread-crumbs-redux-slice'
+import { changeLink } from '@/components/ui/components/breadcrumbs/breadcrumbs-slice.ts'
 import {
   AnalyticsChart,
   AnalyticsGraph,
@@ -128,7 +128,6 @@ const breadcrumbMapping: any = {
 export const Sidebar = ({ handleClose, open }: PropsType) => {
   const dispatch = useDispatch()
   const sidebarClass = s.sidebar + (open ? ' ' + s.open : '')
-  // const { setSelectedKeys } = useBreadcrumbs()
   const [openKeys, setOpenKeys] = useState(['about_search'])
 
   const rootSubmenuKeys = [
@@ -141,7 +140,7 @@ export const Sidebar = ({ handleClose, open }: PropsType) => {
   const handleMenuClick = ({ keyPath }: any) => {
     const russianTitles = keyPath.map((key: string) => breadcrumbMapping[key] || key)
 
-    dispatch(changeLink({ link: russianTitles.reverse() }))
+    dispatch(changeLink({ path: russianTitles.reverse() }))
 
     handleClose()
   }

@@ -3,22 +3,22 @@ import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { Footer } from '@/components/ui/components/footer'
 import { MainHeader } from '@/components/ui/components/header/header'
 import { Sidebar } from '@/components/ui/components/sidebar'
-import { useBreadcrumbs } from '@/components/ui/components/sidebar/bread-crumbs'
 import { Timeline } from '@/components/ui/components/timeline'
 import { LineGraph } from '@/components/ui/diagrams/line-graph'
 import { data } from '@/data'
 import { useWindowSize } from '@/hooks/use-window-size'
+import { useAppSelector } from '@/hooks/useAppSelector'
 import { Breadcrumb, Layout } from 'antd'
 import { Content } from 'antd/es/layout/layout'
 
 export function App() {
-  const { selectedKeys } = useBreadcrumbs()
   const { width } = useWindowSize()
   const location = useLocation()
 
   const currentPath = location.pathname
 
   const isMobile = width && width <= 730
+  const url = useAppSelector(state => state.breadCrumbs.link)
 
   return (
     <Layout
@@ -49,7 +49,7 @@ export function App() {
           >
             {currentPath !== '/about_search' ? (
               <Breadcrumb
-                items={selectedKeys.map(i => ({ title: i }))}
+                items={url.map(i => ({ title: i }))}
                 separator={'>'}
                 style={{
                   fontSize: 16,

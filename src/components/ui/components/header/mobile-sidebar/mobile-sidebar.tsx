@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import { useBreadcrumbs } from '@/components/ui/components/sidebar/bread-crumbs.tsx'
+import { changeLink } from '@/components/ui/components/bread-crumbs-redux/bread-crumbs-redux-slice'
 import {
   AnalyticsChart,
   AnalyticsGraph,
@@ -19,7 +20,7 @@ import {
   Science,
   SearchSquare,
 } from '@/icons'
-import { SystemSearch } from '@/icons/components/system-search.tsx'
+import { SystemSearch } from '@/icons/components/system-search'
 import { CloseOutlined } from '@ant-design/icons'
 import { ConfigProvider, Menu, MenuProps } from 'antd'
 
@@ -125,8 +126,9 @@ const breadcrumbMapping: any = {
 }
 
 export const Sidebar = ({ handleClose, open }: PropsType) => {
+  const dispatch = useDispatch()
   const sidebarClass = s.sidebar + (open ? ' ' + s.open : '')
-  const { setSelectedKeys } = useBreadcrumbs()
+  // const { setSelectedKeys } = useBreadcrumbs()
   const [openKeys, setOpenKeys] = useState(['about_search'])
 
   const rootSubmenuKeys = [
@@ -139,7 +141,8 @@ export const Sidebar = ({ handleClose, open }: PropsType) => {
   const handleMenuClick = ({ keyPath }: any) => {
     const russianTitles = keyPath.map((key: string) => breadcrumbMapping[key] || key)
 
-    setSelectedKeys(russianTitles.reverse())
+    dispatch(changeLink({ link: russianTitles.reverse() }))
+
     handleClose()
   }
 

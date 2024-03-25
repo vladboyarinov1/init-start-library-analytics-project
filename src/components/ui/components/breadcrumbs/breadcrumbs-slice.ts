@@ -2,14 +2,14 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 export const slice = createSlice({
   initialState: {
-    link: [],
+    breadcrumbPath: [],
   } as const,
-  name: 'breadCrumbs',
+  name: 'breadcrumbs',
   reducers: {
-    changeLink(state: any, action: PayloadAction<{ link: string }>) {
+    changeLink(state: any, action: PayloadAction<{ path: string }>) {
       return {
         ...state,
-        link: action.payload.link,
+        breadcrumbPath: action.payload.path,
       }
     },
   },

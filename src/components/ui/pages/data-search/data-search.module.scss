@@ -1,0 +1,21 @@
+.header {
+  background-color: white;
+  padding: 40px 70px 60px 120px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+.menu {
+  position: absolute;
+  z-index: 5;
+  top: 35px;
+  right: 70px;
+}
+.title {
+  font-weight: 700;
+  font-size: 24px;
+  max-width: 450px;
+  line-height: 1.2;
+}

@@ -1,4 +1,4 @@
-import { slice } from './breadcrumbs-slice.ts'
+import { slice } from './breadcrumbs-slice'
 
 const breadCrumbsReducer = slice.reducer
 const actions = slice.actions

@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import { changeLink } from '@/components/ui/components/breadcrumbs/breadcrumbs-slice.ts'
+import { changeLink } from '@/components/ui/components/breadcrumbs/breadcrumbs-slice'
 import { Author, Campus, DocumentText, IndexH, Printer, Quotes, Science } from '@/icons'
 
 import s from './timeline.module.scss'

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import { changeLink } from '@/components/ui/components/breadcrumbs/breadcrumbs-slice.ts'
+import { changeLink } from '@/components/ui/components/breadcrumbs/breadcrumbs-slice'
 import {
   AnalyticsChart,
   AnalyticsGraph,

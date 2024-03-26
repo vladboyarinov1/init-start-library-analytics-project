@@ -51,59 +51,59 @@ function getItem(
 }
 
 const items: MenuItem[] = [
-  getItem(<Link to={'about_search'}>О системе поиска</Link>, 'about_search', <SystemSearch />),
+  getItem(<Link to={'/about_search'}>О системе поиска</Link>, '/about_search', <SystemSearch />),
   getItem('Поиск данных', 'data_search', <SearchSquare />, [
-    getItem(<Link to={'publications'}>Публикации</Link>, 'publications', <AnalyticsGraph />),
-    getItem(<Link to={'authors'}>Авторы</Link>, 'authors', <Author />),
-    getItem(<Link to={'organizations'}>Организации</Link>, 'organizations', <Campus />),
-    getItem(<Link to={'citation'}>Цитирование</Link>, 'citation', <Quotes />),
+    getItem(<Link to={'/publications'}>Публикации</Link>, 'publications', <AnalyticsGraph />),
+    getItem(<Link to={'/authors'}>Авторы</Link>, 'authors', <Author />),
+    getItem(<Link to={'/organizations'}>Организации</Link>, 'organizations', <Campus />),
+    getItem(<Link to={'/citation'}>Цитирование</Link>, 'citation', <Quotes />),
     getItem(
-      <Link to={'scientific_direction'}>Научное направление</Link>,
+      <Link to={'/scientific_direction'}>Научное направление</Link>,
       'scientific_direction',
       <Science />
     ),
-    getItem(<Link to={'index_h'}>Индекс h</Link>, 'index_h', <IndexH />),
+    getItem(<Link to={'/index_h'}>Индекс h</Link>, 'index_h', <IndexH />),
   ]),
   getItem('Аналитика и визуализация', 'analytics', <AnalyticsGraph />, [
     getItem(
-      <Link to={'analysis_publications'}>Организации: анализ публикаций</Link>,
+      <Link to={'/analysis_publications'}>Организации: анализ публикаций</Link>,
       'analysis_publications',
       <Bubbles />
     ),
     getItem(
-      <Link to={'dynamics'}>Динамика публикаций/цитирований</Link>,
+      <Link to={'/dynamics'}>Динамика публикаций/цитирований</Link>,
       'dynamics',
       <AnalyticsChart />
     ),
     getItem(
-      <Link to={'analysis_publications_and_keywords'}>
+      <Link to={'/analysis_publications_and_keywords'}>
         Издания: анализ публикаций и ключевых слов
       </Link>,
-      'analysis_publications_and_keywords',
+      '/analysis_publications_and_keywords',
       <List />
     ),
     getItem(
-      <Link to={'publications_by_keywords'}>Публикации по ключевым словам</Link>,
+      <Link to={'/publications_by_keywords'}>Публикации по ключевым словам</Link>,
       'publications_by_keywords',
       <DocumentText />
     ),
     getItem(
-      <Link to={'keyword_network'}>Сеть ключевого слова</Link>,
+      <Link to={'/keyword_network'}>Сеть ключевого слова</Link>,
       'keyword_network',
       <MdAnalistics />
     ),
     getItem(
-      <Link to={'scientific_field_organizations'}>Научная сфера организации</Link>,
+      <Link to={'/scientific_field_organizations'}>Научная сфера организации</Link>,
       'scientific_field_organizations',
       <AtomicScience />
     ),
   ]),
   getItem(
-    <Link to={'confidentiality'}>Конфиденциальность</Link>,
+    <Link to={'/confidentiality'}>Конфиденциальность</Link>,
     'confidentiality',
     <ProtectedDirectory />
   ),
-  getItem(<Link to={'contacts'}>Контакты</Link>, 'contacts', <Contacts />),
+  getItem(<Link to={'/contacts'}>Контакты</Link>, 'contacts', <Contacts />),
 ]
 const breadcrumbMapping: any = {
   about_search: 'О системе поиска',

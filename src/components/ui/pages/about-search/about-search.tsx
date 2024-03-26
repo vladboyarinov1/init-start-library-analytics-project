@@ -13,19 +13,19 @@ export const AboutSearch = () => {
       <nav className={s.nav}>
         <ul>
           <li>
-            <Link to={'publications'}>Публикации</Link>
+            <Link to={'/data_search'}>Публикации</Link>
           </li>
           <li>
-            <Link to={'publications'}>Поиск данных</Link>
+            <Link to={'/publications'}>Поиск данных</Link>
           </li>
           <li>
-            <Link to={'publications'}>Аналитика</Link>
+            <Link to={'/publications'}>Аналитика</Link>
           </li>
           <li>
-            <Link to={'publications'}>Кондифенциальность</Link>
+            <Link to={'/publications'}>Кондифенциальность</Link>
           </li>
           <li>
-            <Link to={'publications'}>Контакты</Link>
+            <Link to={'/publications'}>Контакты</Link>
           </li>
         </ul>
       </nav>
@@ -39,7 +39,6 @@ export const AboutSearch = () => {
         <div className={s.subtitle}>
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
         </div>
-        {/*<button className={s.button}>Поиск данных</button>*/}
         <div className={s.button}>
           <Button>Поиск данных</Button>
         </div>

@@ -20,7 +20,7 @@ export const DataSearch = () => {
             <Logo size={90} />
           </div>
           <div className={s.menu}>
-            <div onClick={handleOpen}>
+            <div className={s.menuImg} onClick={handleOpen}>
               <BurgerMenu size={30} />
             </div>
             <Sidebar handleClose={handleClose} isDark open={open} width />

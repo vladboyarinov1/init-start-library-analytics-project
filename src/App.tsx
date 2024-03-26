@@ -46,7 +46,11 @@ export function App() {
         <Layout
           style={{
             backgroundColor: 'var(--color-green-desaturated)',
-            marginTop: `${isMobile && currentPath !== '/about_search' ? '60px' : 0}`,
+            marginTop: `${
+              isMobile && currentPath !== '/about_search' && currentPath !== '/data_search'
+                ? '60px'
+                : 0
+            }`,
             overflowY: 'auto',
           }}
         >

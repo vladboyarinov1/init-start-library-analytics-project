@@ -21,7 +21,7 @@ export const DataSearch = () => {
           </div>
           <div className={s.menu}>
             <div onClick={handleOpen}>
-              <BurgerMenu size={40} />
+              <BurgerMenu size={30} />
             </div>
             <Sidebar handleClose={handleClose} isDark open={open} width />
           </div>

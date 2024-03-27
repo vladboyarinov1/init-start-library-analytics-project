@@ -1,1 +1,1 @@
-export { DataSearch } from './data-search'
+export { PresentationPage } from './presentation-page-props.tsx'

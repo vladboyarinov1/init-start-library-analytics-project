@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import { changeLink } from '@/components/ui/components/breadcrumbs/breadcrumbs-slice'
-import { TimelineCell } from '@/components/ui/pages/data-search/data-search'
+import { TimelineCell } from '@/components/ui/pages/data-search/presentation-page-props.tsx'
 
 import s from './timeline.module.scss'
 

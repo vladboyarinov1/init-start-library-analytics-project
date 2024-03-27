@@ -5,11 +5,58 @@ import { Sidebar } from '@/components/ui/components/sidebar'
 import { LineGraph } from '@/components/ui/diagrams/line-graph'
 import { AboutSearch } from '@/components/ui/pages/about-search'
 import { DataSearch } from '@/components/ui/pages/data-search'
+import { TimelineCell } from '@/components/ui/pages/data-search/data-search.tsx'
 import { data } from '@/data'
 import { useAppSelector } from '@/hooks/use-app-selector'
 import { useWindowSize } from '@/hooks/use-window-size'
+import { Author, Campus, DocumentText, IndexH, Printer, Quotes, Science } from '@/icons'
 import { Breadcrumb, Layout } from 'antd'
 import { Content } from 'antd/es/layout/layout'
+
+const ScientometricIndicators: TimelineCell[] = [
+  {
+    breadcrumbs: ['Поиск данных', 'Публикации'],
+    img: <DocumentText size={40} />,
+    link: '/publications',
+    title: 'Публикации',
+  },
+  {
+    breadcrumbs: ['Поиск данных', 'Авторы'],
+    img: <Author size={40} />,
+    link: '/authors',
+    title: 'Авторы',
+  },
+  {
+    breadcrumbs: ['Поиск данных', 'Организации'],
+    img: <Campus size={40} />,
+    link: '/organizations',
+    title: 'Организации',
+  },
+  {
+    breadcrumbs: ['Поиск данных', 'Цитирования'],
+    img: <Quotes size={40} />,
+    link: '/citation',
+    title: 'Цитирования',
+  },
+  {
+    breadcrumbs: ['Поиск данных', 'Научное направление'],
+    img: <Science size={40} />,
+    link: '/scientific_direction',
+    title: 'Научное направление',
+  },
+  {
+    breadcrumbs: ['Поиск данных', 'Индекс h'],
+    img: <IndexH size={40} />,
+    link: '/index_h',
+    title: 'Индекс h',
+  },
+  {
+    breadcrumbs: ['Поиск данных', 'Источник публикаций(Уточнить)'],
+    img: <Printer size={40} />,
+    link: '/source_publications',
+    title: 'Источник публикаций(Уточнить)',
+  },
+]
 
 export function App() {
   const { width } = useWindowSize()
@@ -81,7 +128,15 @@ export function App() {
             >
               <Routes>
                 <Route element={<AboutSearch />} path={'/about_search'} />
-                <Route element={<DataSearch />} path={'/data_search'} />
+                <Route
+                  element={
+                    <DataSearch
+                      timelineItems={ScientometricIndicators}
+                      title={'Наукометрические показатели'}
+                    />
+                  }
+                  path={'/data_search'}
+                />
                 <Route element={<Navigate to={'/about_search'} />} path={'/'} />
                 <Route
                   element={

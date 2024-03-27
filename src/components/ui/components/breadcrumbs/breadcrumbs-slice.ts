@@ -6,7 +6,7 @@ export const slice = createSlice({
   } as const,
   name: 'breadcrumbs',
   reducers: {
-    changeLink(state: any, action: PayloadAction<{ path: string }>) {
+    changeLink(state: any, action: PayloadAction<{ path: string[] }>) {
       return {
         ...state,
         breadcrumbPath: action.payload.path,

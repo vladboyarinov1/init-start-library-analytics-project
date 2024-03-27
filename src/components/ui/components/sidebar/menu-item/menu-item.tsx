@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import { changeLink } from '@/components/ui/components/breadcrumbs/breadcrumbs-slice.ts'
+import { changeLink } from '@/components/ui/components/breadcrumbs/breadcrumbs-slice'
 import {
   AnalyticsChart,
   AnalyticsGraph,
@@ -20,7 +20,7 @@ import {
   Science,
   SearchSquare,
 } from '@/icons'
-import { SystemSearch } from '@/icons/components/system-search.tsx'
+import { SystemSearch } from '@/icons/components/system-search'
 import { ConfigProvider, Menu, MenuProps } from 'antd'
 
 import s from './menu-item.module.scss'

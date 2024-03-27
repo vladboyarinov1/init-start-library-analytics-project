@@ -7,7 +7,18 @@ import { BurgerMenu, Logo } from '@/icons'
 
 import s from './data-search.module.scss'
 
-export const DataSearch = () => {
+export type TimelineCell = {
+  breadcrumbs: string[]
+  img: any
+  link: string
+  title: string
+}
+type PresentationPage = {
+  timelineItems: TimelineCell[]
+  title: string
+}
+
+export const DataSearch = ({ timelineItems, title }: PresentationPage) => {
   const [open, setOpen] = useState(false)
   const handleClose = () => setOpen(false)
   const handleOpen = () => setOpen(true)
@@ -28,10 +39,11 @@ export const DataSearch = () => {
           <div />
         </div>
         <div className={s.title}>
-          <h2>Наукометрические показатели</h2>
+          {/*<h2>Наукометрические показатели</h2>*/}
+          <h2>{title}</h2>
         </div>
       </header>
-      <Timeline />
+      <Timeline items={timelineItems} />
       <Footer />
     </div>
   )

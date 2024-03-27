@@ -4,14 +4,21 @@
 }
 
 .container {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+}
+.wrapper {
+  max-width: 1440px;
+  margin: 0 auto;
+  border: 1px solid;
+}
+.logo {
+  justify-self: center;
 }
 .menu {
-  position: absolute;
+  justify-self: end;
   z-index: 5;
-  top: 35px;
-  right: 70px;
 }
 .menuImg {
   cursor: pointer;

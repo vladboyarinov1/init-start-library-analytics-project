@@ -4,8 +4,10 @@ import { MainHeader } from '@/components/ui/components/header/header'
 import { Sidebar } from '@/components/ui/components/sidebar'
 import { LineGraph } from '@/components/ui/diagrams/line-graph'
 import { AboutSearch } from '@/components/ui/pages/about-search'
-import { PresentationPage } from '@/components/ui/pages/data-search'
-import { TimelineCell } from '@/components/ui/pages/data-search/presentation-page-props'
+import {
+  PresentationPage,
+  TimelineCell,
+} from '@/components/ui/pages/presentation-page/presentation-page'
 import { data } from '@/data'
 import { useAppSelector } from '@/hooks/use-app-selector'
 import { useWindowSize } from '@/hooks/use-window-size'
@@ -21,11 +23,12 @@ import {
   Quotes,
   Science,
   SearchBook,
+  TransparentDoc,
 } from '@/icons'
 import { Breadcrumb, Layout } from 'antd'
 import { Content } from 'antd/es/layout/layout'
 
-const ScientometricIndicators: TimelineCell[] = [
+const searchPageData: TimelineCell[] = [
   {
     breadcrumbs: ['Поиск данных', 'Публикации'],
     img: <DocumentText size={40} />,
@@ -90,8 +93,7 @@ const visualizationData: TimelineCell[] = [
   },
   {
     breadcrumbs: ['Аналитика и визуализация', 'Публикации по ключевым словам'],
-    img: <DocumentText size={40} />,
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    img: <TransparentDoc size={40} />,
     link: '/publications_by_keywords',
     title: 'Публикации по ключевым словам',
   },
@@ -110,13 +112,17 @@ const visualizationData: TimelineCell[] = [
 ]
 
 export function App() {
+  const url = useAppSelector(state => state.breadCrumbs.breadcrumbPath)
+
   const { width } = useWindowSize()
   const location = useLocation()
 
   const currentPath = location.pathname
-
   const isMobile = width && width <= 730
-  const url = useAppSelector(state => state.breadCrumbs.breadcrumbPath)
+  const isPathNotInSearchPages =
+    currentPath !== '/about_search' &&
+    currentPath !== '/data_search' &&
+    currentPath !== '/visualization'
 
   return (
     <Layout
@@ -132,26 +138,11 @@ export function App() {
           backgroundColor: 'white',
         }}
       >
-        {currentPath !== '/about_search' &&
-        currentPath !== '/data_search' &&
-        currentPath !== '/visualization' ? (
-          isMobile ? (
-            <MainHeader />
-          ) : (
-            <Sidebar />
-          )
-        ) : null}
+        {isPathNotInSearchPages ? isMobile ? <MainHeader /> : <Sidebar /> : null}
         <Layout
           style={{
             backgroundColor: 'var(--color-green-desaturated)',
-            marginTop: `${
-              isMobile &&
-              currentPath !== '/about_search' &&
-              currentPath !== '/data_search' &&
-              currentPath !== '/visualization'
-                ? '60px'
-                : 0
-            }`,
+            marginTop: `${isMobile && isPathNotInSearchPages ? '60px' : 0}`,
             overflowY: 'auto',
           }}
         >
@@ -160,9 +151,7 @@ export function App() {
           //   margin: '0 20px',
           // }}
           >
-            {currentPath !== '/about_search' &&
-            currentPath !== '/data_search' &&
-            currentPath !== '/visualization' ? (
+            {isPathNotInSearchPages ? (
               <Breadcrumb
                 items={url.map((i: string) => ({ title: i }))}
                 separator={'>'}
@@ -187,7 +176,7 @@ export function App() {
                 <Route
                   element={
                     <PresentationPage
-                      timelineItems={ScientometricIndicators}
+                      timelineItems={searchPageData}
                       title={'Наукометрические показатели'}
                     />
                   }

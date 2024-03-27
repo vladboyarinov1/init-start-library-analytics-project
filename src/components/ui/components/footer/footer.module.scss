@@ -11,6 +11,10 @@
   justify-content: space-between;
   gap: 20px;
 }
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+}
 
 .education {
   max-width: 210px;
@@ -34,6 +38,7 @@
 }
 
 .items {
+  line-height: 1.2;
   & li {
     margin-bottom: 8px;
     & > a {

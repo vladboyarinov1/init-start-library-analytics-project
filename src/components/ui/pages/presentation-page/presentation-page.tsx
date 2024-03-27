@@ -5,7 +5,7 @@ import { Sidebar } from '@/components/ui/components/header/mobile-sidebar/mobile
 import { Timeline } from '@/components/ui/components/timeline'
 import { BurgerMenu, Logo } from '@/icons'
 
-import s from './data-search.module.scss'
+import s from './presentation-page.module.scss'
 
 export type TimelineCell = {
   breadcrumbs: string[]
@@ -26,21 +26,22 @@ export const PresentationPage = ({ timelineItems, title }: PresentationPageProps
   return (
     <div>
       <header className={s.header}>
-        <div className={s.container}>
-          <div className={s.logo}>
-            <Logo size={90} />
-          </div>
-          <div className={s.menu}>
-            <div className={s.menuImg} onClick={handleOpen}>
-              <BurgerMenu size={30} />
+        <div className={s.wrapper}>
+          <div className={s.container}>
+            <div className={s.logo}>
+              <Logo size={90} />
             </div>
-            <Sidebar handleClose={handleClose} isDark open={open} width />
+            <div className={s.menu}>
+              <div className={s.menuImg} onClick={handleOpen}>
+                <BurgerMenu size={30} />
+              </div>
+              <Sidebar handleClose={handleClose} isDark open={open} width />
+            </div>
+            <div />
           </div>
-          <div />
-        </div>
-        <div className={s.title}>
-          {/*<h2>Наукометрические показатели</h2>*/}
-          <h2>{title}</h2>
+          <div className={s.title}>
+            <h2>{title}</h2>
+          </div>
         </div>
       </header>
       <Timeline items={timelineItems} />

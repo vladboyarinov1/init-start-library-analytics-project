@@ -4,12 +4,24 @@ import { MainHeader } from '@/components/ui/components/header/header'
 import { Sidebar } from '@/components/ui/components/sidebar'
 import { LineGraph } from '@/components/ui/diagrams/line-graph'
 import { AboutSearch } from '@/components/ui/pages/about-search'
-import { DataSearch } from '@/components/ui/pages/data-search'
-import { TimelineCell } from '@/components/ui/pages/data-search/data-search.tsx'
+import { PresentationPage } from '@/components/ui/pages/data-search'
+import { TimelineCell } from '@/components/ui/pages/data-search/presentation-page-props'
 import { data } from '@/data'
 import { useAppSelector } from '@/hooks/use-app-selector'
 import { useWindowSize } from '@/hooks/use-window-size'
-import { Author, Campus, DocumentText, IndexH, Printer, Quotes, Science } from '@/icons'
+import {
+  AnalyticsChart,
+  AtomicScience,
+  Author,
+  Bubbles,
+  Campus,
+  DocumentText,
+  IndexH,
+  Printer,
+  Quotes,
+  Science,
+  SearchBook,
+} from '@/icons'
 import { Breadcrumb, Layout } from 'antd'
 import { Content } from 'antd/es/layout/layout'
 
@@ -57,6 +69,45 @@ const ScientometricIndicators: TimelineCell[] = [
     title: 'Источник публикаций(Уточнить)',
   },
 ]
+const visualizationData: TimelineCell[] = [
+  {
+    breadcrumbs: ['Аналитика и визуализация', 'Организации: анализ публикаций'],
+    img: <Campus size={40} />,
+    link: '/analysis_publications',
+    title: 'Организации: анализ публикаций',
+  },
+  {
+    breadcrumbs: ['Аналитика и визуализация', 'Динамика публикаций/цитирований'],
+    img: <AnalyticsChart size={40} />,
+    link: '/dynamics',
+    title: 'Динамика публикаций/цитирований',
+  },
+  {
+    breadcrumbs: ['Аналитика и визуализация', 'Издания: анализ публикаций и ключевых слов'],
+    img: <SearchBook size={40} />,
+    link: '/analysis_publications_and_keywords',
+    title: 'Издания: анализ публикаций и ключевых слов',
+  },
+  {
+    breadcrumbs: ['Аналитика и визуализация', 'Публикации по ключевым словам'],
+    img: <DocumentText size={40} />,
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    link: '/publications_by_keywords',
+    title: 'Публикации по ключевым словам',
+  },
+  {
+    breadcrumbs: ['Аналитика и визуализация', 'Сеть ключевого слова'],
+    img: <Bubbles size={40} />,
+    link: '/keyword_network',
+    title: 'Сеть ключевого слова',
+  },
+  {
+    breadcrumbs: ['Аналитика и визуализация', 'Научная сфера организации'],
+    img: <AtomicScience size={40} />,
+    link: '/scientific_field_organizations',
+    title: 'Научная сфера организации',
+  },
+]
 
 export function App() {
   const { width } = useWindowSize()
@@ -66,8 +117,6 @@ export function App() {
 
   const isMobile = width && width <= 730
   const url = useAppSelector(state => state.breadCrumbs.breadcrumbPath)
-
-  console.log(currentPath)
 
   return (
     <Layout
@@ -83,7 +132,9 @@ export function App() {
           backgroundColor: 'white',
         }}
       >
-        {currentPath !== '/about_search' && currentPath !== '/data_search' ? (
+        {currentPath !== '/about_search' &&
+        currentPath !== '/data_search' &&
+        currentPath !== '/visualization' ? (
           isMobile ? (
             <MainHeader />
           ) : (
@@ -94,7 +145,10 @@ export function App() {
           style={{
             backgroundColor: 'var(--color-green-desaturated)',
             marginTop: `${
-              isMobile && currentPath !== '/about_search' && currentPath !== '/data_search'
+              isMobile &&
+              currentPath !== '/about_search' &&
+              currentPath !== '/data_search' &&
+              currentPath !== '/visualization'
                 ? '60px'
                 : 0
             }`,
@@ -106,7 +160,9 @@ export function App() {
           //   margin: '0 20px',
           // }}
           >
-            {currentPath !== '/about_search' && currentPath !== '/data_search' ? (
+            {currentPath !== '/about_search' &&
+            currentPath !== '/data_search' &&
+            currentPath !== '/visualization' ? (
               <Breadcrumb
                 items={url.map((i: string) => ({ title: i }))}
                 separator={'>'}
@@ -130,13 +186,23 @@ export function App() {
                 <Route element={<AboutSearch />} path={'/about_search'} />
                 <Route
                   element={
-                    <DataSearch
+                    <PresentationPage
                       timelineItems={ScientometricIndicators}
                       title={'Наукометрические показатели'}
                     />
                   }
                   path={'/data_search'}
                 />
+                <Route
+                  element={
+                    <PresentationPage
+                      timelineItems={visualizationData}
+                      title={'Аналитика и визуализация'}
+                    />
+                  }
+                  path={'/visualization'}
+                />
+
                 <Route element={<Navigate to={'/about_search'} />} path={'/'} />
                 <Route
                   element={

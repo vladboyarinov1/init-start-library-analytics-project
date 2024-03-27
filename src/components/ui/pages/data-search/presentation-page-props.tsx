@@ -13,12 +13,12 @@ export type TimelineCell = {
   link: string
   title: string
 }
-type PresentationPage = {
+type PresentationPageProps = {
   timelineItems: TimelineCell[]
   title: string
 }
 
-export const DataSearch = ({ timelineItems, title }: PresentationPage) => {
+export const PresentationPage = ({ timelineItems, title }: PresentationPageProps) => {
   const [open, setOpen] = useState(false)
   const handleClose = () => setOpen(false)
   const handleOpen = () => setOpen(true)

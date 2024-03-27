@@ -17,7 +17,7 @@ const cards = [
   {
     id: 2,
     img: <AnalyticsGraph color={'white'} size={20} />,
-    path: '/path2',
+    path: '/visualization',
     subtitle: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
     title: 'Аналитика',
   },

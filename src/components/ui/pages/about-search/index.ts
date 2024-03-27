@@ -1,1 +1,1 @@
-export { AboutSearch } from './about-search.tsx'
+export { AboutSearch } from './about-search'

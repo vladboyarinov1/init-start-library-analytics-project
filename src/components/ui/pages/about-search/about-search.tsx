@@ -13,13 +13,13 @@ export const AboutSearch = () => {
       <nav className={s.nav}>
         <ul>
           <li>
-            <Link to={'/data_search'}>Публикации</Link>
+            <Link to={'/about_search'}>О системе поиска</Link>
           </li>
           <li>
-            <Link to={'/publications'}>Поиск данных</Link>
+            <Link to={'/data_search'}>Поиск данных</Link>
           </li>
           <li>
-            <Link to={'/publications'}>Аналитика</Link>
+            <Link to={'/visualization'}>Аналитика</Link>
           </li>
           <li>
             <Link to={'/publications'}>Кондифенциальность</Link>

@@ -3,9 +3,16 @@
   top: 0;
 
   height: 100%;
-  padding-top: 50px;
+  padding-top: 100px;
 
   border-inline-end: 0 !important;
+  max-width: 1440px;
+}
+.wrapper {
+  padding-top: 50px;
+  margin: 0 auto;
+  //border: 2px solid darkblue;
+  max-width: 1440px;
 }
 
 .sidebar {
@@ -62,7 +69,7 @@
   justify-content: flex-end;
 
   width: 100%;
-  padding: 25px 50px 20px;
+  padding: 25px 70px 20px;
 
   background-color: transparent;
   border: none;
@@ -73,7 +80,16 @@
 }
 
 @media screen and (width <= 480px) {
+  .menu {
+    padding-top: 70px;
+  }
+  .wrapper {
+    padding-top: 30px;
+  }
   .sidebar.open {
     width: 100%;
+  }
+  .close {
+    padding: 20px 30px 20px;
   }
 }

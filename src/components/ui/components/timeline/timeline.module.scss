@@ -94,10 +94,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
-  &:hover {
-    background-color: var(--color-black-desaturated);
-  }
 }
 
 .title {
@@ -125,6 +121,9 @@
   text-decoration: none;
   font-size: 14px;
   font-weight: bold;
+  &:hover {
+    color: var(--color-green-hover);
+  }
 }
 
 .timelineItemContent a::after {

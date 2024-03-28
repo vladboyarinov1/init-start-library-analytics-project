@@ -33,8 +33,12 @@
   flex-direction: row-reverse;
 }
 
-.timelineItem:nth-child(2n) > div > div {
+.timelineItem:nth-child(2n) > div > a {
   flex-direction: row-reverse;
+  text-align: end;
+}
+.timelineItem:nth-child(2n-1) > div > a {
+  text-align: start;
 }
 
 .timelineItemContent {
@@ -100,6 +104,7 @@
   font-weight: var(--font-weight-bold);
   font-size: var(--line-height-m);
   text-decoration: none;
+  max-width: 300px;
 }
 
 .timelineItemContent time {
@@ -154,6 +159,7 @@
   .title {
     font-size: var(--line-height-s);
     word-break: break-word;
+    text-align: center;
   }
   .timelineItemInfo {
     gap: 10px;

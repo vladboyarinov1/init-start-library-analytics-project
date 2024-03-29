@@ -71,6 +71,9 @@ dependencies:
   react-transition-group:
     specifier: ^4.4.5
     version: 4.4.5(react-dom@18.2.0)(react@18.2.0)
+  redux:
+    specifier: ^5.0.1
+    version: 5.0.1
   styled-components:
     specifier: ^6.1.8
     version: 6.1.8(react-dom@18.2.0)(react@18.2.0)

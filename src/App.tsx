@@ -1,16 +1,15 @@
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 
+import { useAppSelector } from '@/common/hooks/use-app-selector'
+import { useWindowSize } from '@/common/hooks/use-window-size'
 import { MainHeader } from '@/components/ui/components/header/header'
 import { Sidebar } from '@/components/ui/components/sidebar'
-import { LineGraph } from '@/components/ui/diagrams/line-graph'
 import { AboutSearch } from '@/components/ui/pages/about-search'
+import { EditionsPubKeyAnalysisApi } from '@/components/ui/pages/editions-pub-key-analysis-api/ui'
 import {
   PresentationPage,
   TimelineCell,
 } from '@/components/ui/pages/presentation-page/presentation-page'
-import { data } from '@/data'
-import { useAppSelector } from '@/hooks/use-app-selector'
-import { useWindowSize } from '@/hooks/use-window-size'
 import {
   AnalyticsChart,
   AtomicScience,
@@ -194,12 +193,8 @@ export function App() {
 
                 <Route element={<Navigate to={'/about_search'} />} path={'/'} />
                 <Route
-                  element={
-                    <div>
-                      <LineGraph data={data} isTooltip legend variant={'linear'} />
-                    </div>
-                  }
-                  path={'/publications'}
+                  element={<EditionsPubKeyAnalysisApi />}
+                  path={'/analysis_publications_and_keywords'}
                 />
               </Routes>
             </div>

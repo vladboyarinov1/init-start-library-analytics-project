@@ -8,12 +8,13 @@ type PieChartProps = {
 }
 
 const colors = [
-  'var(--color-green-primary)',
+  'var(--color-green-60)',
   'var(--color-lime)',
   'var(--color-dark)',
   'var(--color-blue)',
   'var(--color-pink)',
   'var(--color-purple-light)',
+  'var(--color-lime-pastel)',
 ]
 
 export const PieChart = ({ data }: PieChartProps) => {

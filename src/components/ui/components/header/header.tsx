@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
+import useScrollPosition from '@/common/hooks/use-scroll-position.ts'
 import { Sidebar } from '@/components/ui/components/header/mobile-sidebar/mobile-sidebar.tsx'
 import { SidebarLogo } from '@/components/ui/components/sidebar/sidebar-logo'
-import useScrollPosition from '@/hooks/use-scroll-position.ts'
 import { MenuOutlined } from '@ant-design/icons'
 import { Header } from 'antd/es/layout/layout'
 

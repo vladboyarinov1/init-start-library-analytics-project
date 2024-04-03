@@ -1,7 +1,7 @@
 import { instance } from '@/api'
 
 export const editionsPubKeyAnalysisApi = {
-  getData() {
-    return instance.get('sources?filter=country_code:ES,type:journal ')
+  getData(iso: string, type: string) {
+    return instance.get(`sources?filter=country_code:${iso},type:${type} `)
   },
 }

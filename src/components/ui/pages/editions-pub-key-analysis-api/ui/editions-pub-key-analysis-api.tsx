@@ -5,9 +5,13 @@ import { useAppSelector } from '@/common/hooks/use-app-selector'
 import { Button } from '@/components/ui/components/button'
 import { Input } from '@/components/ui/components/input'
 import { SelectButton } from '@/components/ui/components/select-button'
+import { BarChar } from '@/components/ui/diagrams/bar-chart'
 import { PieChart } from '@/components/ui/diagrams/pie-chart'
+import { TreeMap } from '@/components/ui/diagrams/tree-map'
 import { editionsPubKeyAnalysisActions } from '@/components/ui/pages/editions-pub-key-analysis-api'
 import { editionsPubKeyAnalysisSelectors } from '@/components/ui/pages/editions-pub-key-analysis-api/model/editions-pub-key-analysis-selectors'
+import { BarChartData, treeMapData } from '@/data'
+import { Search } from '@/icons'
 import { Formik } from 'formik'
 
 import s from './editions-pub-key-analysis-api.module.scss'
@@ -26,6 +30,18 @@ export const EditionsPubKeyAnalysisApi = () => {
   const changeSelectedValue = (value: SelectedValue) => {
     setType(value)
   }
+  const renderDashboardButton = (title: string, value: SelectedValue) => {
+    return (
+      <button
+        className={type === `${value}` ? s.activeBtn : s.button}
+        onClick={() => {
+          changeSelectedValue(value)
+        }}
+      >
+        {title}
+      </button>
+    )
+  }
 
   return (
     <div>
@@ -34,54 +50,12 @@ export const EditionsPubKeyAnalysisApi = () => {
           <h2>Издания: анализ публикаций и ключевых слов</h2>
         </div>
         <div className={s.menuSwitchItems}>
-          <button
-            className={type === 'publications' ? s.activeBtn : s.button}
-            onClick={() => {
-              changeSelectedValue('publications')
-            }}
-          >
-            По публикациям
-          </button>
-          <button
-            className={type === 'publishing' ? s.activeBtn : s.button}
-            onClick={() => {
-              changeSelectedValue('publishing')
-            }}
-          >
-            По издательствам
-          </button>
-          <button
-            className={type === 'types' ? s.activeBtn : s.button}
-            onClick={() => {
-              changeSelectedValue('types')
-            }}
-          >
-            По типам
-          </button>
-          <button
-            className={type === 'OA' ? s.activeBtn : s.button}
-            onClick={() => {
-              changeSelectedValue('OA')
-            }}
-          >
-            OA
-          </button>
-          <button
-            className={type === 'countries' ? s.activeBtn : s.button}
-            onClick={() => {
-              changeSelectedValue('countries')
-            }}
-          >
-            По странам
-          </button>
-          <button
-            className={type === 'continents' ? s.activeBtn : s.button}
-            onClick={() => {
-              changeSelectedValue('continents')
-            }}
-          >
-            По континентам
-          </button>
+          {renderDashboardButton('По публикациям', 'publications')}
+          {renderDashboardButton('По издательствам', 'publishing')}
+          {renderDashboardButton('По типам', 'types')}
+          {renderDashboardButton('OA', 'OA')}
+          {renderDashboardButton('По странам', 'countries')}
+          {renderDashboardButton('По континентам', 'continents')}
         </div>
         {type === 'publications' && <div>publications</div>}
         {type === 'publishing' && <div>publishing</div>}
@@ -92,24 +66,13 @@ export const EditionsPubKeyAnalysisApi = () => {
         <div>
           <Formik
             initialValues={{ iso: 'BY', type: '' }}
-            onSubmit={(values, { setSubmitting }) => {
+            onSubmit={values => {
               setTimeout(() => {
-                alert(JSON.stringify(values, null, 2))
-                setSubmitting(false)
                 fetchDataHandler(values.iso, values.type)
-              }, 400)
+              })
             }}
           >
-            {({
-              handleBlur,
-              handleChange,
-              handleSubmit,
-              isSubmitting,
-              setFieldValue,
-
-              values,
-              /* and other goodies */
-            }) => (
+            {({ handleBlur, handleChange, handleSubmit, isSubmitting, setFieldValue, values }) => (
               <form className={s.form} onSubmit={handleSubmit}>
                 <SelectButton
                   activeValueName={values.type}
@@ -132,12 +95,13 @@ export const EditionsPubKeyAnalysisApi = () => {
                   onBlur={handleBlur}
                   onChange={handleChange}
                   placeholder={'ID автора'}
+                  required
                   type={'text'}
                   value={values.iso}
                 />
                 {/*{errors.email && touched.email && errors.email}*/}
                 <Button disabled={isSubmitting} type={'submit'}>
-                  Поиск
+                  Поиск <Search />
                 </Button>
               </form>
             )}
@@ -162,11 +126,23 @@ export const EditionsPubKeyAnalysisApi = () => {
           )}
         </div>
       )}
-      {type === 'publishing' && <div>publishing</div>}
+      {type === 'publishing' && (
+        <div style={{ backgroundColor: 'white', borderRadius: 12, margin: '0 20px', padding: 10 }}>
+          <BarChar data={BarChartData} />
+        </div>
+      )}
       {type === 'types' && <div>types</div>}
       {type === 'OA' && <div>OA</div>}
       {type === 'countries' && <div>countries</div>}
-      {type === 'continents' && <div>continents</div>}
+      {type === 'continents' && (
+        <div>
+          <div
+            style={{ backgroundColor: 'white', borderRadius: 12, margin: '0 20px', padding: 10 }}
+          >
+            <TreeMap data={treeMapData} />
+          </div>
+        </div>
+      )}
     </div>
   )
 }

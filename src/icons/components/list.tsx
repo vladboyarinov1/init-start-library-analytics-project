@@ -14,10 +14,10 @@ export const List = (allProps: IconProps) => {
           xmlns={'http://www.w3.org/2000/svg'}
           {...props}
         >
-          <path d={'M8.625 3.75H22.125V5.25H8.625V3.75Z'} fill={'#767676'} />
-          <path d={'M8.625 11.25H22.125V12.75H8.625V11.25Z'} fill={'#767676'} />
-          <path d={'M8.625 18.75H22.125V20.25H8.625V18.75Z'} fill={'#767676'} />
-          <path d={'M5.625 7.5V1.875H2.625V3.375H4.125V7.5H5.625Z'} fill={'#767676'} />
+          <path d={'M8.625 3.75H22.125V5.25H8.625V3.75Z'} fill={'currentColor'} />
+          <path d={'M8.625 11.25H22.125V12.75H8.625V11.25Z'} fill={'currentColor'} />
+          <path d={'M8.625 18.75H22.125V20.25H8.625V18.75Z'} fill={'currentColor'} />
+          <path d={'M5.625 7.5V1.875H2.625V3.375H4.125V7.5H5.625Z'} fill={'currentColor'} />
           <path
             d={
               'M2.625 12.2865V14.625H6.375V13.125H4.30205L6.375 12.0885V9H2.625V10.5H4.875V11.1615L2.625 12.2865Z'

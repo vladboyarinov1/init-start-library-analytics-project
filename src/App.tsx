@@ -145,11 +145,7 @@ export function App() {
             overflowY: 'auto',
           }}
         >
-          <Content
-          // style={{
-          //   margin: '0 20px',
-          // }}
-          >
+          <Content>
             {isPathNotInSearchPages ? (
               <Breadcrumb
                 items={url.map((i: string) => ({ title: i }))}
@@ -162,14 +158,7 @@ export function App() {
             ) : (
               ''
             )}
-            <div
-            // style={{
-            //   background: 'white',
-            //   borderRadius: 16,
-            //   minHeight: 360,
-            //   padding: 21,
-            // }}
-            >
+            <div>
               <Routes>
                 <Route element={<AboutSearch />} path={'/about_search'} />
                 <Route

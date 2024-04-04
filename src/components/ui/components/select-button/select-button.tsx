@@ -61,7 +61,7 @@ export const SelectButton = ({
           </Select.Icon>
         </div>
       )}
-      <div style={{ display: 'flex', textAlign: 'center' }}>
+      <div style={{ display: 'flex', textAlign: 'center', whiteSpace: 'nowrap', width: '100%' }}>
         <Select.Root
           onOpenChange={toggleOpen}
           onValueChange={value => setFieldValue('type', value)}
@@ -75,7 +75,9 @@ export const SelectButton = ({
               cursor: 'pointer',
               display: 'flex',
               gap: 8,
+              justifyContent: 'space-between',
               padding: '8px 5px',
+              width: '100%',
             }}
           >
             <Select.Value placeholder={title} />

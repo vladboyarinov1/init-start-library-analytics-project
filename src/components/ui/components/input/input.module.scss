@@ -1,4 +1,8 @@
+.container {
+  position: relative;
+}
 .input {
+  width: 100%;
   border: 1px solid var(--color-black-20);
   outline: none;
   padding: 11px 5px;
@@ -7,10 +11,9 @@
   &::placeholder {
     color: #929292;
   }
-}
-.container {
-  position: relative;
-  display: inline-block;
+  &:hover {
+    box-shadow: inset 20px 20px 0px 20px var(--color-black-desaturated);
+  }
 }
 
 .requiredStar {

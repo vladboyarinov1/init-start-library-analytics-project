@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import { useActions } from '@/common/hooks/use-actions'
 import { useAppSelector } from '@/common/hooks/use-app-selector'
+import { Button } from '@/components/ui/components/button'
 import { Input } from '@/components/ui/components/input'
 import { SelectButton } from '@/components/ui/components/select-button'
 import { PieChart } from '@/components/ui/diagrams/pie-chart'
@@ -14,7 +15,7 @@ import s from './editions-pub-key-analysis-api.module.scss'
 export const EditionsPubKeyAnalysisApi = () => {
   const data = useAppSelector(editionsPubKeyAnalysisSelectors)
 
-  type SelectedValue = 'QA' | 'continents' | 'countries' | 'publications' | 'publishing' | 'types'
+  type SelectedValue = 'OA' | 'continents' | 'countries' | 'publications' | 'publishing' | 'types'
 
   const [type, setType] = useState<SelectedValue>('publications')
 
@@ -28,15 +29,18 @@ export const EditionsPubKeyAnalysisApi = () => {
 
   return (
     <div>
-      <div>
-        <div>
+      <div className={s.dashboard}>
+        <div className={s.title}>
+          <h2>Издания: анализ публикаций и ключевых слов</h2>
+        </div>
+        <div className={s.menuSwitchItems}>
           <button
             className={type === 'publications' ? s.activeBtn : s.button}
             onClick={() => {
               changeSelectedValue('publications')
             }}
           >
-            по публикациям
+            По публикациям
           </button>
           <button
             className={type === 'publishing' ? s.activeBtn : s.button}
@@ -44,7 +48,7 @@ export const EditionsPubKeyAnalysisApi = () => {
               changeSelectedValue('publishing')
             }}
           >
-            по издательствам
+            По издательствам
           </button>
           <button
             className={type === 'types' ? s.activeBtn : s.button}
@@ -52,15 +56,15 @@ export const EditionsPubKeyAnalysisApi = () => {
               changeSelectedValue('types')
             }}
           >
-            по типам
+            По типам
           </button>
           <button
-            className={type === 'QA' ? s.activeBtn : s.button}
+            className={type === 'OA' ? s.activeBtn : s.button}
             onClick={() => {
-              changeSelectedValue('QA')
+              changeSelectedValue('OA')
             }}
           >
-            QA
+            OA
           </button>
           <button
             className={type === 'countries' ? s.activeBtn : s.button}
@@ -79,6 +83,12 @@ export const EditionsPubKeyAnalysisApi = () => {
             По континентам
           </button>
         </div>
+        {type === 'publications' && <div>publications</div>}
+        {type === 'publishing' && <div>publishing</div>}
+        {type === 'types' && <div>types</div>}
+        {type === 'OA' && <div>OA</div>}
+        {type === 'countries' && <div>countries</div>}
+        {type === 'continents' && <div>continents</div>}
         <div>
           <Formik
             initialValues={{ iso: 'BY', type: '' }}
@@ -100,15 +110,7 @@ export const EditionsPubKeyAnalysisApi = () => {
               values,
               /* and other goodies */
             }) => (
-              <form onSubmit={handleSubmit}>
-                <Input
-                  name={'iso'}
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  placeholder={'ID автора'}
-                  type={'text'}
-                  value={values.iso}
-                />
+              <form className={s.form} onSubmit={handleSubmit}>
                 <SelectButton
                   activeValueName={values.type}
                   itemsData={[
@@ -125,36 +127,46 @@ export const EditionsPubKeyAnalysisApi = () => {
                   title={'Тип издания'}
                   variant={'primary'}
                 />
+                <Input
+                  name={'iso'}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  placeholder={'ID автора'}
+                  type={'text'}
+                  value={values.iso}
+                />
                 {/*{errors.email && touched.email && errors.email}*/}
-                <button disabled={isSubmitting} type={'submit'}>
-                  Submit
-                </button>
+                <Button disabled={isSubmitting} type={'submit'}>
+                  Поиск
+                </Button>
               </form>
             )}
           </Formik>
         </div>
       </div>
-      {data.publicationsData.length ? (
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, justifyContent: 'center' }}>
-          <div style={{ backgroundColor: 'white', borderRadius: 12, padding: 10, width: 560 }}>
-            <h2>Количество публикаций</h2>
-            <PieChart data={data.publicationsData} />
-          </div>
-          <div style={{ backgroundColor: 'white', borderRadius: 12, padding: 10, width: 560 }}>
-            <h2>Количество цитирований</h2>
-            <PieChart data={data.citationsData} />
-          </div>
+      {type === 'publications' && (
+        <div>
+          {data.publicationsData.length ? (
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, justifyContent: 'center' }}>
+              <div style={{ backgroundColor: 'white', borderRadius: 12, padding: 10, width: 560 }}>
+                <h2>Количество публикаций</h2>
+                <PieChart data={data.publicationsData} />
+              </div>
+              <div style={{ backgroundColor: 'white', borderRadius: 12, padding: 10, width: 560 }}>
+                <h2>Количество цитирований</h2>
+                <PieChart data={data.citationsData} />
+              </div>
+            </div>
+          ) : (
+            ''
+          )}
         </div>
-      ) : (
-        ''
       )}
-      {/*<Button*/}
-      {/*  onClick={() => {*/}
-      {/*    fetchDataHandler(inputValue, )*/}
-      {/*  }}*/}
-      {/*>*/}
-      {/*  Fetch Data*/}
-      {/*</Button>*/}
+      {type === 'publishing' && <div>publishing</div>}
+      {type === 'types' && <div>types</div>}
+      {type === 'OA' && <div>OA</div>}
+      {type === 'countries' && <div>countries</div>}
+      {type === 'continents' && <div>continents</div>}
     </div>
   )
 }

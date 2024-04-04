@@ -1,14 +1,46 @@
+.dashboard {
+  background-color: white;
+  padding: 30px;
+  margin: 0 20px 80px 20px;
+  border-radius: 16px;
+}
+
+.title > h2 {
+  line-height: 1.2;
+  //margin-bottom: 20px;
+}
+
+.menuSwitchItems {
+  margin: 20px 0;
+}
+
 .button,
 .activeBtn {
-  background-color: #4f4e76;
-  color: white;
+  background-color: transparent;
+  color: var(--color-green-primary);
   outline: none;
-  padding: 4px 12px;
+  font-weight: 700;
+  padding: 12px 9px;
   border: 0;
-  border-radius: 8px;
+  border-radius: 50px;
   cursor: pointer;
-  margin-left: 5px;
+  margin-right: 5px;
+
+  &:last-child {
+    margin: 0;
+  }
 }
+
 .activeBtn {
-  background-color: #008054;
+  background-color: var(--color-green-primary);
+  color: white;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: 0.4fr 2fr 0.1fr;
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  gap: 8px;
 }

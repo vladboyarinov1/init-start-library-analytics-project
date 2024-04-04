@@ -29,18 +29,21 @@ export const slice = createSlice({
   reducers: {},
 })
 // Определите fetchData перед созданием slice
-const fetchData = createAppAsyncThunk(`${slice.name}/fetchData`, async () => {
-  try {
-    const res = await editionsPubKeyAnalysisApi.getData()
+const fetchData = createAppAsyncThunk(
+  `${slice.name}/fetchData`,
+  async (param: { iso: string; type: string }) => {
+    try {
+      const res = await editionsPubKeyAnalysisApi.getData(param.iso, param.type)
 
-    // dispatch(editionsPubKeyAnalysisActions.setData({ data: res.data }))
+      // dispatch(editionsPubKeyAnalysisActions.setData({ data: res.data }))
 
-    console.log(res.data.results)
+      console.log(res.data.results)
 
-    return { data: res.data.results }
-  } catch (e: any) {
-    throw new Error(e)
+      return { data: res.data.results }
+    } catch (e: any) {
+      throw new Error(e)
+    }
   }
-})
+)
 
 export const asyncActions = { fetchData }

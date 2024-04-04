@@ -64,7 +64,7 @@ export const SelectButton = ({
       <div style={{ display: 'flex', textAlign: 'center' }}>
         <Select.Root
           onOpenChange={toggleOpen}
-          onValueChange={la => setFieldValue('type', la)}
+          onValueChange={value => setFieldValue('type', value)}
           open={open}
           value={activeValueName}
         >

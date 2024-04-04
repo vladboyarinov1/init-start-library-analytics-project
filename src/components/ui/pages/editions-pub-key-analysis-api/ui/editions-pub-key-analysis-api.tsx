@@ -3,6 +3,7 @@ import { ChangeEvent, useState } from 'react'
 import { useActions } from '@/common/hooks/use-actions'
 import { useAppSelector } from '@/common/hooks/use-app-selector'
 import { Button } from '@/components/ui/components/button'
+import { Input } from '@/components/ui/components/input'
 import { SelectButton } from '@/components/ui/components/select-button'
 import { PieChart } from '@/components/ui/diagrams/pie-chart'
 import { editionsPubKeyAnalysisActions } from '@/components/ui/pages/editions-pub-key-analysis-api'
@@ -103,10 +104,11 @@ export const EditionsPubKeyAnalysisApi = () => {
               /* and other goodies */
             }) => (
               <form onSubmit={handleSubmit}>
-                <input
+                <Input
                   name={'iso'}
                   onBlur={handleBlur}
                   onChange={handleChange}
+                  placeholder={'ID автора'}
                   type={'text'}
                   value={values.iso}
                 />

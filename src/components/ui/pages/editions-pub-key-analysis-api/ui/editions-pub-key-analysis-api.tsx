@@ -1,8 +1,7 @@
-import { ChangeEvent, useState } from 'react'
+import { useState } from 'react'
 
 import { useActions } from '@/common/hooks/use-actions'
 import { useAppSelector } from '@/common/hooks/use-app-selector'
-import { Button } from '@/components/ui/components/button'
 import { Input } from '@/components/ui/components/input'
 import { SelectButton } from '@/components/ui/components/select-button'
 import { PieChart } from '@/components/ui/diagrams/pie-chart'
@@ -18,7 +17,6 @@ export const EditionsPubKeyAnalysisApi = () => {
   type SelectedValue = 'QA' | 'continents' | 'countries' | 'publications' | 'publishing' | 'types'
 
   const [type, setType] = useState<SelectedValue>('publications')
-  const [inputValue, setInputValue] = useState('')
 
   const { fetchData } = useActions(editionsPubKeyAnalysisActions)
   const fetchDataHandler = (iso: string, type: string) => {
@@ -93,13 +91,12 @@ export const EditionsPubKeyAnalysisApi = () => {
             }}
           >
             {({
-              errors,
               handleBlur,
               handleChange,
               handleSubmit,
               isSubmitting,
               setFieldValue,
-              touched,
+
               values,
               /* and other goodies */
             }) => (

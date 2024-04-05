@@ -10,7 +10,7 @@ import { PieChart } from '@/components/ui/diagrams/pie-chart'
 import { TreeMap } from '@/components/ui/diagrams/tree-map'
 import { editionsPubKeyAnalysisActions } from '@/components/ui/pages/editions-pub-key-analysis-api'
 import { editionsPubKeyAnalysisSelectors } from '@/components/ui/pages/editions-pub-key-analysis-api/model/editions-pub-key-analysis-selectors'
-import { BarChartData, treeMapData } from '@/data'
+import { BarChartData, PieData, treeMapData } from '@/data'
 import { Search } from '@/icons'
 import { Formik } from 'formik'
 
@@ -23,10 +23,10 @@ export const EditionsPubKeyAnalysisApi = () => {
 
   const [type, setType] = useState<SelectedValue>('publications')
 
-  const { fetchData } = useActions(editionsPubKeyAnalysisActions)
-  const fetchDataHandler = (iso: string, type: string) => {
-    fetchData({ iso, type })
-  }
+  const { fetchData, fetchPieChartData } = useActions(editionsPubKeyAnalysisActions)
+  // const fetchDataHandler = (iso: string, type: string) => {
+  //   fetchData({ iso, type })
+  // }
   const changeSelectedValue = (value: SelectedValue) => {
     setType(value)
   }
@@ -57,55 +57,116 @@ export const EditionsPubKeyAnalysisApi = () => {
           {renderDashboardButton('По странам', 'countries')}
           {renderDashboardButton('По континентам', 'continents')}
         </div>
-        {type === 'publications' && <div>publications</div>}
         {type === 'publishing' && <div>publishing</div>}
-        {type === 'types' && <div>types</div>}
         {type === 'OA' && <div>OA</div>}
         {type === 'countries' && <div>countries</div>}
         {type === 'continents' && <div>continents</div>}
         <div>
-          <Formik
-            initialValues={{ iso: 'BY', type: '' }}
-            onSubmit={values => {
-              setTimeout(() => {
-                fetchDataHandler(values.iso, values.type)
-              })
-            }}
-          >
-            {({ handleBlur, handleChange, handleSubmit, isSubmitting, setFieldValue, values }) => (
-              <form className={s.form} onSubmit={handleSubmit}>
-                <SelectButton
-                  activeValueName={values.type}
-                  itemsData={[
-                    {
-                      items: [
-                        { label: 'journal' },
-                        { label: 'ebook platform' },
-                        { label: 'conference' },
-                        { label: 'repository' },
-                      ],
-                    },
-                  ]}
-                  setFieldValue={setFieldValue}
-                  title={'Тип издания'}
-                  variant={'primary'}
-                />
-                <Input
-                  name={'iso'}
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  placeholder={'ID автора'}
-                  required
-                  type={'text'}
-                  value={values.iso}
-                />
-                {/*{errors.email && touched.email && errors.email}*/}
-                <Button disabled={isSubmitting} type={'submit'}>
-                  Поиск <Search />
-                </Button>
-              </form>
-            )}
-          </Formik>
+          {type === 'publications' && (
+            <Formik
+              initialValues={{ iso: 'BY', type: '' }}
+              onSubmit={values => {
+                setTimeout(() => {
+                  fetchData({ iso: values.iso, type: values.type })
+                })
+              }}
+            >
+              {({
+                handleBlur,
+                handleChange,
+                handleSubmit,
+                isSubmitting,
+                setFieldValue,
+                values,
+              }) => (
+                <form className={s.form} onSubmit={handleSubmit}>
+                  <SelectButton
+                    activeValueName={values.type}
+                    itemsData={[
+                      {
+                        items: [
+                          { label: 'journal' },
+                          { label: 'ebook platform' },
+                          { label: 'conference' },
+                          { label: 'repository' },
+                        ],
+                      },
+                    ]}
+                    name={'type'}
+                    setFieldValue={setFieldValue}
+                    title={'Тип издания'}
+                    variant={'primary'}
+                  />
+                  <Input
+                    name={'iso'}
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    placeholder={'ID автора'}
+                    required
+                    type={'text'}
+                    value={values.iso}
+                  />
+                  {/*{errors.email && touched.email && errors.email}*/}
+                  <Button disabled={isSubmitting} type={'submit'}>
+                    Поиск <Search />
+                  </Button>
+                </form>
+              )}
+            </Formik>
+          )}
+          {type === 'types' && (
+            <div>
+              <Formik
+                initialValues={{ filter: '', iso: 'BY' }}
+                onSubmit={values => {
+                  // fetchData({ iso: values.iso, type: values.type })
+                  alert(JSON.stringify(values, null, 2))
+                  fetchPieChartData({ filter: values.filter, filterValue: values.iso, iso: 'US' })
+                }}
+              >
+                {({
+                  handleBlur,
+                  handleChange,
+                  handleSubmit,
+                  isSubmitting,
+                  setFieldValue,
+                  values,
+                }) => (
+                  <form className={s.form} onSubmit={handleSubmit}>
+                    <SelectButton
+                      activeValueName={values.filter}
+                      itemsData={[
+                        {
+                          items: [
+                            { label: 'ID направления' },
+                            { label: 'Код страны' },
+                            { label: 'Издатель' },
+                          ],
+                        },
+                      ]}
+                      name={'filter'}
+                      setFieldValue={setFieldValue}
+                      title={'Категории поиска'}
+                      variant={'primary'}
+                    />
+                    <Input
+                      name={'iso'}
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      placeholder={'ID автора'}
+                      required
+                      type={'text'}
+                      value={values.iso}
+                    />
+                    {/*{errors.email && touched.email && errors.email}*/}
+                    <Button disabled={isSubmitting} type={'submit'}>
+                      Поиск <Search />
+                    </Button>
+                  </form>
+                )}
+              </Formik>
+            </div>
+          )}
         </div>
       </div>
       {type === 'publications' && (
@@ -131,7 +192,11 @@ export const EditionsPubKeyAnalysisApi = () => {
           <BarChar data={BarChartData} />
         </div>
       )}
-      {type === 'types' && <div>types</div>}
+      {type === 'types' && (
+        <div>
+          <PieChart data={data.pieChartData} />
+        </div>
+      )}
       {type === 'OA' && <div>OA</div>}
       {type === 'countries' && <div>countries</div>}
       {type === 'continents' && (

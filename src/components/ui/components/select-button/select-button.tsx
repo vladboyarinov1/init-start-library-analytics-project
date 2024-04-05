@@ -12,6 +12,7 @@ type SelectItem = { items: { label: string }[]; label?: string }
 type SelectButtonProps = {
   activeValueName: any
   itemsData: SelectItem[]
+  name: string
   setFieldValue: any
   title: string
   variant: 'export' | 'primary' | 'sort'
@@ -20,6 +21,7 @@ type SelectButtonProps = {
 export const SelectButton = ({
   activeValueName,
   itemsData,
+  name,
   setFieldValue,
   title,
   variant,
@@ -64,7 +66,7 @@ export const SelectButton = ({
       <div style={{ display: 'flex', textAlign: 'center', whiteSpace: 'nowrap', width: '100%' }}>
         <Select.Root
           onOpenChange={toggleOpen}
-          onValueChange={value => setFieldValue('type', value)}
+          onValueChange={value => setFieldValue(name, value)}
           open={open}
           value={activeValueName}
         >

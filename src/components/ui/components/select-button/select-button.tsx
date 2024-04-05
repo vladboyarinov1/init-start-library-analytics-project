@@ -13,6 +13,7 @@ type SelectButtonProps = {
   activeValueName: any
   itemsData: SelectItem[]
   name: string
+  onChange: (e: any) => void
   setFieldValue: any
   title: string
   variant: 'export' | 'primary' | 'sort'
@@ -22,6 +23,7 @@ export const SelectButton = ({
   activeValueName,
   itemsData,
   name,
+  onChange,
   setFieldValue,
   title,
   variant,

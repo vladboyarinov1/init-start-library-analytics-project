@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 import { useActions } from '@/common/hooks/use-actions'
 import { useAppSelector } from '@/common/hooks/use-app-selector'
@@ -12,7 +12,8 @@ import { editionsPubKeyAnalysisActions } from '@/components/ui/pages/editions-pu
 import { editionsPubKeyAnalysisSelectors } from '@/components/ui/pages/editions-pub-key-analysis-api/model/editions-pub-key-analysis-selectors'
 import { BarChartData, PieData, treeMapData } from '@/data'
 import { Search } from '@/icons'
-import { Formik } from 'formik'
+import { Form } from 'antd'
+import { Field, FieldArray, Formik } from 'formik'
 
 import s from './editions-pub-key-analysis-api.module.scss'
 
@@ -42,6 +43,7 @@ export const EditionsPubKeyAnalysisApi = () => {
       </button>
     )
   }
+  const allOptions = ['ID направления', 'Код страны', 'Издатель']
 
   return (
     <div>
@@ -79,7 +81,7 @@ export const EditionsPubKeyAnalysisApi = () => {
                 setFieldValue,
                 values,
               }) => (
-                <form className={s.form} onSubmit={handleSubmit}>
+                <Form className={s.form} onSubmit={handleSubmit}>
                   <SelectButton
                     activeValueName={values.type}
                     itemsData={[
@@ -110,18 +112,78 @@ export const EditionsPubKeyAnalysisApi = () => {
                   <Button disabled={isSubmitting} type={'submit'}>
                     Поиск <Search />
                   </Button>
-                </form>
+                </Form>
               )}
             </Formik>
           )}
+
+          {/*
+          <Formik
+            initialValues={{ pairs: [{ inputValue: '', selectValue: '' }] }}
+            onSubmit={(values, actions) => {
+              // Обработка отправки данных, например, через API запрос
+              console.log('Отправка данных:', values.pairs)
+              actions.setSubmitting(false)
+            }}
+          >
+            {({ handleSubmit, values }) => (
+              <Form>
+                <FieldArray
+                  name={'pairs'}
+                  render={arrayHelpers => (
+                    <div>
+                      {values.pairs.map((pair, index) => (
+                        <div key={index}>
+                          <Field as={'select'} name={`pairs.${index}.selectValue`}>
+                            <option disabled={!pair.selectValue} value={''}>
+                              {' '}
+                              {pair.selectValue ? pair.selectValue : 'Выберите'}
+                            </option>
+                            {allOptions.map(option => {
+                              if (!values.pairs.find(p => p.selectValue === option)) {
+                                return (
+                                  <option key={option} value={option}>
+                                    {option}
+                                  </option>
+                                )
+                              }
+
+                              return null
+                            })}
+                          </Field>
+                          <Field name={`pairs.${index}.inputValue`} />
+                          {index > 0 && ( // Показываем кнопку "Удалить поле" только для индекса больше 0
+                            <button onClick={() => arrayHelpers.remove(index)} type={'button'}>
+                              Удалить поле
+                            </button>
+                          )}
+                        </div>
+                      ))}
+                      {values.pairs.length < allOptions.length && (
+                        <button
+                          onClick={() => arrayHelpers.push({ inputValue: '', selectValue: '' })}
+                          type={'button'}
+                        >
+                          Добавить поле
+                        </button>
+                      )}
+                    </div>
+                  )}
+                />
+                <button onClick={handleSubmit} type={'submit'}>
+                  Отправить
+                </button>
+              </Form>
+            )}
+          </Formik>*/}
           {type === 'types' && (
             <div>
               <Formik
-                initialValues={{ filter: '', iso: 'BY' }}
+                initialValues={{ pairs: [{ inputValue: '', selectValue: '' }] }}
                 onSubmit={values => {
                   // fetchData({ iso: values.iso, type: values.type })
                   alert(JSON.stringify(values, null, 2))
-                  fetchPieChartData({ filter: values.filter, filterValue: values.iso, iso: 'US' })
+                  // fetchPieChartData({ filter: values.filter, filterValue: values.iso, iso: 'US' })
                 }}
               >
                 {({
@@ -132,37 +194,60 @@ export const EditionsPubKeyAnalysisApi = () => {
                   setFieldValue,
                   values,
                 }) => (
-                  <form className={s.form} onSubmit={handleSubmit}>
-                    <SelectButton
-                      activeValueName={values.filter}
-                      itemsData={[
-                        {
-                          items: [
-                            { label: 'ID направления' },
-                            { label: 'Код страны' },
-                            { label: 'Издатель' },
-                          ],
-                        },
-                      ]}
-                      name={'filter'}
-                      setFieldValue={setFieldValue}
-                      title={'Категории поиска'}
-                      variant={'primary'}
-                    />
-                    <Input
-                      name={'iso'}
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      placeholder={'ID автора'}
-                      required
-                      type={'text'}
-                      value={values.iso}
-                    />
-                    {/*{errors.email && touched.email && errors.email}*/}
-                    <Button disabled={isSubmitting} type={'submit'}>
-                      Поиск <Search />
-                    </Button>
-                  </form>
+                  <Form>
+                    <FieldArray
+                      name={'pairs'}
+                      render={arrayHelpers => (
+                        <div>
+                          {values.pairs.map((pair, index) => (
+                            <div className={s.form} key={index}>
+                              <SelectButton
+                                activeValueName={pair.selectValue}
+                                itemsData={[
+                                  {
+                                    items: allOptions
+                                      .filter(
+                                        option => !values.pairs.some(p => p.selectValue === option)
+                                      ) // Фильтруем заголовки
+                                      .map(option => ({ label: option })), // Преобразуем строки в объекты с свойством label
+                                  },
+                                ]}
+                                name={`pairs.${index}.selectValue`}
+                                onChange={e => {
+                                  arrayHelpers.replace(index, {
+                                    ...pair,
+                                    selectValue: e.target.value,
+                                  })
+                                }}
+                                setFieldValue={setFieldValue}
+                                title={'Категории поиска'}
+                                variant={'primary'}
+                              />
+                              <Input
+                                name={`pairs.${index}.inputValue`}
+                                onChange={handleChange}
+                                value={pair.inputValue}
+                              />
+                            </div>
+                          ))}
+                          {values.pairs.length < allOptions.length && (
+                            <button
+                              onClick={() =>
+                                arrayHelpers.push({
+                                  inputValue: '',
+                                  selectValue: '',
+                                })
+                              }
+                              type={'button'}
+                            >
+                              Добавить поле
+                            </button>
+                          )}
+                        </div>
+                      )}
+                    ></FieldArray>
+                    <Button type={'submit'}>Отправить</Button>
+                  </Form>
                 )}
               </Formik>
             </div>
@@ -211,3 +296,32 @@ export const EditionsPubKeyAnalysisApi = () => {
     </div>
   )
 }
+//{/*<SelectButton*/}
+//                       {/*  activeValueName={values.filter}*/}
+//                       {/*  itemsData={[*/}
+//                       {/*    {*/}
+//                       {/*      items: [*/}
+//                       {/*        { label: 'ID направления' },*/}
+//                       {/*        { label: 'Код страны' },*/}
+//                       {/*        { label: 'Издатель' },*/}
+//                       {/*      ],*/}
+//                       {/*    },*/}
+//                       {/*  ]}*/}
+//                       {/*  name={'filter'}*/}
+//                       {/*  setFieldValue={setFieldValue}*/}
+//                       {/*  title={'Категории поиска'}*/}
+//                       {/*  variant={'primary'}*/}
+//                       {/*/>*/}
+//                       {/*<Input*/}
+//                       {/*  name={'iso'}*/}
+//                       {/*  onBlur={handleBlur}*/}
+//                       {/*  onChange={handleChange}*/}
+//                       {/*  placeholder={'ID автора'}*/}
+//                       {/*  required*/}
+//                       {/*  type={'text'}*/}
+//                       {/*  value={values.iso}*/}
+//                       {/*/>*/}
+//                       {/*{errors.email && touched.email && errors.email}*/}
+//                       {/*<Button disabled={isSubmitting} type={'submit'}>*/}
+//                       {/*  Поиск <Search />*/}
+//                       {/*</Button>*/}

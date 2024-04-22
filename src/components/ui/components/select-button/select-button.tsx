@@ -12,7 +12,7 @@ type SelectItem = { items: { label: string }[]; label?: string }
 type SelectButtonProps = {
   activeValueName: any
   itemsData: SelectItem[]
-  name: string
+  name: any
   onChange: (e: any) => void
   setFieldValue: any
   title: string
@@ -29,6 +29,7 @@ export const SelectButton = ({
   variant,
 }: SelectButtonProps) => {
   const [open, setOpen] = useState<boolean>(false)
+
   // const [activeValueName, setActiveValueName] = useState<any>('')
 
   console.log(activeValueName)
@@ -132,6 +133,8 @@ const CustomSelectItem = React.forwardRef<
   const indicatorClassName = clsx(s.SelectItem, {
     [s.PrimarySelectItem]: variant === 'primary',
   })
+
+  console.log(activeValueName)
 
   return (
     <Select.Item className={indicatorClassName} {...resProps} ref={forwardedRef}>

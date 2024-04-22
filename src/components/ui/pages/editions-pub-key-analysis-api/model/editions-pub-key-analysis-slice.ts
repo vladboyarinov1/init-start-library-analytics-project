@@ -1,5 +1,6 @@
 import { createAppAsyncThunk } from '@/common/utils/create-app-async-thunk'
 import { editionsPubKeyAnalysisApi } from '@/components/ui/pages/editions-pub-key-analysis-api/api/editions-pub-key-analysis-api'
+import { data } from '@/data'
 import { createSlice } from '@reduxjs/toolkit'
 
 export const slice = createSlice({
@@ -58,27 +59,64 @@ const fetchData = createAppAsyncThunk(
     }
   }
 )
+
 const filterMappings: Record<string, string> = {
   'ID направления': 'x_concepts.id:',
-  Издатель: 'publisher:',
+  Издатель: 'display_name.search:',
   'Код страны': 'country_code:',
+}
+
+interface FormData {
+  id?: string
+  iso?: string
+  publisher?: string
+}
+interface FormDataWithQueryString extends FormData {
+  queryString: string
 }
 
 const fetchPieChartData = createAppAsyncThunk(
   `${slice.name}/fetchPieChartData`,
-  async (param: { filter: string; filterValue: string; iso: string }) => {
-    console.log(param.filter, param.filterValue)
+  async (param: any) => {
+    function transformParams(param: any): FormDataWithQueryString {
+      const transformedParams: FormData = {}
+      let queryString = ''
 
-    const mappedFilter = filterMappings[param.filter] || 'default' // Если сопоставления не найдено, используем значение по умолчанию
+      param.forEach((item: any, index: number) => {
+        const mapping = filterMappings[item.selectValue]
+
+        if (mapping) {
+          queryString += `${mapping}${item.inputValue}`
+          if (index < param.length - 1) {
+            queryString += ','
+          }
+        }
+
+        if (item.selectValue === 'ID направления') {
+          transformedParams.id = item.inputValue
+        } else if (item.selectValue === 'Код страны') {
+          transformedParams.iso = item.inputValue
+        } else if (item.selectValue === 'Издатель') {
+          transformedParams.publisher = item.inputValue
+        }
+      })
+
+      if (!transformedParams.iso) {
+        throw new Error('Код страны (iso) отсутствует в параметрах')
+      }
+
+      return { ...transformedParams, queryString }
+    }
+
+    const transformedParams = transformParams(param)
+
+    console.log(transformedParams.queryString)
 
     try {
-      const res = await editionsPubKeyAnalysisApi.getPieChartData(
-        mappedFilter,
-        param.filterValue,
-        param.iso
-      )
+      const res = await editionsPubKeyAnalysisApi.getPieChartData(transformedParams.queryString)
 
-      // dispatch(editionsPubKeyAnalysisActions.setData({ data: res.data }))
+      console.log(res.data['group_by'])
+
       return { data: res.data['group_by'] }
     } catch (e: any) {
       throw new Error(e)

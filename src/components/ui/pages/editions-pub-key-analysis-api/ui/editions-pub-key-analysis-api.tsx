@@ -68,9 +68,7 @@ export const EditionsPubKeyAnalysisApi = () => {
             <Formik
               initialValues={{ iso: 'BY', type: '' }}
               onSubmit={values => {
-                setTimeout(() => {
-                  fetchData({ iso: values.iso, type: values.type })
-                })
+                fetchData({ iso: values.iso, type: values.type })
               }}
             >
               {({
@@ -81,7 +79,7 @@ export const EditionsPubKeyAnalysisApi = () => {
                 setFieldValue,
                 values,
               }) => (
-                <Form className={s.form} onSubmit={handleSubmit}>
+                <Form className={s.form}>
                   <SelectButton
                     activeValueName={values.type}
                     itemsData={[
@@ -109,7 +107,7 @@ export const EditionsPubKeyAnalysisApi = () => {
                     value={values.iso}
                   />
                   {/*{errors.email && touched.email && errors.email}*/}
-                  <Button disabled={isSubmitting} type={'submit'}>
+                  <Button onClick={handleSubmit} type={'submit'}>
                     Поиск <Search />
                   </Button>
                 </Form>
@@ -182,8 +180,9 @@ export const EditionsPubKeyAnalysisApi = () => {
                 initialValues={{ pairs: [{ inputValue: '', selectValue: '' }] }}
                 onSubmit={values => {
                   // fetchData({ iso: values.iso, type: values.type })
+                  console.log(values)
                   alert(JSON.stringify(values, null, 2))
-                  // fetchPieChartData({ filter: values.filter, filterValue: values.iso, iso: 'US' })
+                  fetchPieChartData(values.pairs)
                 }}
               >
                 {({
@@ -202,13 +201,13 @@ export const EditionsPubKeyAnalysisApi = () => {
                           {values.pairs.map((pair, index) => (
                             <div className={s.form} key={index}>
                               <SelectButton
-                                activeValueName={pair.selectValue}
+                                activeValueName={values.pairs[index].selectValue}
                                 itemsData={[
                                   {
                                     items: allOptions
-                                      .filter(
-                                        option => !values.pairs.some(p => p.selectValue === option)
-                                      ) // Фильтруем заголовки
+                                      // .filter(
+                                      //   option => !values.pairs.some(p => p.selectValue === option)
+                                      // ) // Фильтруем заголовки
                                       .map(option => ({ label: option })), // Преобразуем строки в объекты с свойством label
                                   },
                                 ]}
@@ -230,8 +229,11 @@ export const EditionsPubKeyAnalysisApi = () => {
                               />
                             </div>
                           ))}
+                          <Button onClick={handleSubmit} type={'submit'}>
+                            Отправить
+                          </Button>
                           {values.pairs.length < allOptions.length && (
-                            <button
+                            <Button
                               onClick={() =>
                                 arrayHelpers.push({
                                   inputValue: '',
@@ -241,12 +243,11 @@ export const EditionsPubKeyAnalysisApi = () => {
                               type={'button'}
                             >
                               Добавить поле
-                            </button>
+                            </Button>
                           )}
                         </div>
                       )}
                     ></FieldArray>
-                    <Button type={'submit'}>Отправить</Button>
                   </Form>
                 )}
               </Formik>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { useActions } from '@/common/hooks/use-actions'
 import { useAppSelector } from '@/common/hooks/use-app-selector'
@@ -10,10 +10,10 @@ import { PieChart } from '@/components/ui/diagrams/pie-chart'
 import { TreeMap } from '@/components/ui/diagrams/tree-map'
 import { editionsPubKeyAnalysisActions } from '@/components/ui/pages/editions-pub-key-analysis-api'
 import { editionsPubKeyAnalysisSelectors } from '@/components/ui/pages/editions-pub-key-analysis-api/model/editions-pub-key-analysis-selectors'
-import { BarChartData, PieData, treeMapData } from '@/data'
+import { BarChartData, treeMapData } from '@/data'
 import { Search } from '@/icons'
 import { Form } from 'antd'
-import { Field, FieldArray, Formik } from 'formik'
+import { FieldArray, Formik } from 'formik'
 
 import s from './editions-pub-key-analysis-api.module.scss'
 
@@ -71,14 +71,7 @@ export const EditionsPubKeyAnalysisApi = () => {
                 fetchData({ iso: values.iso, type: values.type })
               }}
             >
-              {({
-                handleBlur,
-                handleChange,
-                handleSubmit,
-                isSubmitting,
-                setFieldValue,
-                values,
-              }) => (
+              {({ handleBlur, handleChange, handleSubmit, setFieldValue, values }) => (
                 <Form className={s.form}>
                   <SelectButton
                     activeValueName={values.type}
@@ -185,14 +178,7 @@ export const EditionsPubKeyAnalysisApi = () => {
                   fetchPieChartData(values.pairs)
                 }}
               >
-                {({
-                  handleBlur,
-                  handleChange,
-                  handleSubmit,
-                  isSubmitting,
-                  setFieldValue,
-                  values,
-                }) => (
+                {({ handleChange, handleSubmit, setFieldValue, values }) => (
                   <Form>
                     <FieldArray
                       name={'pairs'}

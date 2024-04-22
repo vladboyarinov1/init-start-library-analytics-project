@@ -1,6 +1,5 @@
 import { createAppAsyncThunk } from '@/common/utils/create-app-async-thunk'
 import { editionsPubKeyAnalysisApi } from '@/components/ui/pages/editions-pub-key-analysis-api/api/editions-pub-key-analysis-api'
-import { data } from '@/data'
 import { createSlice } from '@reduxjs/toolkit'
 
 export const slice = createSlice({

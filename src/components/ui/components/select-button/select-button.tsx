@@ -12,6 +12,8 @@ type SelectItem = { items: { label: string }[]; label?: string }
 type SelectButtonProps = {
   activeValueName: any
   itemsData: SelectItem[]
+  name: any
+  onChange?: (e: any) => void
   setFieldValue: any
   title: string
   variant: 'export' | 'primary' | 'sort'
@@ -20,11 +22,13 @@ type SelectButtonProps = {
 export const SelectButton = ({
   activeValueName,
   itemsData,
+  name,
   setFieldValue,
   title,
   variant,
 }: SelectButtonProps) => {
   const [open, setOpen] = useState<boolean>(false)
+
   // const [activeValueName, setActiveValueName] = useState<any>('')
 
   console.log(activeValueName)
@@ -64,7 +68,7 @@ export const SelectButton = ({
       <div style={{ display: 'flex', textAlign: 'center', whiteSpace: 'nowrap', width: '100%' }}>
         <Select.Root
           onOpenChange={toggleOpen}
-          onValueChange={value => setFieldValue('type', value)}
+          onValueChange={value => setFieldValue(name, value)}
           open={open}
           value={activeValueName}
         >
@@ -128,6 +132,8 @@ const CustomSelectItem = React.forwardRef<
   const indicatorClassName = clsx(s.SelectItem, {
     [s.PrimarySelectItem]: variant === 'primary',
   })
+
+  console.log(activeValueName)
 
   return (
     <Select.Item className={indicatorClassName} {...resProps} ref={forwardedRef}>

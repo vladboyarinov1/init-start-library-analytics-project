@@ -29,14 +29,9 @@ export const SelectButton = ({
 }: SelectButtonProps) => {
   const [open, setOpen] = useState<boolean>(false)
 
-  // const [activeValueName, setActiveValueName] = useState<any>('')
-
-  console.log(activeValueName)
   const toggleOpen = () => {
     setOpen(!open)
   }
-
-  console.log(activeValueName)
   const a = () => {
     if (activeValueName) {
       console.log('Export in ' + activeValueName)
@@ -59,7 +54,6 @@ export const SelectButton = ({
         <div>
           <Select.Icon>
             <div className={s.ExportButton} onClick={a}>
-              {/*la*/}
               <Export size={20} />
             </div>
           </Select.Icon>
@@ -133,8 +127,6 @@ const CustomSelectItem = React.forwardRef<
     [s.PrimarySelectItem]: variant === 'primary',
   })
 
-  console.log(activeValueName)
-
   return (
     <Select.Item className={indicatorClassName} {...resProps} ref={forwardedRef}>
       <Select.ItemText>{children}</Select.ItemText>
@@ -145,13 +137,6 @@ const CustomSelectItem = React.forwardRef<
             id={children?.toString()}
             name={children?.toString()}
           />
-          {/*<input*/}
-          {/*  checked={activeValueName === children ?? false}*/}
-          {/*  id={children?.toString()}*/}
-          {/*  name={children?.toString()}*/}
-          {/*  onChange={() => {}}*/}
-          {/*  type={'radio'}*/}
-          {/*/>*/}
         </div>
       )}
     </Select.Item>

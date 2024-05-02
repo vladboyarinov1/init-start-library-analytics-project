@@ -1,4 +1,5 @@
 import { createAppAsyncThunk } from '@/common/utils/create-app-async-thunk'
+import { paramsToQueryString } from '@/common/utils/params-to-query-string'
 import { editionsPubKeyAnalysisApi } from '@/components/ui/pages/editions-pub-key-analysis-api/api/editions-pub-key-analysis-api'
 import { createSlice } from '@reduxjs/toolkit'
 
@@ -22,36 +23,101 @@ export const slice = createSlice({
         }
       })
       .addCase(fetchPieChartData.fulfilled, (state, action) => {
-        console.log(action.payload.data)
-        const newPieChartData = action.payload.data.map((item: any) => ({
-          id: item['key_display_name'],
-          value: item.count,
-        }))
-
-        console.log(newPieChartData)
+        const newPieChartData = action.payload.data
+          .map((item: any) => ({
+            id: item['key_display_name'],
+            value: item.count,
+          }))
+          .filter(
+            (item: any) => item.id !== 'unknown' && item.value !== 'unknown' && item.value !== 0
+          )
 
         return {
           ...state,
           pieChartData: newPieChartData,
         }
       })
+      .addCase(fetchBarChartData.fulfilled, (state, action) => {
+        const newBarChartData = action.payload.data
+          .slice(0, 20)
+          .map((item: any) => ({
+            id: item['display_name'],
+            value: item['works_count'],
+          }))
+          .filter(
+            (item: any) => item.id !== 'unknown' && item.value !== 'unknown' && item.value !== 0
+          )
+
+        return {
+          ...state,
+          barChartData: newBarChartData,
+        }
+      })
+      // .addCase(fetchTreeMapData.fulfilled, (state, action) => {
+      //   const newBarChartData = action.payload.data
+      //     .slice(0, 7)
+      //     .map((item: any) => ({
+      //       id: item['display_name'],
+      //       value: item['works_count'],
+      //     }))
+      //     .filter(
+      //       (item: any) => item.id !== 'unknown' && item.value !== 'unknown' && item.value !== 0
+      //     )
+      //
+      //   return {
+      //     ...state,
+      //     barChartData: newBarChartData,
+      //   }
+      // })
+      .addCase(fetchTreeMapData.fulfilled, (state, action) => {
+        const newData = action.payload.data.slice(0, 7)
+
+        const newTreeMapData = newData
+          .filter(
+            (item: any) => item['key_display_name'] !== 'unknown' && item['key'] !== 'unknown'
+          )
+          .map((item: any) => ({
+            children: [
+              {
+                name: item.key,
+                score: item['count'],
+              },
+            ],
+            name: item['key_display_name'],
+          }))
+
+        return {
+          ...state,
+          treeMapData: {
+            children: newTreeMapData,
+          },
+        }
+      })
   },
+  //children: {
+  //     children: {
+  //       name: string
+  //       score: number
+  //     }[]
+  //     name: string
+  //   }[]
   initialState: {
+    barChartData: [],
     citationsData: [],
     pieChartData: [],
     publicationsData: [],
+    treeMapData: {},
   },
   name: 'pubKeyAnalysis',
   reducers: {},
 })
-// Определите fetchData перед созданием slice
+
 const fetchData = createAppAsyncThunk(
   `${slice.name}/fetchData`,
   async (param: { iso: string; type: string }) => {
     try {
       const res = await editionsPubKeyAnalysisApi.getData(param.iso, param.type)
 
-      // dispatch(editionsPubKeyAnalysisActions.setData({ data: res.data }))
       return { data: res.data.results }
     } catch (e: any) {
       throw new Error(e)
@@ -59,60 +125,41 @@ const fetchData = createAppAsyncThunk(
   }
 )
 
-const filterMappings: Record<string, string> = {
-  'ID направления': 'x_concepts.id:',
-  Издатель: 'display_name.search:',
-  'Код страны': 'country_code:',
-}
+const fetchBarChartData = createAppAsyncThunk(
+  `${slice.name}/fetchBarChartData`,
+  async (param: any) => {
+    const transformedParams = paramsToQueryString(param)
 
-interface FormData {
-  id?: string
-  iso?: string
-  publisher?: string
-}
-interface FormDataWithQueryString extends FormData {
-  queryString: string
-}
+    try {
+      const res = await editionsPubKeyAnalysisApi.getBarChartData(transformedParams.queryString)
 
+      return { data: res.data.results }
+    } catch (e: any) {
+      throw new Error(e)
+    }
+  }
+)
 const fetchPieChartData = createAppAsyncThunk(
   `${slice.name}/fetchPieChartData`,
   async (param: any) => {
-    function transformParams(param: any): FormDataWithQueryString {
-      const transformedParams: FormData = {}
-      let queryString = ''
-
-      param.forEach((item: any, index: number) => {
-        const mapping = filterMappings[item.selectValue]
-
-        if (mapping) {
-          queryString += `${mapping}${item.inputValue}`
-          if (index < param.length - 1) {
-            queryString += ','
-          }
-        }
-
-        if (item.selectValue === 'ID направления') {
-          transformedParams.id = item.inputValue
-        } else if (item.selectValue === 'Код страны') {
-          transformedParams.iso = item.inputValue
-        } else if (item.selectValue === 'Издатель') {
-          transformedParams.publisher = item.inputValue
-        }
-      })
-
-      if (!transformedParams.iso) {
-        throw new Error('Код страны (iso) отсутствует в параметрах')
-      }
-
-      return { ...transformedParams, queryString }
-    }
-
-    const transformedParams = transformParams(param)
-
-    console.log(transformedParams.queryString)
+    const transformedParams = paramsToQueryString(param)
 
     try {
       const res = await editionsPubKeyAnalysisApi.getPieChartData(transformedParams.queryString)
+
+      return { data: res.data['group_by'] }
+    } catch (e: any) {
+      throw new Error(e)
+    }
+  }
+)
+const fetchTreeMapData = createAppAsyncThunk(
+  `${slice.name}/fetchTreeMapData`,
+  async (param: any) => {
+    const transformedParams = paramsToQueryString(param)
+
+    try {
+      const res = await editionsPubKeyAnalysisApi.getTreeMapData(transformedParams.queryString)
 
       console.log(res.data['group_by'])
 
@@ -123,4 +170,4 @@ const fetchPieChartData = createAppAsyncThunk(
   }
 )
 
-export const asyncActions = { fetchData, fetchPieChartData }
+export const asyncActions = { fetchBarChartData, fetchData, fetchPieChartData, fetchTreeMapData }

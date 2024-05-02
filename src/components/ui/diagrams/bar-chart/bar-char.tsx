@@ -7,7 +7,7 @@ type BarCharProps = {
 export const BarChar = ({ data }: BarCharProps) => {
   return (
     <div style={{ position: 'relative' }}>
-      <div style={{ height: 600 }}>
+      <div color={'red'} style={{ height: 600 }}>
         <ResponsiveBar
           axisBottom={{ tickPadding: 10, tickSize: 0 }}
           axisLeft={null}
@@ -17,12 +17,14 @@ export const BarChar = ({ data }: BarCharProps) => {
           borderRadius={8}
           colors={['var(--color-purple-light)']}
           data={data}
+          // indexBy={'country'}
           enableLabel
-          indexBy={'country'}
-          keys={['count']}
-          label={(d: ComputedDatum<BarDatum>) => `${d.data.country}: ${d.value}`}
+          // keys={['count']}
+          indexBy={'id'}
+          keys={['value']}
+          label={(d: ComputedDatum<BarDatum>) => `${d.data.id}: ${d.value}`}
           layout={'horizontal'}
-          margin={{ bottom: 50, left: 20, right: 20, top: 30 }}
+          margin={{ bottom: 50, left: 60, right: 20, top: 30 }}
           padding={0.8}
         />
       </div>

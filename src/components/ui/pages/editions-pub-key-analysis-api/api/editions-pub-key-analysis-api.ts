@@ -1,15 +1,23 @@
 import { instance } from '@/api'
-// type Filters = 'lalal' | 'x_concepts.id:'
 
 export const editionsPubKeyAnalysisApi = {
+  getBarChartData(queryString: any) {
+    return instance.get(`sources?filter=${queryString}`)
+  },
   getData(iso: string, type: string) {
     return instance.get(`sources?filter=country_code:${iso},type:${type}`)
   },
   getPieChartData(queryString: any) {
     return instance.get(`sources?filter=${queryString}&group_by=type`)
   },
+  getTreeMapData(queryString: any) {
+    console.log(queryString)
+
+    return instance.get(`sources?filter=x_concepts.id:C41008148,type:journal&group_by=continent`)
+  },
+
   //   getPieChartData(iso?: string, id?: string, publisher?: string) {
-  //     return instance.get(`sources?filter=x_concepts.id:${id},country_code:${iso},display_name.search:${publisher}&group_by=type
+  //     return instance.get(`sources?filter=x_concepts.id:${id},country_code:s${iso},display_name.search:${publisher}&group_by=type
   // `)
   //   },
 }

@@ -4,31 +4,35 @@ import { ResponsiveTreeMap } from '@nivo/treemap'
 import s from './tree-map.module.scss'
 
 export type TreeMapProps = {
-  data: TreeMapType
+  data: {} | TreeMapType
 }
 
 export const TreeMap = ({ data }: TreeMapProps) => {
   const colors = [
-    // 'var(--color-green-primary)',
+    'var(--color-green-primary)',
     'var(--color-lime)',
     'var(--color-green-40)',
-    // 'var(--color-dark)',
-    // 'var(--color-blue)',
-    // 'var(--color-pink)',
+    'var(--color-dark)',
+    'var(--color-blue)',
+    'var(--color-pink)',
     'var(--color-purple-light)',
   ]
   const renderLegendItems = () => {
-    return data.children.map((child: any, index: number) => (
-      <div className={s.legendWrapper} key={index}>
-        <span
-          className={s.legendCircleColor}
-          style={{
-            backgroundColor: colors[index % colors.length],
-          }}
-        ></span>
-        <span>{child.name}</span>
-      </div>
-    ))
+    return (
+      data &&
+      data.children &&
+      data.children.map((child: any, index: number) => (
+        <div className={s.legendWrapper} key={index}>
+          <span
+            className={s.legendCircleColor}
+            style={{
+              backgroundColor: colors[index % colors.length],
+            }}
+          ></span>
+          <span>{child.name}</span>
+        </div>
+      ))
+    )
   }
 
   return (

@@ -39,7 +39,7 @@ export const slice = createSlice({
       })
       .addCase(fetchBarChartData.fulfilled, (state, action) => {
         const newBarChartData = action.payload.data
-          .slice(0, 20)
+          .slice(0, 9)
           .map((item: any) => ({
             id: item['display_name'],
             value: item['works_count'],
@@ -53,22 +53,6 @@ export const slice = createSlice({
           barChartData: newBarChartData,
         }
       })
-      // .addCase(fetchTreeMapData.fulfilled, (state, action) => {
-      //   const newBarChartData = action.payload.data
-      //     .slice(0, 7)
-      //     .map((item: any) => ({
-      //       id: item['display_name'],
-      //       value: item['works_count'],
-      //     }))
-      //     .filter(
-      //       (item: any) => item.id !== 'unknown' && item.value !== 'unknown' && item.value !== 0
-      //     )
-      //
-      //   return {
-      //     ...state,
-      //     barChartData: newBarChartData,
-      //   }
-      // })
       .addCase(fetchTreeMapData.fulfilled, (state, action) => {
         const newData = action.payload.data.slice(0, 7)
 
@@ -79,7 +63,7 @@ export const slice = createSlice({
           .map((item: any) => ({
             children: [
               {
-                name: item.key,
+                name: item['key_display_name'],
                 score: item['count'],
               },
             ],
@@ -93,15 +77,29 @@ export const slice = createSlice({
           },
         }
       })
+      .addCase(fetchBarChartCountryData.fulfilled, (state, action) => {
+        const newBarChartCountryData = action.payload.data
+          .slice(0, 9)
+          .map((item: any) => ({
+            id: item['key_display_name'],
+            value: item['count'],
+          }))
+          .filter((item: any) => item['id'] !== 'unknown' && item['value'] !== 0)
+
+        return {
+          ...state,
+          barChartCountryData: {
+            data: newBarChartCountryData,
+            resultCount: action.payload.data.length,
+          },
+        }
+      })
   },
-  //children: {
-  //     children: {
-  //       name: string
-  //       score: number
-  //     }[]
-  //     name: string
-  //   }[]
   initialState: {
+    barChartCountryData: {
+      data: [],
+      resultCount: null,
+    },
     barChartData: [],
     citationsData: [],
     pieChartData: [],
@@ -169,5 +167,29 @@ const fetchTreeMapData = createAppAsyncThunk(
     }
   }
 )
+const fetchBarChartCountryData = createAppAsyncThunk(
+  `${slice.name}/fetchBarChartCountryData`,
+  async (param: any) => {
+    const transformedParams = paramsToQueryString(param)
 
-export const asyncActions = { fetchBarChartData, fetchData, fetchPieChartData, fetchTreeMapData }
+    try {
+      const res = await editionsPubKeyAnalysisApi.getBarChartCountryData(
+        transformedParams.queryString
+      )
+
+      console.log(res.data['group_by'])
+
+      return { data: res.data['group_by'] }
+    } catch (e: any) {
+      throw new Error(e)
+    }
+  }
+)
+
+export const asyncActions = {
+  fetchBarChartCountryData,
+  fetchBarChartData,
+  fetchData,
+  fetchPieChartData,
+  fetchTreeMapData,
+}

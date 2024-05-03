@@ -90,6 +90,7 @@ export const slice = createSlice({
           ...state,
           barChartCountryData: {
             data: newBarChartCountryData,
+            exportData: action.payload.data,
             resultCount: action.payload.data.length,
           },
         }
@@ -98,6 +99,7 @@ export const slice = createSlice({
   initialState: {
     barChartCountryData: {
       data: [],
+      exportData: [],
       resultCount: null,
     },
     barChartData: [],

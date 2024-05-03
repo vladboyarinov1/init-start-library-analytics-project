@@ -6,6 +6,7 @@ import { BarChar } from '@/components/ui/diagrams/bar-chart'
 import { PieChart } from '@/components/ui/diagrams/pie-chart'
 import { TreeMap } from '@/components/ui/diagrams/tree-map'
 import { editionsPubKeyAnalysisSelectors } from '@/components/ui/pages/editions-pub-key-analysis-api/model/editions-pub-key-analysis-selectors'
+import DataSaver from '@/components/ui/pages/editions-pub-key-analysis-api/ui/DataSaver.tsx'
 import { Continents } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/pages/continents.tsx'
 import { Publications } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/pages/publications'
 import { Publishing } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/pages/publishing'
@@ -114,6 +115,7 @@ export const EditionsPubKeyAnalysisApi = () => {
             />
           </div>
           <BarChar data={data.barChartCountryData.data} />
+          <DataSaver data={data.barChartCountryData.exportData} />
         </div>
       )}
       {type === 'continents' && Object.keys(data.treeMapData).length && (

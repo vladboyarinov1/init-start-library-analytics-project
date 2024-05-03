@@ -7,14 +7,16 @@ type BarCharProps = {
 export const BarChar = ({ data }: BarCharProps) => {
   return (
     <div style={{ position: 'relative' }}>
-      <div color={'red'} style={{ height: 600 }}>
+      <div style={{ height: 700 }}>
         <ResponsiveBar
-          axisBottom={{ tickPadding: 10, tickSize: 0 }}
+          axisBottom={{ tickPadding: 10, tickSize: 6 }}
           axisLeft={null}
           axisRight={null}
           axisTop={null}
+          // barAriaLabel={e => e.id + ': ' + e.formattedValue + ' in country: ' + e.indexValue}
           barAriaLabel={e => e.id + ': ' + e.formattedValue + ' in country: ' + e.indexValue}
-          borderRadius={8}
+          borderRadius={6}
+          borderWidth={3}
           colors={['var(--color-purple-light)']}
           data={data}
           // indexBy={'country'}

@@ -11,6 +11,7 @@ import { RadioButton } from '../radio-button'
 type SelectItem = { items: { label: string }[]; label?: string }
 type SelectButtonProps = {
   activeValueName: any
+  data: any
   itemsData: SelectItem[]
   name: any
   onChange?: (e: any) => void
@@ -21,8 +22,10 @@ type SelectButtonProps = {
 
 export const SelectButton = ({
   activeValueName,
+  data,
   itemsData,
   name,
+  onChange,
   setFieldValue,
   title,
   variant,
@@ -32,6 +35,7 @@ export const SelectButton = ({
   const toggleOpen = () => {
     setOpen(!open)
   }
+
   const a = () => {
     if (activeValueName) {
       console.log('Export in ' + activeValueName)
@@ -62,7 +66,10 @@ export const SelectButton = ({
       <div style={{ display: 'flex', textAlign: 'center', whiteSpace: 'nowrap', width: '100%' }}>
         <Select.Root
           onOpenChange={toggleOpen}
-          onValueChange={value => setFieldValue(name, value)}
+          onValueChange={value => {
+            setFieldValue(name, value)
+            onChange && onChange(value)
+          }}
           open={open}
           value={activeValueName}
         >

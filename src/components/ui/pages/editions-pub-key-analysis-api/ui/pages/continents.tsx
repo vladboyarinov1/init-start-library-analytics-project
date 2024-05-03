@@ -11,7 +11,7 @@ import s from '@/components/ui/pages/editions-pub-key-analysis-api/ui/pages/type
 
 export const Continents = () => {
   const allOptions = ['ID направления', 'Тип публикации']
-  const { fetchTreeMapData } = useActions(editionsPubKeyAnalysisActions)
+  const { fetchBarChartCountryData } = useActions(editionsPubKeyAnalysisActions)
 
   return (
     <div>
@@ -20,7 +20,7 @@ export const Continents = () => {
         onSubmit={values => {
           // fetchData({ iso: values.iso, type: values.type })
           alert(JSON.stringify(values, null, 2))
-          fetchTreeMapData(values.pairs)
+          fetchBarChartCountryData(values.pairs)
         }}
       >
         {({ handleChange, handleSubmit, setFieldValue, values }) => (

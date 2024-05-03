@@ -1,10 +1,12 @@
 import { useState } from 'react'
 
 import { useAppSelector } from '@/common/hooks/use-app-selector'
+import { SelectButton } from '@/components/ui/components/select-button'
 import { BarChar } from '@/components/ui/diagrams/bar-chart'
 import { PieChart } from '@/components/ui/diagrams/pie-chart'
 import { TreeMap } from '@/components/ui/diagrams/tree-map'
 import { editionsPubKeyAnalysisSelectors } from '@/components/ui/pages/editions-pub-key-analysis-api/model/editions-pub-key-analysis-selectors'
+import DataSaver from '@/components/ui/pages/editions-pub-key-analysis-api/ui/DataSaver.tsx'
 import { Continents } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/pages/continents.tsx'
 import { Publications } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/pages/publications'
 import { Publishing } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/pages/publishing'
@@ -19,6 +21,9 @@ export const EditionsPubKeyAnalysisApi = () => {
   type SelectedValue = 'OA' | 'continents' | 'countries' | 'publications' | 'publishing' | 'types'
 
   const [type, setType] = useState<SelectedValue>('publications')
+  const [value, setValue] = useState('test')
+
+  console.log(value)
 
   const changeSelectedValue = (value: SelectedValue) => {
     setType(value)
@@ -54,7 +59,7 @@ export const EditionsPubKeyAnalysisApi = () => {
         </div>
         {type === 'publishing' && <Publishing />}
         {type === 'OA' && <div>OA</div>}
-        {type === 'countries' && <div>countries</div>}
+        {type === 'countries' && <Continents />}
         {type === 'continents' && <Continents />}
         {type === 'publications' && <Publications />}
         {type === 'types' && <Types />}
@@ -77,7 +82,7 @@ export const EditionsPubKeyAnalysisApi = () => {
           )}
         </div>
       )}
-      {type === 'publishing' && (
+      {type === 'publishing' && data.barChartData.length > 0 && (
         <div style={{ backgroundColor: 'white', borderRadius: 12, margin: '0 20px', padding: 10 }}>
           <BarChar data={data.barChartData} />
         </div>
@@ -88,7 +93,31 @@ export const EditionsPubKeyAnalysisApi = () => {
         </div>
       )}
       {type === 'OA' && <div>OA</div>}
-      {type === 'countries' && <div>countries</div>}
+      {type === 'countries' && (
+        <div style={{ backgroundColor: 'white', borderRadius: 12, margin: '0 20px', padding: 10 }}>
+          <div>
+            <h3>Количество изданий по издательствам</h3>
+            <h4>Результат: {data.barChartCountryData.resultCount} страны</h4>
+            <SelectButton
+              activeValueName={value}
+              data={data.barChartCountryData.data}
+              itemsData={[
+                {
+                  items: [{ label: 'World' }, { label: 'Excel' }],
+                  label: 'Group 1',
+                },
+              ]}
+              name={value}
+              onChange={setValue}
+              setFieldValue={setValue}
+              title={'opa'}
+              variant={'export'}
+            />
+          </div>
+          <BarChar data={data.barChartCountryData.data} />
+          <DataSaver data={data.barChartCountryData.exportData} />
+        </div>
+      )}
       {type === 'continents' && Object.keys(data.treeMapData).length && (
         <div>
           <div

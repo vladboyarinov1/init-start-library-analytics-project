@@ -13,7 +13,7 @@ import { RadioButton } from '../radio-button'
 type SelectItem = { items: { label: string }[]; label?: string }
 type SelectButtonProps = {
   activeValueName: any
-  data: any
+  data?: any
   itemsData: SelectItem[]
   name: any
   onChange?: (e: any) => void

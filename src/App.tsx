@@ -6,6 +6,7 @@ import { MainHeader } from '@/components/ui/components/header/header'
 import { Sidebar } from '@/components/ui/components/sidebar'
 import { AboutSearch } from '@/components/ui/pages/about-search'
 import { EditionsPubKeyAnalysisApi } from '@/components/ui/pages/editions-pub-key-analysis-api/ui'
+import { KeywordNetwork } from '@/components/ui/pages/keyword-network'
 import {
   PresentationPage,
   TimelineCell,
@@ -99,7 +100,7 @@ const visualizationData: TimelineCell[] = [
   {
     breadcrumbs: ['Аналитика и визуализация', 'Сеть ключевого слова'],
     img: <Bubbles size={40} />,
-    link: '/keyword_network',
+    link: '/keyword-network',
     title: 'Сеть ключевого слова',
   },
   {
@@ -185,6 +186,7 @@ export function App() {
                   element={<EditionsPubKeyAnalysisApi />}
                   path={'/analysis_publications_and_keywords'}
                 />
+                <Route element={<KeywordNetwork />} path={'/keyword_network'} />
               </Routes>
             </div>
           </Content>

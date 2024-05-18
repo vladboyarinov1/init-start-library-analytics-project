@@ -1,4 +1,4 @@
-import { CirclePacking as CirclePackingType } from '@/data/types.ts'
+import { CirclePacking as CirclePackingType } from '@/data/types'
 import { ResponsiveCirclePacking } from '@nivo/circle-packing'
 
 import s from './circle-packing.module.scss'
@@ -36,10 +36,11 @@ export const CirclePacking = ({
         id={'name'}
         labelTextColor={'var(--color-black)'}
         labelsSkipRadius={19}
+        layers={['circles', 'labels']}
         leavesOnly
         // margin={{ bottom: 0, left: 5, right: 5, top: 0 }}
         padding={padding}
-        theme={{ labels: { text: { fontSize: 9 } } }}
+        theme={{ labels: { text: { fontSize: 13 } } }}
         value={'score'}
       />
     </div>

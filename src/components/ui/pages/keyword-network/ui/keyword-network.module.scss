@@ -1,0 +1,22 @@
+.dashboard {
+  background-color: white;
+  padding: 30px;
+  margin: 0 20px 80px 20px;
+  border-radius: 16px;
+}
+.item {
+  display: grid;
+  //grid-template-columns: 0.7fr 2fr 0.1fr;
+  grid-template-columns: 0.7fr 2fr;
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  justify-content: flex-end;
+}

@@ -88,8 +88,8 @@ const items: MenuItem[] = [
       <DocumentText />
     ),
     getItem(
-      <Link to={'/keyword_network'}>Сеть ключевого слова</Link>,
-      '/keyword_network',
+      <Link to={'/keyword-network'}>Сеть ключевого слова</Link>,
+      '/keyword-network',
       <MdAnalistics />
     ),
     getItem(

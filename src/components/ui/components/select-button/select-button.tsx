@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 
+import { exportToExcel } from '@/common/utils/save-excel'
+import { saveWordDoc } from '@/common/utils/save-word-doc'
 import { ArrowDown, ArrowUp, Export } from '@/icons'
 import * as Select from '@radix-ui/react-select'
 import clsx from 'clsx'
@@ -11,7 +13,7 @@ import { RadioButton } from '../radio-button'
 type SelectItem = { items: { label: string }[]; label?: string }
 type SelectButtonProps = {
   activeValueName: any
-  data: any
+  data?: any
   itemsData: SelectItem[]
   name: any
   onChange?: (e: any) => void
@@ -37,11 +39,11 @@ export const SelectButton = ({
   }
 
   const a = () => {
-    if (activeValueName) {
-      console.log('Export in ' + activeValueName)
-      // setActiveValueName('')
-    } else {
-      console.log('select-button value!')
+    if (activeValueName === 'Excel') {
+      exportToExcel(data)
+    } else if (activeValueName === 'Word') {
+      console.log('export word')
+      saveWordDoc(data, 'document.docx')
     }
   }
   const WrapperClass = clsx(s.SelectTrigger, {
@@ -85,7 +87,7 @@ export const SelectButton = ({
               width: '100%',
             }}
           >
-            <Select.Value placeholder={title} />
+            <Select.Value placeholder={title}>{activeValueName || title}</Select.Value>
             <Select.Icon className={s.SelectIcon}>
               {open ? <ArrowUp size={20} /> : <ArrowDown size={20} />}
             </Select.Icon>

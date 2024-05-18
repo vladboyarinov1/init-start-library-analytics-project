@@ -32,7 +32,7 @@ export const PieChart = ({ data }: PieChartProps) => {
           data={data}
           enableArcLinkLabels={false}
           innerRadius={0.6}
-          // margin={{ bottom: 80, left: 80, right: 80, top: 40 }}
+          margin={{ bottom: 5, left: 5, right: 5, top: 5 }}
           padAngle={2}
           sortByValue
         />

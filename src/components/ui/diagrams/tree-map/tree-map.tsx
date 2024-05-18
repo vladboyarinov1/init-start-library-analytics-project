@@ -18,6 +18,8 @@ export const TreeMap = ({ data }: TreeMapProps) => {
     'var(--color-purple-light)',
   ]
   const renderLegendItems = () => {
+    console.log(data)
+
     return (
       data &&
       data.children &&

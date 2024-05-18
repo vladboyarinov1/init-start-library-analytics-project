@@ -1,4 +1,4 @@
-import { useActions } from '@/common/hooks/use-actions.ts'
+import { useActions } from '@/common/hooks/use-actions'
 import { Button } from '@/components/ui/components/button'
 import { Input } from '@/components/ui/components/input'
 import { SelectButton } from '@/components/ui/components/select-button'

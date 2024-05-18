@@ -5,7 +5,8 @@ export const editionsPubKeyAnalysisApi = {
     return instance.get(`sources?filter=${queryString}&group_by=country_code`)
   },
   getBarChartData(queryString: any) {
-    return instance.get(`sources?filter=${queryString}`)
+    // return instance.get(`sources?filter=${queryString}`)
+    return instance.get(`publishers?filter=${queryString}`)
   },
   getData(iso: string, type: string) {
     return instance.get(`sources?filter=country_code:${iso},type:${type}`)

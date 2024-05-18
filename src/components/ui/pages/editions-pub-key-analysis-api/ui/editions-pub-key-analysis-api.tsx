@@ -6,12 +6,10 @@ import { BarChar } from '@/components/ui/diagrams/bar-chart'
 import { PieChart } from '@/components/ui/diagrams/pie-chart'
 import { TreeMap } from '@/components/ui/diagrams/tree-map'
 import { editionsPubKeyAnalysisSelectors } from '@/components/ui/pages/editions-pub-key-analysis-api/model/editions-pub-key-analysis-selectors'
-import DataSaver from '@/components/ui/pages/editions-pub-key-analysis-api/ui/DataSaver.tsx'
 import { Continents } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/pages/continents.tsx'
 import { Publications } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/pages/publications'
 import { Publishing } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/pages/publishing'
 import { Types } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/pages/types'
-import { treeMapData } from '@/data'
 
 import s from './editions-pub-key-analysis-api.module.scss'
 
@@ -21,7 +19,7 @@ export const EditionsPubKeyAnalysisApi = () => {
   type SelectedValue = 'OA' | 'continents' | 'countries' | 'publications' | 'publishing' | 'types'
 
   const [type, setType] = useState<SelectedValue>('publications')
-  const [value, setValue] = useState('test')
+  const [value, setValue] = useState('')
 
   console.log(value)
 
@@ -103,19 +101,17 @@ export const EditionsPubKeyAnalysisApi = () => {
               data={data.barChartCountryData.data}
               itemsData={[
                 {
-                  items: [{ label: 'World' }, { label: 'Excel' }],
-                  label: 'Group 1',
+                  items: [{ label: 'Word' }, { label: 'Excel' }],
                 },
               ]}
               name={value}
               onChange={setValue}
               setFieldValue={setValue}
-              title={'opa'}
+              title={'Экспорт'}
               variant={'export'}
             />
           </div>
           <BarChar data={data.barChartCountryData.data} />
-          <DataSaver data={data.barChartCountryData.exportData} />
         </div>
       )}
       {type === 'continents' && Object.keys(data.treeMapData).length && (

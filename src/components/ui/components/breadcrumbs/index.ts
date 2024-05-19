@@ -7,3 +7,16 @@ const appActions = {
 }
 
 export { appActions, breadCrumbsReducer }
+
+// import {
+//   asyncActions as BreadcrumbAsyncActions,
+//   slice as breadcrumbSlice,
+// } from './breadcrumbs-slice.ts'
+//
+// const breadcrumbActions = {
+//   ...BreadcrumbAsyncActions,
+//   ...breadcrumbSlice.actions,
+// }
+// const breadcrumbReducer = breadcrumbSlice.reducer
+//
+// export { breadcrumbActions, breadcrumbReducer }

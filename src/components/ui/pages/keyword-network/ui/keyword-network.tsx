@@ -10,6 +10,7 @@ import { keywordNetworkActions } from '@/components/ui/pages/keyword-network'
 import { keywordNetworkSelectors } from '@/components/ui/pages/keyword-network/model/keyword-network-selectors'
 import { Search } from '@/icons'
 import { Form } from 'antd'
+import { Footer } from 'antd/es/layout/layout'
 import { FieldArray, Formik } from 'formik'
 
 import s from './keyword-network.module.scss'
@@ -23,12 +24,13 @@ export const KeywordNetwork = () => {
   return (
     <div>
       <div className={s.dashboard}>
+        <h2 className={s.title}>Сеть ключевого слова</h2>
         <div>
           <Formik
             initialValues={{ pairs: [{ inputValue: '', selectValue: '' }] }}
             onSubmit={values => {
               alert(JSON.stringify(values, null, 2))
-              fetchData()
+              fetchData(values.pairs)
             }}
           >
             {({ handleChange, handleSubmit, setFieldValue, values }) => (
@@ -40,17 +42,20 @@ export const KeywordNetwork = () => {
                       {values.pairs.map((pair, index) => (
                         <div className={s.item} key={index}>
                           <SelectButton
-                            activeValueName={values.pairs[index].selectValue}
+                            activeValueName={values.pairs[index].selectValue || ''}
                             itemsData={[
                               {
-                                items: allOptions2.map(option => ({ label: option })),
+                                items: allOptions2.map(option => ({
+                                  label: option,
+                                  value: option,
+                                })),
                               },
                             ]}
                             name={`pairs.${index}.selectValue`}
-                            onChange={e => {
+                            onChange={value => {
                               arrayHelpers.replace(index, {
                                 ...pair,
-                                selectValue: e.target.value,
+                                selectValue: value,
                               })
                             }}
                             setFieldValue={setFieldValue}
@@ -92,8 +97,8 @@ export const KeywordNetwork = () => {
       </div>
       {data.data.children.length > 0 && (
         <div className={s.dashboard}>
-          <div>
-            <div>Направление: {data.title}</div>
+          <div className={s.header}>
+            <h2>{data.title}</h2>
             <SelectButton
               activeValueName={value}
               data={data.exportData}
@@ -109,9 +114,7 @@ export const KeywordNetwork = () => {
               variant={'export'}
             />
           </div>
-          <div>
-            <CirclePacking data={data.data} padding={8} />
-          </div>
+          <CirclePacking data={data.data} padding={8} />
         </div>
       )}
     </div>

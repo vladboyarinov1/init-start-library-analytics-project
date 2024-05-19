@@ -1,4 +1,5 @@
 import { createAppAsyncThunk } from '@/common/utils/create-app-async-thunk'
+import { paramsToQueryString } from '@/common/utils/params-to-query-string.ts'
 import { keywordNetworkApi } from '@/components/ui/pages/keyword-network/api/keyword-network-api'
 import { createSlice } from '@reduxjs/toolkit'
 
@@ -32,10 +33,17 @@ export const slice = createSlice({
   name: 'keywordNetwork',
   reducers: {},
 })
-const fetchData = createAppAsyncThunk(`${slice.name}/fetchData`, async () => {
+const fetchData = createAppAsyncThunk(`${slice.name}/fetchData`, async (param: any) => {
   //param: { iso: string; type: string }
+  // const transformedParams = paramsToQueryString(param)
+  const transformedParams = paramsToQueryString(param, {
+    'ID направления': 'openalex_id:',
+    Wikidata: 'wikidata_id:',
+  })
+
+  console.log(transformedParams.queryString)
   try {
-    const res = await keywordNetworkApi.getData()
+    const res = await keywordNetworkApi.getData(transformedParams.queryString)
 
     return { data: res.data.results }
   } catch (e: any) {

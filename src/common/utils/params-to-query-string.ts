@@ -11,16 +11,17 @@ const filterMappings: Record<string, string> = {
   'ID направления': 'x_concepts.id:',
   Издатель: 'display_name.search:',
   'Код страны': 'country_code:',
+  //s
   'Тип направления': 'type:',
 }
 
-export function paramsToQueryString(param: any): FormDataWithQueryString {
+export function paramsToQueryString(param: any, values = filterMappings): FormDataWithQueryString {
   const transformedParams: FormData = {}
 
   let queryString = ''
 
   param.forEach((item: any, index: number) => {
-    const mapping = filterMappings[item.selectValue]
+    const mapping = values[item.selectValue]
 
     if (mapping) {
       queryString += `${mapping}${item.inputValue}`

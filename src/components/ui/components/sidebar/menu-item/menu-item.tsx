@@ -2,7 +2,9 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import { changeLink } from '@/components/ui/components/breadcrumbs/breadcrumbs-slice'
+import { useActions } from '@/common/hooks/use-actions.ts'
+import { changeLink } from '@/components/ui/components/breadcrumbs/breadcrumbs-slice.ts'
+// import { breadcrumbActions } from '@/components/ui/components/breadcrumbs'
 import {
   AnalyticsChart,
   AnalyticsGraph,
@@ -125,13 +127,15 @@ const breadcrumbMapping: any = {
 const rootSubmenuKeys = ['about_search', 'data_search', 'analytics', 'confidentiality', 'contacts']
 
 export const MenuItem = ({ collapsed }: MenuItemProps) => {
-  const dispatch = useDispatch()
+  // const { getBreadcrumb } = useActions(breadcrumbActions)
   const [openKeys, setOpenKeys] = useState(['about_search'])
+  const dispatch = useDispatch()
 
   const handleMenuClick = ({ keyPath }: any) => {
     const russianTitles = keyPath.map((key: string) => breadcrumbMapping[key] || key)
 
-    dispatch(changeLink({ path: russianTitles.reverse() }))
+    dispatch(changeLink({ path: russianTitles }))
+    // getBreadcrumb({ path: russianTitles.reverse() })
   }
 
   const onOpenChange: MenuProps['onOpenChange'] = keys => {

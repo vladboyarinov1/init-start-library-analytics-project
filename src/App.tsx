@@ -1,5 +1,7 @@
+import { useEffect } from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 
+import { useAppDispatch } from '@/common/hooks/use-app-dispatch.ts'
 import { useAppSelector } from '@/common/hooks/use-app-selector'
 import { useWindowSize } from '@/common/hooks/use-window-size'
 import { MainHeader } from '@/components/ui/components/header/header'
@@ -26,7 +28,7 @@ import {
   TransparentDoc,
 } from '@/icons'
 import { Breadcrumb, Layout } from 'antd'
-import { Content } from 'antd/es/layout/layout'
+import { Content, Footer } from 'antd/es/layout/layout'
 
 const searchPageData: TimelineCell[] = [
   {
@@ -100,7 +102,7 @@ const visualizationData: TimelineCell[] = [
   {
     breadcrumbs: ['Аналитика и визуализация', 'Сеть ключевого слова'],
     img: <Bubbles size={40} />,
-    link: '/keyword-network',
+    link: '/keyword_network',
     title: 'Сеть ключевого слова',
   },
   {
@@ -113,6 +115,8 @@ const visualizationData: TimelineCell[] = [
 
 export function App() {
   const url = useAppSelector(state => state.breadCrumbs.breadcrumbPath)
+
+  console.log(url)
 
   const { width } = useWindowSize()
   const location = useLocation()

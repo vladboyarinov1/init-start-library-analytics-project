@@ -1,13 +1,14 @@
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import { changeLink } from '@/components/ui/components/breadcrumbs/breadcrumbs-slice'
+import { changeLink } from '@/components/ui/components/breadcrumbs/breadcrumbs-slice.ts'
 import { TimelineCell } from '@/components/ui/pages/presentation-page/presentation-page'
 
 import s from './timeline.module.scss'
 
 const TimelineItem = ({ breadcrumbs, img, link, title }: TimelineCell) => {
   const dispatch = useDispatch()
+  // const { getBreadcrumb } = useActions(breadcrumbActions)
   const onClickHandler = (path: string[]) => {
     dispatch(changeLink({ path }))
   }

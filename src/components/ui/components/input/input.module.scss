@@ -8,12 +8,12 @@
   outline: none;
   padding: 11px 5px;
   border-radius: 6px;
-  box-shadow: inset 20px 20px 0px 20px white; //убирает синий цвет при автоподборе
+  box-shadow: inset 20px 20px 20px 20px white;
   &::placeholder {
     color: #929292;
   }
   &:hover {
-    box-shadow: inset 20px 20px 0px 20px var(--color-black-desaturated);
+    box-shadow: inset 20px 20px 20px 20px var(--color-black-desaturated);
   }
 }
 

@@ -28,7 +28,7 @@ import {
   TransparentDoc,
 } from '@/icons'
 import { Breadcrumb, Layout } from 'antd'
-import { Content, Footer } from 'antd/es/layout/layout'
+import { Content } from 'antd/es/layout/layout'
 
 const searchPageData: TimelineCell[] = [
   {
@@ -115,8 +115,6 @@ const visualizationData: TimelineCell[] = [
 
 export function App() {
   const url = useAppSelector(state => state.breadCrumbs.breadcrumbPath)
-
-  console.log(url)
 
   const { width } = useWindowSize()
   const location = useLocation()

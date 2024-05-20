@@ -27,25 +27,24 @@ export const Types = () => {
             <FieldArray
               name={'pairs'}
               render={arrayHelpers => (
-                <div>
+                <div className={s.form}>
                   {values.pairs.map((pair, index) => (
                     <div className={s.item} key={index}>
                       <SelectButton
-                        activeValueName={values.pairs[index].selectValue}
+                        activeValueName={values.pairs[index].selectValue || ''}
                         itemsData={[
                           {
-                            items: allOptions
-                              // .filter(
-                              //   option => !values.pairs.some(p => p.selectValue === option)
-                              // ) // Фильтруем заголовки
-                              .map(option => ({ label: option })), // Преобразуем строки в объекты с свойством label
+                            items: allOptions.map(option => ({
+                              label: option,
+                              value: option,
+                            })),
                           },
                         ]}
                         name={`pairs.${index}.selectValue`}
-                        onChange={e => {
+                        onChange={value => {
                           arrayHelpers.replace(index, {
                             ...pair,
-                            selectValue: e.target.value,
+                            selectValue: value,
                           })
                         }}
                         setFieldValue={setFieldValue}

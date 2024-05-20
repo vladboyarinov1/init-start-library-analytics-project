@@ -11,8 +11,9 @@ const filterMappings: Record<string, string> = {
   'ID направления': 'x_concepts.id:',
   Издатель: 'display_name.search:',
   'Код страны': 'country_code:',
-  //s
+  'Тип издания': 'type:',
   'Тип направления': 'type:',
+  'Тип публикации': 'type:',
 }
 
 export function paramsToQueryString(param: any, values = filterMappings): FormDataWithQueryString {
@@ -28,6 +29,8 @@ export function paramsToQueryString(param: any, values = filterMappings): FormDa
       if (index < param.length - 1) {
         queryString += ','
       }
+    } else {
+      alert('mimo')
     }
 
     if (item.selectValue === 'ID направления') {
@@ -38,6 +41,8 @@ export function paramsToQueryString(param: any, values = filterMappings): FormDa
       transformedParams.publisher = item.inputValue
     } else if (item.selectValue === 'Тип публикации') {
       transformedParams.type = item.inputValue
+    } else {
+      alert('mimo')
     }
   })
 

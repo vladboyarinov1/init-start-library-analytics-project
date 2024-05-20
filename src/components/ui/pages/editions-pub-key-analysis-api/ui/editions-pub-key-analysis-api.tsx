@@ -6,7 +6,8 @@ import { BarChar } from '@/components/ui/diagrams/bar-chart'
 import { PieChart } from '@/components/ui/diagrams/pie-chart'
 import { TreeMap } from '@/components/ui/diagrams/tree-map'
 import { editionsPubKeyAnalysisSelectors } from '@/components/ui/pages/editions-pub-key-analysis-api/model/editions-pub-key-analysis-selectors'
-import { Continents } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/pages/continents.tsx'
+import { Continents } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/pages/continents'
+import { Countries } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/pages/countries'
 import { Publications } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/pages/publications'
 import { Publishing } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/pages/publishing'
 import { Types } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/pages/types'
@@ -39,7 +40,7 @@ export const EditionsPubKeyAnalysisApi = () => {
     )
   }
 
-  console.log(data.barChartData)
+  console.log(data.treeMapData)
 
   return (
     <div>
@@ -57,7 +58,7 @@ export const EditionsPubKeyAnalysisApi = () => {
         </div>
         {type === 'publishing' && <Publishing />}
         {type === 'OA' && <div>OA</div>}
-        {type === 'countries' && <Continents />}
+        {type === 'countries' && <Countries />}
         {type === 'continents' && <Continents />}
         {type === 'publications' && <Publications />}
         {type === 'types' && <Types />}
@@ -91,14 +92,16 @@ export const EditionsPubKeyAnalysisApi = () => {
         </div>
       )}
       {type === 'OA' && <div>OA</div>}
-      {type === 'countries' && (
-        <div style={{ backgroundColor: 'white', borderRadius: 12, margin: '0 20px', padding: 10 }}>
-          <div>
-            <h3>Количество изданий по издательствам</h3>
-            <h4>Результат: {data.barChartCountryData.resultCount} страны</h4>
+      {type === 'countries' && data.barChartCountryData.data.length > 0 && (
+        <div className={s.dashboard}>
+          <div className={s.content}>
+            <div className={s.info}>
+              <h2>Количество изданий по издательствам</h2>
+              <h4>Результат: {data.barChartCountryData.resultCount} страны</h4>
+            </div>
             <SelectButton
               activeValueName={value}
-              data={data.barChartCountryData.data}
+              data={data.barChartCountryData.exportData}
               itemsData={[
                 {
                   items: [{ label: 'Word' }, { label: 'Excel' }],
@@ -114,7 +117,7 @@ export const EditionsPubKeyAnalysisApi = () => {
           <BarChar data={data.barChartCountryData.data} />
         </div>
       )}
-      {type === 'continents' && Object.keys(data.treeMapData).length && (
+      {type === 'continents' && Object.keys(data.treeMapData).length > 0 && (
         <div>
           <div
             style={{ backgroundColor: 'white', borderRadius: 12, margin: '0 20px', padding: 10 }}

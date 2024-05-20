@@ -72,24 +72,24 @@ const items: MenuItem[] = [
     ),
     getItem(
       <Link to={'/dynamics'}>Динамика публикаций/цитирований</Link>,
-      '/dynamics',
+      'dynamics',
       <AnalyticsChart />
     ),
     getItem(
       <Link to={'/analysis_publications_and_keywords'}>
         Издания: анализ публикаций и ключевых слов
       </Link>,
-      '/analysis_publications_and_keywords',
+      'analysis_publications_and_keywords',
       <List />
     ),
     getItem(
       <Link to={'/publications_by_keywords'}>Публикации по ключевым словам</Link>,
-      '/publications_by_keywords',
+      'publications_by_keywords',
       <DocumentText />
     ),
     getItem(
       <Link to={'/keyword_network'}>Сеть ключевого слова</Link>,
-      '/keyword-network',
+      'keyword_network',
       <MdAnalistics />
     ),
     getItem(

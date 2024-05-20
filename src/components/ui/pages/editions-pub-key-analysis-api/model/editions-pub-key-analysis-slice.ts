@@ -70,6 +70,8 @@ export const slice = createSlice({
             name: item['key_display_name'],
           }))
 
+        console.log(newTreeMapData)
+
         return {
           ...state,
           treeMapData: {
@@ -78,6 +80,7 @@ export const slice = createSlice({
         }
       })
       .addCase(fetchBarChartCountryData.fulfilled, (state, action) => {
+        debugger
         const newBarChartCountryData = action.payload.data
           .slice(0, 9)
           .map((item: any) => ({
@@ -160,8 +163,6 @@ const fetchTreeMapData = createAppAsyncThunk(
 
     try {
       const res = await editionsPubKeyAnalysisApi.getTreeMapData(transformedParams.queryString)
-
-      console.log(res.data['group_by'])
 
       return { data: res.data['group_by'] }
     } catch (e: any) {

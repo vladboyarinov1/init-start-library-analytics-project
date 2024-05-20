@@ -1,4 +1,4 @@
-import { useActions } from '@/common/hooks/use-actions.ts'
+import { useActions } from '@/common/hooks/use-actions'
 import { Button } from '@/components/ui/components/button'
 import { Input } from '@/components/ui/components/input'
 import { SelectButton } from '@/components/ui/components/select-button'
@@ -11,16 +11,15 @@ import s from '@/components/ui/pages/editions-pub-key-analysis-api/ui/pages/type
 
 export const Continents = () => {
   const allOptions = ['ID направления', 'Тип публикации']
-  const { fetchBarChartCountryData } = useActions(editionsPubKeyAnalysisActions)
+  const { fetchTreeMapData } = useActions(editionsPubKeyAnalysisActions)
 
   return (
     <div>
       <Formik
         initialValues={{ pairs: [{ inputValue: '', selectValue: '' }] }}
         onSubmit={values => {
-          // fetchData({ iso: values.iso, type: values.type })
           alert(JSON.stringify(values, null, 2))
-          fetchBarChartCountryData(values.pairs)
+          fetchTreeMapData(values.pairs)
         }}
       >
         {({ handleChange, handleSubmit, setFieldValue, values }) => (
@@ -28,25 +27,24 @@ export const Continents = () => {
             <FieldArray
               name={'pairs'}
               render={arrayHelpers => (
-                <div>
+                <div className={s.form}>
                   {values.pairs.map((pair, index) => (
                     <div className={s.item} key={index}>
                       <SelectButton
-                        activeValueName={values.pairs[index].selectValue}
+                        activeValueName={values.pairs[index].selectValue || ''}
                         itemsData={[
                           {
-                            items: allOptions
-                              // .filter(
-                              //   option => !values.pairs.some(p => p.selectValue === option)
-                              // ) // Фильтруем заголовки
-                              .map(option => ({ label: option })), // Преобразуем строки в объекты с свойством label
+                            items: allOptions.map(option => ({
+                              label: option,
+                              value: option,
+                            })),
                           },
                         ]}
                         name={`pairs.${index}.selectValue`}
-                        onChange={e => {
+                        onChange={value => {
                           arrayHelpers.replace(index, {
                             ...pair,
-                            selectValue: e.target.value,
+                            selectValue: value,
                           })
                         }}
                         setFieldValue={setFieldValue}

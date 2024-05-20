@@ -10,7 +10,6 @@ import { keywordNetworkActions } from '@/components/ui/pages/keyword-network'
 import { keywordNetworkSelectors } from '@/components/ui/pages/keyword-network/model/keyword-network-selectors'
 import { Search } from '@/icons'
 import { Form } from 'antd'
-import { Footer } from 'antd/es/layout/layout'
 import { FieldArray, Formik } from 'formik'
 
 import s from './keyword-network.module.scss'

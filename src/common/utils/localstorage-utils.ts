@@ -1,5 +1,3 @@
-import { RootState } from '@/common/types/common-types.ts'
-
 export const loadState = () => {
   try {
     const serializedState = localStorage.getItem('state')

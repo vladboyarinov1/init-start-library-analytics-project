@@ -1,7 +1,5 @@
-import { useEffect } from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 
-import { useAppDispatch } from '@/common/hooks/use-app-dispatch.ts'
 import { useAppSelector } from '@/common/hooks/use-app-selector'
 import { useWindowSize } from '@/common/hooks/use-window-size'
 import { MainHeader } from '@/components/ui/components/header/header'

@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import { useActions } from '@/common/hooks/use-actions.ts'
 import { changeLink } from '@/components/ui/components/breadcrumbs/breadcrumbs-slice.ts'
 // import { breadcrumbActions } from '@/components/ui/components/breadcrumbs'
 import {

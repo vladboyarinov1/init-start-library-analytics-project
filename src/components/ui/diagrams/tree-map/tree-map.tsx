@@ -17,13 +17,11 @@ export const TreeMap = ({ data }: TreeMapProps) => {
     'var(--color-pink)',
     'var(--color-purple-light)',
   ]
-  const renderLegendItems = () => {
-    console.log(data)
 
-    return (
-      data &&
-      data.children &&
-      data.children.map((child: any, index: number) => (
+  const renderLegendItems = () => {
+    // Проверка, что data имеет структуру TreeMapType
+    if ('children' in data) {
+      return data.children.map((child: any, index: number) => (
         <div className={s.legendWrapper} key={index}>
           <span
             className={s.legendCircleColor}
@@ -34,7 +32,9 @@ export const TreeMap = ({ data }: TreeMapProps) => {
           <span>{child.name}</span>
         </div>
       ))
-    )
+    }
+
+    return null
   }
 
   return (
@@ -67,7 +67,7 @@ export const TreeMap = ({ data }: TreeMapProps) => {
           valueFormat={' >-0,.2~f'}
         />
       </div>
-      <div style={{ display: 'flex', flexWrap: 'wrap' }}> {renderLegendItems()}</div>
+      <div style={{ display: 'flex', flexWrap: 'wrap' }}>{renderLegendItems()}</div>
     </div>
   )
 }

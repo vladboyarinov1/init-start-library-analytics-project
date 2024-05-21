@@ -2,7 +2,6 @@ import { useState } from 'react'
 
 import { useAppSelector } from '@/common/hooks/use-app-selector'
 import { ChartSection } from '@/components/ui/components/chart-section'
-import { SelectButton } from '@/components/ui/components/select-button'
 import { BarChar } from '@/components/ui/diagrams/bar-chart'
 import { PieChart } from '@/components/ui/diagrams/pie-chart'
 import { TreeMap } from '@/components/ui/diagrams/tree-map'
@@ -21,7 +20,6 @@ export const EditionsPubKeyAnalysisApi = () => {
   type SelectedValue = 'OA' | 'continents' | 'countries' | 'publications' | 'publishing' | 'types'
 
   const [type, setType] = useState<SelectedValue>('publications')
-  const [value, setValue] = useState('')
 
   const changeSelectedValue = (value: SelectedValue) => {
     setType(value)

@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { CirclePacking as CirclePackingType } from '@/data'
-
+import { CirclePacking as CirclePackingType } from '../../../../common/data'
 import { CirclePacking } from './circle-packing.tsx'
 type CirclePackingProps = {
   borderColor?: string

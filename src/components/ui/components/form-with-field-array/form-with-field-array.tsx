@@ -19,7 +19,7 @@ export const FormWithFieldArray: React.FC<FormWithFieldArrayProps> = ({ allOptio
       <Formik
         initialValues={{ pairs: [{ inputValue: '', selectValue: '' }] }}
         onSubmit={values => {
-          alert(JSON.stringify(values, null, 2))
+          // alert(JSON.stringify(values, null, 2))
           onSubmit(values.pairs)
         }}
       >

@@ -1,4 +1,101 @@
-import { CirclePacking, Linear, PieChart, RadialBar, TreeMap } from '@/data/types'
+import { CirclePacking, Linear, PieChart, RadialBar, TreeMap } from '@/common/data/types'
+import { TimelineCell } from '@/components/ui/pages/presentation-page/presentation-page'
+import {
+  AnalyticsChart,
+  AtomicScience,
+  Author,
+  Bubbles,
+  Campus,
+  DocumentText,
+  IndexH,
+  Printer,
+  Quotes,
+  Science,
+  SearchBook,
+  TransparentDoc,
+} from '@/icons'
+export const searchPageData: TimelineCell[] = [
+  {
+    breadcrumbs: ['Поиск данных', 'Публикации'],
+    img: <DocumentText size={40} />,
+    link: '/publications',
+    title: 'Публикации',
+  },
+  {
+    breadcrumbs: ['Поиск данных', 'Авторы'],
+    img: <Author size={40} />,
+    link: '/authors',
+    title: 'Авторы',
+  },
+  {
+    breadcrumbs: ['Поиск данных', 'Организации'],
+    img: <Campus size={40} />,
+    link: '/organizations',
+    title: 'Организации',
+  },
+  {
+    breadcrumbs: ['Поиск данных', 'Цитирования'],
+    img: <Quotes size={40} />,
+    link: '/citation',
+    title: 'Цитирования',
+  },
+  {
+    breadcrumbs: ['Поиск данных', 'Научное направление'],
+    img: <Science size={40} />,
+    link: '/scientific_direction',
+    title: 'Научное направление',
+  },
+  {
+    breadcrumbs: ['Поиск данных', 'Индекс h'],
+    img: <IndexH size={40} />,
+    link: '/index_h',
+    title: 'Индекс h',
+  },
+  {
+    breadcrumbs: ['Поиск данных', 'Источник публикаций(Уточнить)'],
+    img: <Printer size={40} />,
+    link: '/source_publications',
+    title: 'Источник публикаций(Уточнить)',
+  },
+]
+export const visualizationData: TimelineCell[] = [
+  {
+    breadcrumbs: ['Аналитика и визуализация', 'Организации: анализ публикаций'],
+    img: <Campus size={40} />,
+    link: '/analysis_publications',
+    title: 'Организации: анализ публикаций',
+  },
+  {
+    breadcrumbs: ['Аналитика и визуализация', 'Динамика публикаций/цитирований'],
+    img: <AnalyticsChart size={40} />,
+    link: '/dynamics',
+    title: 'Динамика публикаций/цитирований',
+  },
+  {
+    breadcrumbs: ['Аналитика и визуализация', 'Издания: анализ публикаций и ключевых слов'],
+    img: <SearchBook size={40} />,
+    link: '/analysis_publications_and_keywords',
+    title: 'Издания: анализ публикаций и ключевых слов',
+  },
+  {
+    breadcrumbs: ['Аналитика и визуализация', 'Публикации по ключевым словам'],
+    img: <TransparentDoc size={40} />,
+    link: '/publications_by_keywords',
+    title: 'Публикации по ключевым словам',
+  },
+  {
+    breadcrumbs: ['Аналитика и визуализация', 'Сеть ключевого слова'],
+    img: <Bubbles size={40} />,
+    link: '/keyword_network',
+    title: 'Сеть ключевого слова',
+  },
+  {
+    breadcrumbs: ['Аналитика и визуализация', 'Научная сфера организации'],
+    img: <AtomicScience size={40} />,
+    link: '/scientific_field_organizations',
+    title: 'Научная сфера организации',
+  },
+]
 
 export const data: Linear[] = [
   {

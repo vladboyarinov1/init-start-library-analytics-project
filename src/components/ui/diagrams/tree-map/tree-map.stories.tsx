@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { TreeMap as TreeMapType } from '@/data'
-
+import { TreeMap as TreeMapType } from '../../../../common/data'
 import { TreeMap } from './tree-map.tsx'
 
 export type TreeMapProps = {

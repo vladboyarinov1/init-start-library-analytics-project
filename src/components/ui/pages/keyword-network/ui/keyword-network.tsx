@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import { useActions } from '@/common/hooks/use-actions'
 import { useAppSelector } from '@/common/hooks/use-app-selector'
+import { ChartSection } from '@/components/ui/components/chart-section'
 import { FormWithFieldArray } from '@/components/ui/components/form-with-field-array'
 import { SelectButton } from '@/components/ui/components/select-button'
 import { CirclePacking } from '@/components/ui/diagrams/circle-packing'
@@ -14,7 +15,6 @@ export const KeywordNetwork = () => {
   const allOptions = ['ID направления', 'Wikidata']
   const { fetchData } = useActions(keywordNetworkActions)
   const data = useAppSelector(keywordNetworkSelectors).data
-  const [value, setValue] = useState('')
 
   return (
     <div>
@@ -25,26 +25,9 @@ export const KeywordNetwork = () => {
         </div>
       </div>
       {data.data.children.length > 0 && (
-        <div className={s.dashboard}>
-          <div className={s.header}>
-            <h2>{data.title}</h2>
-            <SelectButton
-              activeValueName={value}
-              data={data.exportData}
-              itemsData={[
-                {
-                  items: [{ label: 'Word' }, { label: 'Excel' }],
-                },
-              ]}
-              name={value}
-              onChange={setValue}
-              setFieldValue={setValue}
-              title={'Экспорт'}
-              variant={'export'}
-            />
-          </div>
+        <ChartSection data={data.data} title={data.title || ''}>
           <CirclePacking data={data.data} padding={8} />
-        </div>
+        </ChartSection>
       )}
     </div>
   )

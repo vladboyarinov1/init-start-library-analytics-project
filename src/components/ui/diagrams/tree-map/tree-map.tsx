@@ -1,7 +1,8 @@
-import { TreeMap as TreeMapType } from '@/data'
 import { ResponsiveTreeMap } from '@nivo/treemap'
 
 import s from './tree-map.module.scss'
+
+import { TreeMap as TreeMapType } from '../../../../common/data'
 
 export type TreeMapProps = {
   data: {} | TreeMapType

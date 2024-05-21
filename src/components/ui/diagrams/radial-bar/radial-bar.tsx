@@ -1,8 +1,9 @@
 import { RLegend } from '@/components/ui/diagrams/radial-bar/legend/radial-legend.tsx'
-import { RadialBar as RadialBarType } from '@/data'
 import { ResponsiveRadialBar } from '@nivo/radial-bar'
 
 import s from './radial-bar.module.scss'
+
+import { RadialBar as RadialBarType } from '../../../../common/data'
 
 type RadialBarProps = {
   data: RadialBarType[]

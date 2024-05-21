@@ -22,8 +22,6 @@ export const EditionsPubKeyAnalysisApi = () => {
   const [type, setType] = useState<SelectedValue>('publications')
   const [value, setValue] = useState('')
 
-  console.log(value)
-
   const changeSelectedValue = (value: SelectedValue) => {
     setType(value)
   }

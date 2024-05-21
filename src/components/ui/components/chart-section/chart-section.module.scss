@@ -1,0 +1,23 @@
+.wrapper {
+  margin: 0 20px;
+  background-color: white;
+  border-radius: 16px;
+  padding: 30px;
+}
+.container {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+.title {
+  margin: 20px 0;
+  font-size: 24px;
+}
+.count {
+  font-size: 17px;
+  color: var(--color-black-60);
+  font-weight: 400;
+}
+.children {
+  margin-top: 20px;
+}

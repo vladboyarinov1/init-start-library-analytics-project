@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import { useAppSelector } from '@/common/hooks/use-app-selector'
+import { ChartSection } from '@/components/ui/components/chart-section'
 import { SelectButton } from '@/components/ui/components/select-button'
 import { BarChar } from '@/components/ui/diagrams/bar-chart'
 import { PieChart } from '@/components/ui/diagrams/pie-chart'
@@ -37,8 +38,6 @@ export const EditionsPubKeyAnalysisApi = () => {
       </button>
     )
   }
-
-  console.log(data.treeMapData)
 
   return (
     <div>
@@ -80,49 +79,37 @@ export const EditionsPubKeyAnalysisApi = () => {
         </div>
       )}
       {type === 'publishing' && data.barChartData.length > 0 && (
-        <div style={{ backgroundColor: 'white', borderRadius: 12, margin: '0 20px', padding: 10 }}>
+        <ChartSection data={data.barChartData} title={'Количество изданий по издательствам'}>
           <BarChar data={data.barChartData} />
-        </div>
+        </ChartSection>
       )}
       {type === 'types' && (
-        <div>
+        <ChartSection
+          count={data.pieChartData.length}
+          data={data.pieChartData}
+          title={'Научное направление: количество изданий по типам'}
+        >
           <PieChart data={data.pieChartData} />
-        </div>
+        </ChartSection>
       )}
-      {type === 'OA' && <div>OA</div>}
+      {type === 'OA' && <div> oa </div>}
       {type === 'countries' && data.barChartCountryData.data.length > 0 && (
-        <div className={s.dashboard}>
-          <div className={s.content}>
-            <div className={s.info}>
-              <h2>Количество изданий по издательствам</h2>
-              <h4>Результат: {data.barChartCountryData.resultCount} страны</h4>
-            </div>
-            <SelectButton
-              activeValueName={value}
-              data={data.barChartCountryData.exportData}
-              itemsData={[
-                {
-                  items: [{ label: 'Word' }, { label: 'Excel' }],
-                },
-              ]}
-              name={value}
-              onChange={setValue}
-              setFieldValue={setValue}
-              title={'Экспорт'}
-              variant={'export'}
-            />
-          </div>
+        <ChartSection
+          count={data.barChartCountryData.resultCount}
+          data={data.barChartCountryData.data}
+          title={'Количество изданий по издательствам'}
+        >
           <BarChar data={data.barChartCountryData.data} />
-        </div>
+        </ChartSection>
       )}
+
       {type === 'continents' && Object.keys(data.treeMapData).length > 0 && (
-        <div>
-          <div
-            style={{ backgroundColor: 'white', borderRadius: 12, margin: '0 20px', padding: 10 }}
-          >
-            <TreeMap data={data.treeMapData} />
-          </div>
-        </div>
+        <ChartSection
+          data={data.treeMapData}
+          title={'Научное направление: количество изданий по континентам'}
+        >
+          <TreeMap data={data.treeMapData} />
+        </ChartSection>
       )}
     </div>
   )

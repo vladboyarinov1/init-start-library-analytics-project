@@ -42,7 +42,6 @@ export const SelectButton = ({
     if (activeValueName === 'Excel') {
       exportToExcel(data)
     } else if (activeValueName === 'Word') {
-      console.log('export word')
       saveWordDoc(data, 'document.docx')
     }
   }

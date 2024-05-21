@@ -78,7 +78,6 @@ export const slice = createSlice({
         }
       })
       .addCase(fetchBarChartCountryData.fulfilled, (state, action) => {
-        debugger
         const newBarChartCountryData = action.payload.data
           .slice(0, 9)
           .map((item: any) => ({
@@ -176,8 +175,6 @@ const fetchBarChartCountryData = createAppAsyncThunk(
       const res = await editionsPubKeyAnalysisApi.getBarChartCountryData(
         transformedParams.queryString
       )
-
-      console.log(res.data['group_by'])
 
       return { data: res.data['group_by'] }
     } catch (e: any) {

@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { RadialBar as RadialBarType } from '@/data'
-
+import { RadialBar as RadialBarType } from '../../../../common/data'
 import { RadialBar } from './radial-bar.tsx'
 
 type RadialBarProps = {

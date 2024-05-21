@@ -5,7 +5,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-end;
-    padding: 20px 20px 20px 0;
+    padding: 45px 20px 30px 0;
     gap: 10px;
     background: var(--color-green-desaturated);
     & > li {
@@ -25,7 +25,7 @@
     flex-shrink: 0;
     & > ul {
       justify-content: space-between;
-      padding: 20px;
+      padding: 45px 20px 20px 20px;
       gap: 15px;
       & > li {
         margin-right: 0;

@@ -115,18 +115,17 @@ export const slice = createSlice({
   reducers: {},
 })
 
-const fetchData = createAppAsyncThunk(
-  `${slice.name}/fetchData`,
-  async (param: { iso: string; type: string }) => {
-    try {
-      const res = await editionsPubKeyAnalysisApi.getData(param.iso, param.type)
+const fetchData = createAppAsyncThunk(`${slice.name}/fetchData`, async (param: any) => {
+  const transformedParams = paramsToQueryString(param)
 
-      return { data: res.data.results }
-    } catch (e: any) {
-      throw new Error(e)
-    }
+  try {
+    const res = await editionsPubKeyAnalysisApi.getData(transformedParams.queryString)
+
+    return { data: res.data.results }
+  } catch (e: any) {
+    throw new Error(e)
   }
-)
+})
 
 const fetchBarChartData = createAppAsyncThunk(
   `${slice.name}/fetchBarChartData`,

@@ -3,6 +3,7 @@ import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 
 import { useAppSelector } from '@/common/hooks/use-app-selector'
 import { useWindowSize } from '@/common/hooks/use-window-size'
+import { PagesFooter } from '@/components/ui/components/footer'
 import { MainHeader } from '@/components/ui/components/header/header'
 import { Sidebar } from '@/components/ui/components/sidebar'
 import { AboutSearch } from '@/components/ui/pages/about-search'
@@ -143,8 +144,7 @@ export function App() {
     <Layout
       style={{
         backgroundColor: 'var(--color-green-desaturated)',
-        // height: isMobile ? '' : '100vh',
-        // minHeight: '100vh',
+        minHeight: '100vh',
       }}
     >
       {isPathNotInSearchPages ? (
@@ -160,11 +160,11 @@ export function App() {
           marginLeft: `${
             isMobile ? '0' : collapsed ? '80px' : !isPathNotInSearchPages ? '0' : '250px'
           }`,
-          marginTop: `${isMobile && isPathNotInSearchPages ? '60px' : 0}`,
+          marginTop: `${isMobile && isPathNotInSearchPages ? '30px' : 0}`,
           // overflowY: 'auto',
         }}
       >
-        <Content style={{ minHeight: '100vh', overflow: 'initial' }}>
+        <Content style={{ flex: '1 0 auto', overflow: 'initial' }}>
           {isPathNotInSearchPages ? (
             <Breadcrumb
               items={url.map((i: string) => ({ title: i }))}
@@ -208,11 +208,7 @@ export function App() {
             </Routes>
           </div>
         </Content>
-        {isPathNotInSearchPages && (
-          <Footer style={{ backgroundColor: 'yellowgreen', textAlign: 'center' }}>
-            dwadadawda
-          </Footer>
-        )}
+        {isPathNotInSearchPages && <PagesFooter />}
       </Layout>
     </Layout>
   )

@@ -1,0 +1,35 @@
+.footer {
+  flex-shrink: 0;
+
+  & > ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    padding: 20px 20px 20px 0;
+    gap: 10px;
+    background: var(--color-green-desaturated);
+    & > li {
+      margin-right: 100px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+      & > a {
+        color: var(--color-black-60);
+      }
+    }
+  }
+}
+@media screen and (max-width: 820px) {
+  .footer {
+    flex-shrink: 0;
+    & > ul {
+      justify-content: space-between;
+      padding: 20px;
+      gap: 15px;
+      & > li {
+        margin-right: 0;
+      }
+    }
+  }
+}

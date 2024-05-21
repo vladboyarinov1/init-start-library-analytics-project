@@ -10,8 +10,11 @@ import { SidebarLogo } from './sidebar-logo'
 
 const { Sider } = Layout
 
-export const Sidebar = () => {
-  const [collapsed, setCollapsed] = useState(false)
+type SidebarProps = {
+  collapsed: boolean
+  setCollapsed: any
+}
+export const Sidebar = ({ collapsed, setCollapsed }: SidebarProps) => {
   const [_logoVisible, setLogoVisible] = useState(true)
 
   const toggleSidebar = () => {
@@ -22,9 +25,17 @@ export const Sidebar = () => {
   return (
     <div
       style={{
+        backgroundColor: 'white',
+        borderRadius: '0 10px 10px 0',
+        bottom: 0,
         display: 'flex',
         flexDirection: 'column',
+        height: '100vh',
         justifyContent: 'space-between',
+        left: 0,
+        overflow: 'auto',
+        position: 'fixed',
+        top: 0,
       }}
     >
       <div>
@@ -39,7 +50,14 @@ export const Sidebar = () => {
           </div>
           <div> {!collapsed && <SidebarLogo />}</div>
         </div>
-        <Sider className={s.sidebar} collapsed={collapsed} collapsible trigger={null} width={256}>
+        <Sider
+          className={s.sidebar}
+          collapsed={collapsed}
+          collapsible
+          theme={'light'}
+          trigger={null}
+          width={256}
+        >
           <MenuItem collapsed={collapsed} setCollapsed={setCollapsed} />
         </Sider>
       </div>

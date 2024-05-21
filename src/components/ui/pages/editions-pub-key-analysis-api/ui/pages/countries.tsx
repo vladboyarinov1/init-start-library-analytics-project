@@ -6,5 +6,9 @@ export const Countries = () => {
   const { fetchBarChartCountryData } = useActions(editionsPubKeyAnalysisActions)
   const allOptions = ['ID направления', 'Тип публикации']
 
-  return <FormWithFieldArray allOptions={allOptions} onSubmit={fetchBarChartCountryData} />
+  return (
+    <div>
+      <FormWithFieldArray allOptions={allOptions} onSubmit={fetchBarChartCountryData} />
+    </div>
+  )
 }

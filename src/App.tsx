@@ -144,8 +144,6 @@ export function App() {
     <Layout
       style={{
         backgroundColor: 'var(--color-green-desaturated)',
-        // display: 'flex',
-        // flexDirection: 'column',
         minHeight: '100vh',
       }}
     >
@@ -162,11 +160,11 @@ export function App() {
           marginLeft: `${
             isMobile ? '0' : collapsed ? '80px' : !isPathNotInSearchPages ? '0' : '250px'
           }`,
-          marginTop: `${isMobile && isPathNotInSearchPages ? '60px' : 0}`,
+          marginTop: `${isMobile && isPathNotInSearchPages ? '30px' : 0}`,
           // overflowY: 'auto',
         }}
       >
-        <Content style={{ flex: '1 0 auto', overflow: 'initial', padding: '24px' }}>
+        <Content style={{ flex: '1 0 auto', overflow: 'initial' }}>
           {isPathNotInSearchPages ? (
             <Breadcrumb
               items={url.map((i: string) => ({ title: i }))}

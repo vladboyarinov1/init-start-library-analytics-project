@@ -11,7 +11,6 @@ import { Countries } from '@/components/ui/pages/editions-pub-key-analysis-api/u
 import { Publications } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/pages/publications'
 import { Publishing } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/pages/publishing'
 import { Types } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/pages/types'
-import { Footer } from 'antd/es/layout/layout'
 
 import s from './editions-pub-key-analysis-api.module.scss'
 

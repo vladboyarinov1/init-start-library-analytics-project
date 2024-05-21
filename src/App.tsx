@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 
 import { useAppSelector } from '@/common/hooks/use-app-selector'
@@ -27,19 +27,8 @@ import {
   SearchBook,
   TransparentDoc,
 } from '@/icons'
-import {
-  AppstoreOutlined,
-  BarChartOutlined,
-  CloudOutlined,
-  ShopOutlined,
-  TeamOutlined,
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-} from '@ant-design/icons'
-import { Breadcrumb, Layout, Menu, MenuProps } from 'antd'
-import Sider from 'antd/es/layout/Sider'
-import { Content, Footer } from 'antd/es/layout/layout'
+import { Breadcrumb, Layout } from 'antd'
+import { Content } from 'antd/es/layout/layout'
 
 const searchPageData: TimelineCell[] = [
   {

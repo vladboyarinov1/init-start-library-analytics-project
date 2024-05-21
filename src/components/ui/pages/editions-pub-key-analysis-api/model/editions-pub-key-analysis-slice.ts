@@ -70,8 +70,6 @@ export const slice = createSlice({
             name: item['key_display_name'],
           }))
 
-        console.log(newTreeMapData)
-
         return {
           ...state,
           treeMapData: {

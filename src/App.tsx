@@ -1,3 +1,4 @@
+import React, { useState } from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 
 import { useAppSelector } from '@/common/hooks/use-app-selector'
@@ -25,8 +26,19 @@ import {
   SearchBook,
   TransparentDoc,
 } from '@/icons'
-import { Breadcrumb, Layout } from 'antd'
-import { Content } from 'antd/es/layout/layout'
+import {
+  AppstoreOutlined,
+  BarChartOutlined,
+  CloudOutlined,
+  ShopOutlined,
+  TeamOutlined,
+  UploadOutlined,
+  UserOutlined,
+  VideoCameraOutlined,
+} from '@ant-design/icons'
+import { Breadcrumb, Layout, Menu, MenuProps } from 'antd'
+import Sider from 'antd/es/layout/Sider'
+import { Content, Footer } from 'antd/es/layout/layout'
 
 const searchPageData: TimelineCell[] = [
   {
@@ -123,75 +135,86 @@ export function App() {
     currentPath !== '/about_search' &&
     currentPath !== '/data_search' &&
     currentPath !== '/visualization'
+  const [collapsed, setCollapsed] = useState(false)
+
+  console.log(isMobile + '-isModile', collapsed)
 
   return (
     <Layout
       style={{
         backgroundColor: 'var(--color-green-desaturated)',
         // height: isMobile ? '' : '100vh',
-        height: '100vh',
-        overflowY: 'auto',
+        // minHeight: '100vh',
       }}
     >
+      {isPathNotInSearchPages ? (
+        isMobile ? (
+          <MainHeader />
+        ) : (
+          <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
+        )
+      ) : null}
       <Layout
         style={{
-          backgroundColor: 'white',
+          backgroundColor: 'var(--color-green-desaturated)',
+          marginLeft: `${
+            isMobile ? '0' : collapsed ? '80px' : !isPathNotInSearchPages ? '0' : '250px'
+          }`,
+          marginTop: `${isMobile && isPathNotInSearchPages ? '60px' : 0}`,
+          // overflowY: 'auto',
         }}
       >
-        {isPathNotInSearchPages ? isMobile ? <MainHeader /> : <Sidebar /> : null}
-        <Layout
-          style={{
-            backgroundColor: 'var(--color-green-desaturated)',
-            marginTop: `${isMobile && isPathNotInSearchPages ? '60px' : 0}`,
-            overflowY: 'auto',
-          }}
-        >
-          <Content>
-            {isPathNotInSearchPages ? (
-              <Breadcrumb
-                items={url.map((i: string) => ({ title: i }))}
-                separator={'>'}
-                style={{
-                  fontSize: 16,
-                  margin: '40px 0 20px 20px',
-                }}
+        <Content style={{ minHeight: '100vh', overflow: 'initial' }}>
+          {isPathNotInSearchPages ? (
+            <Breadcrumb
+              items={url.map((i: string) => ({ title: i }))}
+              separator={'>'}
+              style={{
+                fontSize: 16,
+                margin: '40px 0 20px 20px',
+              }}
+            />
+          ) : (
+            ''
+          )}
+          <div>
+            <Routes>
+              <Route element={<AboutSearch />} path={'/about_search'} />
+              <Route
+                element={
+                  <PresentationPage
+                    timelineItems={searchPageData}
+                    title={'Наукометрические показатели'}
+                  />
+                }
+                path={'/data_search'}
               />
-            ) : (
-              ''
-            )}
-            <div>
-              <Routes>
-                <Route element={<AboutSearch />} path={'/about_search'} />
-                <Route
-                  element={
-                    <PresentationPage
-                      timelineItems={searchPageData}
-                      title={'Наукометрические показатели'}
-                    />
-                  }
-                  path={'/data_search'}
-                />
-                <Route
-                  element={
-                    <PresentationPage
-                      timelineItems={visualizationData}
-                      title={'Аналитика и визуализация'}
-                    />
-                  }
-                  path={'/visualization'}
-                />
+              <Route
+                element={
+                  <PresentationPage
+                    timelineItems={visualizationData}
+                    title={'Аналитика и визуализация'}
+                  />
+                }
+                path={'/visualization'}
+              />
 
-                <Route element={<Navigate to={'/about_search'} />} path={'/'} />
-                <Route
-                  element={<EditionsPubKeyAnalysisApi />}
-                  path={'/analysis_publications_and_keywords'}
-                />
-                <Route element={<KeywordNetwork />} path={'/keyword_network'} />
-              </Routes>
-            </div>
-          </Content>
-        </Layout>
+              <Route element={<Navigate to={'/about_search'} />} path={'/'} />
+              <Route
+                element={<EditionsPubKeyAnalysisApi />}
+                path={'/analysis_publications_and_keywords'}
+              />
+              <Route element={<KeywordNetwork />} path={'/keyword_network'} />
+            </Routes>
+          </div>
+        </Content>
+        {isPathNotInSearchPages && (
+          <Footer style={{ backgroundColor: 'yellowgreen', textAlign: 'center' }}>
+            dwadadawda
+          </Footer>
+        )}
       </Layout>
     </Layout>
   )
 }
+// style={{ margin: '24px 16px 0', minHeight: '100vh', overflow: 'initial' }}

@@ -2,7 +2,6 @@ import { instance } from '@/api'
 
 export const keywordNetworkApi = {
   getData(queryString: any) {
-    // console.log(queryString)
     return instance.get(`concepts?filter=${queryString}`)
   },
 }

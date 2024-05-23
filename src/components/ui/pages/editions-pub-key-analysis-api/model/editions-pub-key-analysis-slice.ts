@@ -77,6 +77,27 @@ export const slice = createSlice({
           },
         }
       })
+      .addCase(fetchOpenAccessData.fulfilled, (state, action) => {
+        console.log(action)
+        const newData = action.payload.data
+          .slice(0, 9)
+          .map((item: any) => ({
+            id: item['key_display_name'],
+            value: item['count'],
+          }))
+          .filter(
+            (item: any) => item.id !== 'unknown' && item.value !== 'unknown' && item.value !== 0
+          )
+
+        return {
+          ...state,
+          openAcceessData: {
+            data: newData,
+            exportData: action.payload.data,
+          },
+        }
+      })
+
       .addCase(fetchBarChartCountryData.fulfilled, (state, action) => {
         const newBarChartCountryData = action.payload.data
           .slice(0, 9)
@@ -104,6 +125,10 @@ export const slice = createSlice({
     },
     barChartData: [],
     citationsData: [],
+    openAcceessData: {
+      data: [],
+      exportData: [],
+    },
     pieChartData: [],
     publicationsData: [],
     treeMapData: {},
@@ -133,6 +158,20 @@ const fetchBarChartData = createAppAsyncThunk(
       const res = await editionsPubKeyAnalysisApi.getBarChartData(transformedParams.queryString)
 
       return { data: res.data.results }
+    } catch (e: any) {
+      throw new Error(e)
+    }
+  }
+)
+const fetchOpenAccessData = createAppAsyncThunk(
+  `${slice.name}/fetchOpenAccessData`,
+  async (param: any) => {
+    const transformedParams = paramsToQueryString(param)
+
+    try {
+      const res = await editionsPubKeyAnalysisApi.getOpenAccessData(transformedParams.queryString)
+
+      return { data: res.data['group_by'] }
     } catch (e: any) {
       throw new Error(e)
     }
@@ -187,6 +226,7 @@ export const asyncActions = {
   fetchBarChartCountryData,
   fetchBarChartData,
   fetchData,
+  fetchOpenAccessData,
   fetchPieChartData,
   fetchTreeMapData,
 }

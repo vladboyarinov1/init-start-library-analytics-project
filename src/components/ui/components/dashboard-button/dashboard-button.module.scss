@@ -1,0 +1,21 @@
+.button,
+.activeBtn {
+  background-color: transparent;
+  color: var(--color-green-primary);
+  outline: none;
+  font-weight: 700;
+  padding: 12px 9px;
+  border: 0;
+  border-radius: 50px;
+  cursor: pointer;
+  margin-right: 5px;
+
+  &:last-child {
+    margin: 0;
+  }
+}
+
+.activeBtn {
+  background-color: var(--color-green-primary);
+  color: white;
+}

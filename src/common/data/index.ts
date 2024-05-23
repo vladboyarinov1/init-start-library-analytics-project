@@ -8,4 +8,4 @@ export {
   treeMapData,
   visualizationData,
 } from './data'
-export type { CirclePacking, Linear, PieChart, RadialBar, TreeMap } from './types.ts'
+export type { CirclePacking, Linear, PieChart, RadialBar, SelectedValue, TreeMap } from './types'

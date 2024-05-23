@@ -10,6 +10,7 @@ import { Sidebar } from '@/components/ui/components/sidebar'
 import { AboutSearch } from '@/components/ui/pages/about-search'
 import { EditionsPubKeyAnalysisApi } from '@/components/ui/pages/editions-pub-key-analysis-api/ui'
 import { KeywordNetwork } from '@/components/ui/pages/keyword-network'
+import { OrgAnalysis } from '@/components/ui/pages/org-analysis'
 import { PresentationPage } from '@/components/ui/pages/presentation-page/presentation-page'
 import { Breadcrumb, Layout } from 'antd'
 import { Content } from 'antd/es/layout/layout'
@@ -86,8 +87,8 @@ export function App() {
                 }
                 path={'/visualization'}
               />
-
               <Route element={<Navigate to={'/about_search'} />} path={'/'} />
+              <Route element={<OrgAnalysis />} path={'/analysis_publications'} />
               <Route
                 element={<EditionsPubKeyAnalysisApi />}
                 path={'/analysis_publications_and_keywords'}

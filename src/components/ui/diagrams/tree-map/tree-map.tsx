@@ -20,7 +20,6 @@ export const TreeMap = ({ data }: TreeMapProps) => {
   ]
 
   const renderLegendItems = () => {
-    // Проверка, что data имеет структуру TreeMapType
     if ('children' in data) {
       return data.children.map((child: any, index: number) => (
         <div className={s.legendWrapper} key={index}>

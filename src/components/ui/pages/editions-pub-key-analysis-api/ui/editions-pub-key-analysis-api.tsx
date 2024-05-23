@@ -8,6 +8,7 @@ import { TreeMap } from '@/components/ui/diagrams/tree-map'
 import { editionsPubKeyAnalysisSelectors } from '@/components/ui/pages/editions-pub-key-analysis-api/model/editions-pub-key-analysis-selectors'
 import { Continents } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/pages/continents'
 import { Countries } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/pages/countries'
+import { OpenAccess } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/pages/open-access'
 import { Publications } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/pages/publications'
 import { Publishing } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/pages/publishing'
 import { Types } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/pages/types'
@@ -37,6 +38,8 @@ export const EditionsPubKeyAnalysisApi = () => {
     )
   }
 
+  console.log(data.openAcceessData)
+
   return (
     <div>
       <div className={s.dashboard}>
@@ -52,7 +55,7 @@ export const EditionsPubKeyAnalysisApi = () => {
           {renderDashboardButton('По континентам', 'continents')}
         </div>
         {type === 'publishing' && <Publishing />}
-        {type === 'OA' && <div>OA</div>}
+        {type === 'OA' && <OpenAccess />}
         {type === 'countries' && <Countries />}
         {type === 'continents' && <Continents />}
         {type === 'publications' && <Publications />}
@@ -81,7 +84,7 @@ export const EditionsPubKeyAnalysisApi = () => {
           <BarChar data={data.barChartData} />
         </ChartSection>
       )}
-      {type === 'types' && (
+      {type === 'types' && data.pieChartData.length > 0 && (
         <ChartSection
           count={data.pieChartData.length}
           data={data.pieChartData}
@@ -90,7 +93,15 @@ export const EditionsPubKeyAnalysisApi = () => {
           <PieChart data={data.pieChartData} />
         </ChartSection>
       )}
-      {type === 'OA' && <div> oa </div>}
+      {type === 'OA' && data.openAcceessData.data.length > 0 && (
+        <ChartSection
+          count={data.openAcceessData.data.length}
+          data={data.openAcceessData.exportData}
+          title={'Научное направление: издания в отношении ОА'}
+        >
+          <PieChart data={data.openAcceessData.data} />
+        </ChartSection>
+      )}
       {type === 'countries' && data.barChartCountryData.data.length > 0 && (
         <ChartSection
           count={data.barChartCountryData.resultCount}

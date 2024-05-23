@@ -23,7 +23,7 @@ export const ChartSection = ({ children, count, data, title }: ChartSectionProps
         <div>
           <SelectButton
             activeValueName={value}
-            data={data.exportData}
+            data={data}
             itemsData={[
               {
                 items: [{ label: 'Word' }, { label: 'Excel' }],

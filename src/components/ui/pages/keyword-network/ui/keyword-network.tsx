@@ -1,10 +1,7 @@
-import { useState } from 'react'
-
 import { useActions } from '@/common/hooks/use-actions'
 import { useAppSelector } from '@/common/hooks/use-app-selector'
 import { ChartSection } from '@/components/ui/components/chart-section'
 import { FormWithFieldArray } from '@/components/ui/components/form-with-field-array'
-import { SelectButton } from '@/components/ui/components/select-button'
 import { CirclePacking } from '@/components/ui/diagrams/circle-packing'
 import { keywordNetworkActions } from '@/components/ui/pages/keyword-network'
 import { keywordNetworkSelectors } from '@/components/ui/pages/keyword-network/model/keyword-network-selectors'

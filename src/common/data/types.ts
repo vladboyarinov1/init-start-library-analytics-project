@@ -1,3 +1,11 @@
+export type SelectedValue =
+  | 'OA'
+  | 'continents'
+  | 'countries'
+  | 'keyword'
+  | 'publications'
+  | 'publishing'
+  | 'types'
 export type Linear = {
   data: {
     x: string

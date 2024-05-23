@@ -1,44 +1,39 @@
 import { useState } from 'react'
 
+import { SelectedValue } from '@/common/data'
 import { useAppSelector } from '@/common/hooks/use-app-selector'
 import { ChartSection } from '@/components/ui/components/chart-section'
+import { DashboardButton } from '@/components/ui/components/dashboard-button'
 import { BarChar } from '@/components/ui/diagrams/bar-chart'
 import { PieChart } from '@/components/ui/diagrams/pie-chart'
 import { TreeMap } from '@/components/ui/diagrams/tree-map'
 import { editionsPubKeyAnalysisSelectors } from '@/components/ui/pages/editions-pub-key-analysis-api/model/editions-pub-key-analysis-selectors'
-import { Continents } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/pages/continents'
-import { Countries } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/pages/countries'
-import { OpenAccess } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/pages/open-access'
-import { Publications } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/pages/publications'
-import { Publishing } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/pages/publishing'
-import { Types } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/pages/types'
+import { Continents } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/items/continents'
+import { Countries } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/items/countries'
+import { OpenAccess } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/items/open-access'
+import { Publications } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/items/publications'
+import { Publishing } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/items/publishing'
+import { Types } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/items/types'
 
 import s from './editions-pub-key-analysis-api.module.scss'
 
+const buttonConfigs = [
+  { title: 'По публикациям', value: 'publications' },
+  { title: 'По издательствам', value: 'publishing' },
+  { title: 'По типам', value: 'types' },
+  { title: 'OA', value: 'OA' },
+  { title: 'По странам', value: 'countries' },
+  { title: 'По континентам', value: 'continents' },
+]
+
 export const EditionsPubKeyAnalysisApi = () => {
   const data = useAppSelector(editionsPubKeyAnalysisSelectors)
-
-  type SelectedValue = 'OA' | 'continents' | 'countries' | 'publications' | 'publishing' | 'types'
 
   const [type, setType] = useState<SelectedValue>('publications')
 
   const changeSelectedValue = (value: SelectedValue) => {
     setType(value)
   }
-  const renderDashboardButton = (title: string, value: SelectedValue) => {
-    return (
-      <button
-        className={type === `${value}` ? s.activeBtn : s.button}
-        onClick={() => {
-          changeSelectedValue(value)
-        }}
-      >
-        {title}
-      </button>
-    )
-  }
-
-  console.log(data.openAcceessData)
 
   return (
     <div>
@@ -47,12 +42,15 @@ export const EditionsPubKeyAnalysisApi = () => {
           <h2>Издания: анализ публикаций и ключевых слов</h2>
         </div>
         <div className={s.menuSwitchItems}>
-          {renderDashboardButton('По публикациям', 'publications')}
-          {renderDashboardButton('По издательствам', 'publishing')}
-          {renderDashboardButton('По типам', 'types')}
-          {renderDashboardButton('OA', 'OA')}
-          {renderDashboardButton('По странам', 'countries')}
-          {renderDashboardButton('По континентам', 'continents')}
+          {buttonConfigs.map(config => (
+            <DashboardButton
+              currentType={type}
+              key={config.value}
+              onChange={changeSelectedValue}
+              title={config.title}
+              value={config.value as SelectedValue}
+            />
+          ))}
         </div>
         {type === 'publishing' && <Publishing />}
         {type === 'OA' && <OpenAccess />}

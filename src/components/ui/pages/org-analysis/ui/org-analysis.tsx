@@ -8,20 +8,14 @@ import { ChartSection } from '@/components/ui/components/chart-section'
 import { DashboardButton } from '@/components/ui/components/dashboard-button'
 import { Input } from '@/components/ui/components/input'
 import { SelectButton } from '@/components/ui/components/select-button'
-import { BarChar } from '@/components/ui/diagrams/bar-chart'
-import { PieChart } from '@/components/ui/diagrams/pie-chart'
+import { CirclePacking } from '@/components/ui/diagrams/circle-packing'
 import { RadialBar } from '@/components/ui/diagrams/radial-bar'
-import { editionsPubKeyAnalysisSelectors } from '@/components/ui/pages/editions-pub-key-analysis-api/model/editions-pub-key-analysis-selectors.ts'
-import { keywordNetworkActions } from '@/components/ui/pages/keyword-network'
 import { orgAnalysisSliceActions } from '@/components/ui/pages/org-analysis'
 import { orgAnalysisSelectors } from '@/components/ui/pages/org-analysis/model/org-analysis-selectors.ts'
 import { Search } from '@/icons'
-import { Form, Formik } from 'formik'
-import { Simulate } from 'react-dom/test-utils'
+import { FieldArray, Form, Formik } from 'formik'
 
 import s from './org-analysis.module.scss'
-
-import ended = Simulate.ended
 
 const buttonConfigs = [
   { title: 'По публикациям', value: 'publications' },
@@ -29,18 +23,24 @@ const buttonConfigs = [
 ]
 
 const currentYear = new Date().getFullYear()
-const years = Array.from({ length: currentYear - 2012 + 1 }, (_, i) => ({
+const endYear = Array.from({ length: currentYear - 2012 + 1 }, (_, i) => ({
   label: (currentYear - i).toString(),
+}))
+const startYear = Array.from({ length: 2024 - 2012 + 1 }, (_, i) => ({
+  label: (2012 + i).toString(),
 }))
 
 export const OrgAnalysis = () => {
-  const { fetchData } = useActions(orgAnalysisSliceActions)
+  const { fetchCirclePacking, fetchData } = useActions(orgAnalysisSliceActions)
   const data = useAppSelector(orgAnalysisSelectors)
   const [type, setType] = useState<SelectedValue>('publications')
-
+  const [value, setValue] = useState('')
+  const allOptions = ['Аффиляция ROR']
   const changeSelectedValue = (value: SelectedValue) => {
     setType(value)
   }
+
+  console.log(data.circlePacking.data)
 
   return (
     <div>
@@ -59,80 +59,165 @@ export const OrgAnalysis = () => {
             />
           ))}
         </div>
-        <div>
-          <Formik
-            initialValues={{ endYear: '', iso: '', startYear: '', type: '' }}
-            onSubmit={values => {
-              alert(JSON.stringify(values, null, 2))
-              fetchData({
-                endYear: +values.endYear,
-                iso: values.iso,
-                startYear: +values.startYear,
-                type: values.type,
-              })
-            }}
-          >
-            {({ handleChange, handleSubmit, setFieldValue, values }) => (
-              <Form>
-                <div className={s.form}>
-                  <SelectButton
-                    activeValueName={values.type}
-                    itemsData={[{ items: [{ label: 'government' }, { label: 'education' }] }]}
-                    name={'type'}
-                    onChange={e => setFieldValue('type', e)}
-                    setFieldValue={setFieldValue}
-                    title={'Тип'}
-                    variant={'primary'}
-                  />
-                  <Input
-                    name={'iso'}
-                    onChange={handleChange}
-                    placeholder={'Код страны'}
-                    value={values.iso}
-                  />
-                  <SelectButton
-                    activeValueName={values.startYear}
-                    itemsData={[{ items: years }]}
-                    name={'startYear'}
-                    onChange={e => setFieldValue('startYear', e)}
-                    setFieldValue={setFieldValue}
-                    title={'Год начала'}
-                    variant={'primary'}
-                  />
-                  <SelectButton
-                    activeValueName={values.endYear}
-                    itemsData={[{ items: years }]}
-                    name={'endYear'}
-                    onChange={e => setFieldValue('endYear', e)}
-                    setFieldValue={setFieldValue}
-                    title={'Конечный год'}
-                    variant={'primary'}
-                  />
-                  <div className={s.buttons}>
-                    <Button onClick={handleSubmit} type={'submit'}>
-                      Поиск <Search />
-                    </Button>
+        {type === 'publications' && (
+          <div>
+            <Formik
+              initialValues={{ endYear: '', iso: '', startYear: '', type: '' }}
+              onSubmit={values => {
+                alert(JSON.stringify(values, null, 2))
+                fetchData({
+                  endYear: +values.endYear,
+                  iso: values.iso,
+                  startYear: +values.startYear,
+                  type: values.type,
+                })
+              }}
+            >
+              {({ handleChange, handleSubmit, setFieldValue, values }) => (
+                <Form>
+                  <div className={s.form}>
+                    <SelectButton
+                      activeValueName={values.type}
+                      itemsData={[{ items: [{ label: 'government' }, { label: 'education' }] }]}
+                      name={'type'}
+                      onChange={e => setFieldValue('type', e)}
+                      setFieldValue={setFieldValue}
+                      title={'Тип'}
+                      variant={'primary'}
+                    />
+                    <Input
+                      name={'iso'}
+                      onChange={handleChange}
+                      placeholder={'Код страны'}
+                      value={values.iso}
+                    />
+                    <SelectButton
+                      activeValueName={values.startYear}
+                      itemsData={[{ items: startYear }]}
+                      name={'startYear'}
+                      onChange={e => setFieldValue('startYear', e)}
+                      setFieldValue={setFieldValue}
+                      title={'Год начала'}
+                      variant={'primary'}
+                    />
+                    <SelectButton
+                      activeValueName={values.endYear}
+                      itemsData={[{ items: endYear }]}
+                      name={'endYear'}
+                      onChange={e => setFieldValue('endYear', e)}
+                      setFieldValue={setFieldValue}
+                      title={'Конечный год'}
+                      variant={'primary'}
+                    />
+                    <div className={s.buttons}>
+                      <Button onClick={handleSubmit} type={'submit'}>
+                        Поиск <Search />
+                      </Button>
+                    </div>
                   </div>
-                </div>
-              </Form>
-            )}
-          </Formik>
-        </div>
+                </Form>
+              )}
+            </Formik>
+          </div>
+        )}
+        {type === 'keyword' && (
+          <div>
+            <Formik
+              initialValues={{ pairs: [{ inputValue: '', selectValue: '' }] }}
+              onSubmit={values => {
+                alert(JSON.stringify(values, null, 2))
+                fetchCirclePacking(values.pairs)
+              }}
+            >
+              {({ handleChange, handleSubmit, setFieldValue, values }) => (
+                <Form>
+                  <FieldArray
+                    name={'pairs'}
+                    render={arrayHelpers => (
+                      <div>
+                        {values.pairs.map((pair, index) => (
+                          <div className={s.item} key={index}>
+                            <SelectButton
+                              activeValueName={values.pairs[index].selectValue || ''}
+                              itemsData={[
+                                {
+                                  items: allOptions.map(option => ({
+                                    label: option,
+                                    value: option,
+                                  })),
+                                },
+                              ]}
+                              name={`pairs.${index}.selectValue`}
+                              onChange={value => {
+                                arrayHelpers.replace(index, {
+                                  ...pair,
+                                  selectValue: value,
+                                })
+                              }}
+                              setFieldValue={setFieldValue}
+                              title={'Категории поиска'}
+                              variant={'primary'}
+                            />
+                            <Input
+                              name={`pairs.${index}.inputValue`}
+                              onChange={handleChange}
+                              placeholder={'Введите значение ROR'}
+                              value={pair.inputValue}
+                            />
+                            <div className={s.buttons}>
+                              <Button onClick={handleSubmit} type={'submit'}>
+                                Поиск <Search />
+                              </Button>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  ></FieldArray>
+                </Form>
+              )}
+            </Formik>
+          </div>
+        )}
       </div>
+      (
       <div>
         {type === 'publications' && data.citationsData.length > 0 ? (
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, justifyContent: 'center' }}>
-            <div style={{ backgroundColor: 'white', borderRadius: 12, padding: 10, width: 560 }}>
-              <h2>Количество публикаций</h2>
-              <RadialBar data={data.publicationsData} />
+          <div>
+            <div className={s.exportBtn}>
+              <SelectButton
+                activeValueName={value}
+                data={data.citationsData}
+                itemsData={[
+                  {
+                    items: [{ label: 'Word' }, { label: 'Excel' }],
+                  },
+                ]}
+                name={value}
+                onChange={setValue}
+                setFieldValue={setValue}
+                title={'Экспорт'}
+                variant={'export'}
+              />
             </div>
-            <div style={{ backgroundColor: 'white', borderRadius: 12, padding: 10, width: 560 }}>
-              <h2>Количество цитирований</h2>
-              <RadialBar data={data.citationsData} />
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, justifyContent: 'center' }}>
+              <div style={{ backgroundColor: 'white', borderRadius: 12, padding: 10, width: 560 }}>
+                <h2>Количество публикаций</h2>
+                <RadialBar data={data.publicationsData} />
+              </div>
+              <div style={{ backgroundColor: 'white', borderRadius: 12, padding: 10, width: 560 }}>
+                <h2>Количество цитирований</h2>
+                <RadialBar data={data.citationsData} />
+              </div>
             </div>
           </div>
         ) : (
           ''
+        )}
+        {type === 'keyword' && Object.keys(data.circlePacking.data).length > 0 && (
+          <ChartSection data={data.circlePacking.data} title={data.circlePacking.title || ''}>
+            <CirclePacking data={data.circlePacking.data} padding={8} />
+          </ChartSection>
         )}
       </div>
     </div>

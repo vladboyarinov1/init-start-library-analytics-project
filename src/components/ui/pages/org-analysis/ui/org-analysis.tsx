@@ -40,8 +40,6 @@ export const OrgAnalysis = () => {
     setType(value)
   }
 
-  console.log(data.circlePacking.data)
-
   return (
     <div>
       <div className={s.dashboard}>
@@ -64,7 +62,6 @@ export const OrgAnalysis = () => {
             <Formik
               initialValues={{ endYear: '', iso: '', startYear: '', type: '' }}
               onSubmit={values => {
-                alert(JSON.stringify(values, null, 2))
                 fetchData({
                   endYear: +values.endYear,
                   iso: values.iso,
@@ -180,7 +177,6 @@ export const OrgAnalysis = () => {
           </div>
         )}
       </div>
-      (
       <div>
         {type === 'publications' && data.citationsData.length > 0 ? (
           <div>

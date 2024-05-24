@@ -20,7 +20,7 @@ export const store = configureStore({
     breadCrumbs: breadCrumbsReducer,
     editionsPubKeyAnalysis: editionsPubKeyAnalysisReducer,
     keywordNetwork: keywordNetworkReducer,
-    orgAnalysisReducer: orgAnalysisReducer,
+    orgAnalysis: orgAnalysisReducer,
   },
 })
 

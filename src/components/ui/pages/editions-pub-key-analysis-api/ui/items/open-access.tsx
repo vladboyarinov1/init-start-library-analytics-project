@@ -1,4 +1,4 @@
-import { useActions } from '@/common/hooks/use-actions.ts'
+import { useActions } from '@/common/hooks/use-actions'
 import { FormWithFieldArray } from '@/components/ui/components/form-with-field-array'
 import { editionsPubKeyAnalysisActions } from '@/components/ui/pages/editions-pub-key-analysis-api'
 

@@ -1,14 +1,14 @@
 export { KeywordNetwork } from './ui/keyword-network'
 
 import {
-  asyncActions as KeywordNetworkAsyncActions,
-  slice as editionsPubKeyAnalysisSlice,
+  asyncActions as keywordNetworkAsyncActions,
+  slice as keywordNetworkAsyncSlice,
 } from './model/keyword-network-slice'
 
 const keywordNetworkActions = {
-  ...KeywordNetworkAsyncActions,
-  ...editionsPubKeyAnalysisSlice.actions,
+  ...keywordNetworkAsyncActions,
+  ...keywordNetworkAsyncSlice.actions,
 }
-const keywordNetworkReducer = editionsPubKeyAnalysisSlice.reducer
+const keywordNetworkReducer = keywordNetworkAsyncSlice.reducer
 
 export { keywordNetworkActions, keywordNetworkReducer }

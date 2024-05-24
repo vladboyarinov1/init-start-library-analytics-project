@@ -1,11 +1,11 @@
 import { instance } from '@/api'
 
 export const orgAnalysisApi = {
-  getData(queryString: any) {
-    console.log(queryString)
+  getData(iso: string, type: string) {
+    console.log(iso)
 
     return instance.get(
-      `https://api.openalex.org/institutions?filter=country_code:BY,type:education`
+      `https://api.openalex.org/institutions?filter=country_code:${iso},type:${type}`
     )
   },
 }

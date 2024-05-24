@@ -1,25 +1,75 @@
 import { createAppAsyncThunk } from '@/common/utils/create-app-async-thunk'
 import { orgAnalysisApi } from '@/components/ui/pages/org-analysis/api/org-analysis-api'
-import { createSlice } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+
+interface YearItem {
+  cited_by_count: number
+  works_count: number
+  year: number
+}
+
+interface Item {
+  counts_by_year: YearItem[]
+  display_name: string
+}
+
+interface ApiResponse {
+  results: Item[]
+}
+
+interface FetchDataParams {
+  endYear: number
+  iso: string
+  startYear: number
+  type: string
+}
+
+interface OrgAnalysisState {
+  citationsData: { data: { x: string; y: number }[]; id: string }[]
+  publicationsData: { data: { x: string; y: number }[]; id: string }[]
+}
+
+const initialState: OrgAnalysisState = {
+  citationsData: [],
+  publicationsData: [],
+}
+
+const fetchData = createAppAsyncThunk('orgAnalysis/fetchData', async (params: FetchDataParams) => {
+  const { endYear, iso, startYear, type } = params
+
+  console.log(endYear)
+
+  try {
+    const res = await orgAnalysisApi.getData(iso, type)
+
+    return { data: res.data.results, endYear, startYear }
+  } catch (e: any) {
+    throw new Error(e.message)
+  }
+})
 
 export const slice = createSlice({
-  extraReducers: builder =>
-    builder.addCase(fetchData.fulfilled, (state, action) => {
-      console.log(action.payload.data)
+  extraReducers: builder => {
+    builder.addCase(fetchData.fulfilled, (state, action: PayloadAction<{ data: Item[] }>) => {
+      const { data, endYear, startYear } = action.payload
 
-      // Преобразуем данные в нужный формат для публикаций
+      console.log(endYear, startYear)
       const publicationsYearMap: { [year: string]: { x: string; y: number }[] } = {}
+      // const startYear = 2010
+      // const endYear = 2012
 
-      action.payload.data.forEach((item: any) => {
-        item.counts_by_year.forEach((yearItem: any) => {
-          const year = yearItem.year.toString()
-          const entry = { x: item.display_name, y: yearItem.works_count }
+      data.forEach(item => {
+        item.counts_by_year.forEach(yearItem => {
+          if (yearItem.year >= startYear && yearItem.year <= endYear) {
+            const year = yearItem.year.toString()
+            const entry = { x: item.display_name, y: yearItem.works_count }
 
-          if (!publicationsYearMap[year]) {
-            publicationsYearMap[year] = []
+            if (!publicationsYearMap[year]) {
+              publicationsYearMap[year] = []
+            }
+
+            publicationsYearMap[year].push(entry)
           }
-
-          publicationsYearMap[year].push(entry)
         })
       })
 
@@ -28,19 +78,20 @@ export const slice = createSlice({
         id: year,
       }))
 
-      // Преобразуем данные в нужный формат для цитирований
       const citationsYearMap: { [year: string]: { x: string; y: number }[] } = {}
 
-      action.payload.data.forEach((item: any) => {
-        item.counts_by_year.forEach((yearItem: any) => {
-          const year = yearItem.year.toString()
-          const entry = { x: item.display_name, y: yearItem.cited_by_count } // Используем cited_by_count внутри counts_by_year
+      data.forEach(item => {
+        item.counts_by_year.forEach(yearItem => {
+          if (yearItem.year >= startYear && yearItem.year <= endYear) {
+            const year = yearItem.year.toString()
+            const entry = { x: item.display_name, y: yearItem.cited_by_count }
 
-          if (!citationsYearMap[year]) {
-            citationsYearMap[year] = []
+            if (!citationsYearMap[year]) {
+              citationsYearMap[year] = []
+            }
+
+            citationsYearMap[year].push(entry)
           }
-
-          citationsYearMap[year].push(entry)
         })
       })
 
@@ -49,29 +100,14 @@ export const slice = createSlice({
         id: year,
       }))
 
-      console.log(newCitationsData)
-
-      return {
-        ...state,
-        citationsData: newCitationsData,
-        publicationsData: newPublicationsData,
-      }
-    }),
-  initialState: {
-    data: { citationsData: [], publicationsData: [] },
+      state.citationsData = newCitationsData
+      state.publicationsData = newPublicationsData
+    })
   },
+  initialState,
   name: 'orgAnalysis',
   reducers: {},
 })
 
-const fetchData = createAppAsyncThunk(`${slice.name}/fetchData`, async (_param: any) => {
-  try {
-    const res = await orgAnalysisApi.getData({})
-
-    return { data: res.data.results }
-  } catch (e: any) {
-    throw new Error(e)
-  }
-})
-
 export const asyncActions = { fetchData }
+export const orgAnalysisReducer = slice.reducer

@@ -16,6 +16,7 @@ export const RadialBar = ({ data }: RadialBarProps) => {
     'var(--color-dark)',
     'var(--color-blue)',
     'var(--color-pink)',
+    'var(--color-orange)',
     'var(--color-purple-light)',
   ]
 

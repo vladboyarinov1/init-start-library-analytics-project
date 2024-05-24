@@ -12,3 +12,11 @@
 .menuSwitchItems {
   margin: 20px 0;
 }
+.form {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 0.4fr;
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  gap: 8px;
+}

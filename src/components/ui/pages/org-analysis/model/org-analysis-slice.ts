@@ -1,6 +1,5 @@
-import { data } from '@/common/data'
 import { createAppAsyncThunk } from '@/common/utils/create-app-async-thunk'
-import { paramsToQueryString } from '@/common/utils/params-to-query-string.ts'
+import { paramsToQueryString } from '@/common/utils/params-to-query-string'
 import { orgAnalysisApi } from '@/components/ui/pages/org-analysis/api/org-analysis-api'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
@@ -13,10 +12,6 @@ interface YearItem {
 interface Item {
   counts_by_year: YearItem[]
   display_name: string
-}
-
-interface ApiResponse {
-  results: Item[]
 }
 
 interface FetchDataParams {
@@ -74,57 +69,60 @@ const fetchCirclePacking = createAppAsyncThunk(
 export const slice = createSlice({
   extraReducers: builder => {
     builder
-      .addCase(fetchData.fulfilled, (state, action: PayloadAction<{ data: Item[] }>) => {
-        const { data, endYear, startYear } = action.payload
+      .addCase(
+        fetchData.fulfilled,
+        (state, action: PayloadAction<{ data: Item[]; endYear: number; startYear: number }>) => {
+          const { data, endYear, startYear } = action.payload
 
-        console.log(endYear, startYear)
-        const publicationsYearMap: { [year: string]: { x: string; y: number }[] } = {}
+          console.log(endYear, startYear)
+          const publicationsYearMap: { [year: string]: { x: string; y: number }[] } = {}
 
-        data.forEach(item => {
-          item.counts_by_year.forEach(yearItem => {
-            if (yearItem.year >= startYear && yearItem.year <= endYear) {
-              const year = yearItem.year.toString()
-              const entry = { x: item.display_name, y: yearItem.works_count }
+          data.forEach(item => {
+            item.counts_by_year.forEach(yearItem => {
+              if (yearItem.year >= startYear && yearItem.year <= endYear) {
+                const year = yearItem.year.toString()
+                const entry = { x: item.display_name, y: yearItem.works_count }
 
-              if (!publicationsYearMap[year]) {
-                publicationsYearMap[year] = []
+                if (!publicationsYearMap[year]) {
+                  publicationsYearMap[year] = []
+                }
+
+                publicationsYearMap[year].push(entry)
               }
-
-              publicationsYearMap[year].push(entry)
-            }
+            })
           })
-        })
 
-        const newPublicationsData = Object.keys(publicationsYearMap).map(year => ({
-          data: publicationsYearMap[year],
-          id: year,
-        }))
+          const newPublicationsData = Object.keys(publicationsYearMap).map(year => ({
+            data: publicationsYearMap[year],
+            id: year,
+          }))
 
-        const citationsYearMap: { [year: string]: { x: string; y: number }[] } = {}
+          const citationsYearMap: { [year: string]: { x: string; y: number }[] } = {}
 
-        data.forEach(item => {
-          item.counts_by_year.forEach(yearItem => {
-            if (yearItem.year >= startYear && yearItem.year <= endYear) {
-              const year = yearItem.year.toString()
-              const entry = { x: item.display_name, y: yearItem.cited_by_count }
+          data.forEach(item => {
+            item.counts_by_year.forEach(yearItem => {
+              if (yearItem.year >= startYear && yearItem.year <= endYear) {
+                const year = yearItem.year.toString()
+                const entry = { x: item.display_name, y: yearItem.cited_by_count }
 
-              if (!citationsYearMap[year]) {
-                citationsYearMap[year] = []
+                if (!citationsYearMap[year]) {
+                  citationsYearMap[year] = []
+                }
+
+                citationsYearMap[year].push(entry)
               }
-
-              citationsYearMap[year].push(entry)
-            }
+            })
           })
-        })
 
-        const newCitationsData = Object.keys(citationsYearMap).map(year => ({
-          data: citationsYearMap[year],
-          id: year,
-        }))
+          const newCitationsData = Object.keys(citationsYearMap).map(year => ({
+            data: citationsYearMap[year],
+            id: year,
+          }))
 
-        state.citationsData = newCitationsData
-        state.publicationsData = newPublicationsData
-      })
+          state.citationsData = newCitationsData
+          state.publicationsData = newPublicationsData
+        }
+      )
       .addCase(fetchCirclePacking.fulfilled, (state, action) => {
         const relatedConcepts = action.payload.data[0]['x_concepts']
         const childrenArray = relatedConcepts.map((concept: any) => ({

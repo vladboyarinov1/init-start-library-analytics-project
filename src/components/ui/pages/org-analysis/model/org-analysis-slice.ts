@@ -74,7 +74,6 @@ export const slice = createSlice({
         (state, action: PayloadAction<{ data: Item[]; endYear: number; startYear: number }>) => {
           const { data, endYear, startYear } = action.payload
 
-          console.log(endYear, startYear)
           const publicationsYearMap: { [year: string]: { x: string; y: number }[] } = {}
 
           data.forEach(item => {

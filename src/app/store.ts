@@ -3,6 +3,7 @@ import { breadCrumbsReducer } from '@/components/ui/components/breadcrumbs'
 import { editionsPubKeyAnalysisReducer } from '@/components/ui/pages/editions-pub-key-analysis-api'
 import { keywordNetworkReducer } from '@/components/ui/pages/keyword-network'
 import { orgAnalysisReducer } from '@/components/ui/pages/org-analysis'
+import { pubKeywordsReducer } from '@/components/ui/pages/publications-keywords'
 import { configureStore } from '@reduxjs/toolkit'
 
 type RootState = {
@@ -10,6 +11,7 @@ type RootState = {
   editionsPubKeyAnalysis: ReturnType<typeof editionsPubKeyAnalysisReducer>
   keywordNetwork: ReturnType<typeof keywordNetworkReducer>
   orgAnalysis: ReturnType<typeof orgAnalysisReducer>
+  pubKeywords: ReturnType<typeof pubKeywordsReducer>
 }
 
 const preloadedState: RootState | undefined = loadState()
@@ -21,6 +23,7 @@ export const store = configureStore({
     editionsPubKeyAnalysis: editionsPubKeyAnalysisReducer,
     keywordNetwork: keywordNetworkReducer,
     orgAnalysis: orgAnalysisReducer,
+    pubKeywords: pubKeywordsReducer,
   },
 })
 

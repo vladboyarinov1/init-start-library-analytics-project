@@ -40,7 +40,7 @@ export const Continents = () => {
                 />
               </div>
               <FieldArray name={'fields'}>
-                {({ push, remove }) => (
+                {({ push }) => (
                   <>
                     <div className={s.wrapper}>
                       {values.ids.slice(1).map((id, index) => (

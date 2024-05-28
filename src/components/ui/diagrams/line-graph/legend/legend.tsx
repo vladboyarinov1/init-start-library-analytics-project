@@ -1,6 +1,7 @@
 import s from './legend.module.scss'
 
 type LegendProps = {
+  colorMapping: any
   colors: string[]
   data: { id: string; label?: string; value: string }[]
 }

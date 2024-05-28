@@ -1,4 +1,3 @@
-import { Legend } from '@/components/ui/diagrams/line-graph/legend/legend'
 import { ResponsiveLine } from '@nivo/line'
 
 import s from './line-graph.module.scss'
@@ -18,7 +17,7 @@ type LineGraphProps = {
 }
 
 export const LineGraph = (props: LineGraphProps) => {
-  const { data, isTooltip = false, legend = true, points = false, variant = 'linear' } = props
+  const { data, isTooltip = false, points = false, variant = 'linear' } = props
   const theme = {
     fontSize: 12,
     textColor: 'var(--color-black-60)',

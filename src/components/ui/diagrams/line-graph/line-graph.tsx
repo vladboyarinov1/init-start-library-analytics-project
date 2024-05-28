@@ -88,7 +88,7 @@ export const LineGraph = (props: LineGraphProps) => {
             }}
           />
         </div>
-        {legend && <Legend colors={colors} data={data} />}
+        {/*{legend && <Legend colors={colors} data={data} />}*/}
       </div>
     </>
   )

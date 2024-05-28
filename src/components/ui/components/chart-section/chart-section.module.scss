@@ -3,20 +3,30 @@
   background-color: white;
   border-radius: 16px;
   padding: 30px;
+  @media screen and (max-width: 540px) {
+    margin: 0 10px 40px 10px;
+    padding: 20px 10px;
+  }
 }
 .container {
   align-items: center;
   display: flex;
   justify-content: space-between;
+  @media screen and (max-width: 540px) {
+    flex-direction: column;
+    align-items: normal;
+  }
 }
 .title {
   margin: 20px 0;
   font-size: 24px;
+  line-height: 1;
 }
 .count {
   font-size: 17px;
   color: var(--color-black-60);
   font-weight: 400;
+  margin-bottom: 15px;
 }
 .children {
   margin-top: 20px;

@@ -64,12 +64,12 @@ export const EditionsPubKeyAnalysisApi = () => {
       {type === 'publications' && (
         <div>
           {data.publicationsData.length ? (
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, justifyContent: 'center' }}>
-              <div style={{ backgroundColor: 'white', borderRadius: 12, padding: 10, width: 560 }}>
+            <div className={s.wrapper}>
+              <div className={s.wrapper__items}>
                 <h2>Количество публикаций</h2>
                 <PieChart data={data.publicationsData} />
               </div>
-              <div style={{ backgroundColor: 'white', borderRadius: 12, padding: 10, width: 560 }}>
+              <div className={s.wrapper__items}>
                 <h2>Количество цитирований</h2>
                 <PieChart data={data.citationsData} />
               </div>

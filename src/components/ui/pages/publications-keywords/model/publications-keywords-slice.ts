@@ -60,7 +60,7 @@ export const slice = createSlice({
                 x: item.key_display_name,
                 y: item.count,
               })),
-            id: country,
+            id: 'idtest',
             key: `${country}-${index}`,
           }))
 

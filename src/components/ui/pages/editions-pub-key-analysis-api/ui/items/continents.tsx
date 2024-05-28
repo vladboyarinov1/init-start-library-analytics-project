@@ -1,8 +1,6 @@
 import { useActions } from '@/common/hooks/use-actions'
 import { Button } from '@/components/ui/components/button'
-import { FormWithFieldArray } from '@/components/ui/components/form-with-field-array'
 import { Input } from '@/components/ui/components/input'
-import { SelectButton } from '@/components/ui/components/select-button'
 import { editionsPubKeyAnalysisActions } from '@/components/ui/pages/editions-pub-key-analysis-api'
 import { Search } from '@/icons'
 import { FieldArray, Form, Formik } from 'formik'
@@ -10,25 +8,24 @@ import { FieldArray, Form, Formik } from 'formik'
 import s from '@/components/ui/pages/publications-keywords/ui/publications-keywords.module.scss'
 
 export const Continents = () => {
-  const allOptions = ['ID направления', 'Тип публикации']
   const { fetchTreeMapData } = useActions(editionsPubKeyAnalysisActions)
 
   return (
     <div>
       <Formik
-        initialValues={{ countries: [''], endYear: '', ids: [''], startYear: '' }}
+        initialValues={{ endYear: '', ids: [''], startYear: '', types: [''] }}
         onSubmit={values => {
           alert(JSON.stringify(values, null, 2))
           fetchTreeMapData({
-            countries: values.countries,
             ids: values.ids,
+            types: values.types,
           })
         }}
       >
         {({ handleChange, handleSubmit, setFieldValue, values }) => (
           <Form>
             <div className={s.form_years}>
-              <div className={s.initialRow}>
+              <div className={s.countriesRow}>
                 <Input
                   name={`ids[0]`}
                   onChange={handleChange}
@@ -36,10 +33,10 @@ export const Continents = () => {
                   value={values.ids[0] || ''}
                 />
                 <Input
-                  name={`countries[0]`}
+                  name={`types[0]`}
                   onChange={handleChange}
-                  placeholder={`Код страны 1`}
-                  value={values.countries[0] || ''}
+                  placeholder={`Тип публикации 1`}
+                  value={values.types[0] || ''}
                 />
               </div>
               <FieldArray name={'fields'}>
@@ -58,7 +55,7 @@ export const Continents = () => {
                             name={`countries[${index + 1}]`}
                             onChange={handleChange}
                             placeholder={`Код страны ${index + 2}`}
-                            value={values.countries[index + 1] || ''}
+                            value={values.types[index + 1] || ''}
                           />
                         </div>
                       ))}
@@ -69,7 +66,7 @@ export const Continents = () => {
                           onClick={() => {
                             push('')
                             setFieldValue('ids', [...values.ids, ''])
-                            setFieldValue('countries', [...values.countries, ''])
+                            setFieldValue('countries', [...values.types, ''])
                           }}
                           type={'button'}
                           variant={'primary'}
@@ -90,5 +87,4 @@ export const Continents = () => {
       </Formik>
     </div>
   )
-  // <FormWithFieldArray allOptions={allOptions} onSubmit={fetchTreeMapData} />
 }

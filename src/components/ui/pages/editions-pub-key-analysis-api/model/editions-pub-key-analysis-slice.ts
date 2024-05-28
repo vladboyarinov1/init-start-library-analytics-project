@@ -55,17 +55,20 @@ export const slice = createSlice({
         }
       })
       .addCase(fetchTreeMapData.fulfilled, (state, action) => {
-        console.log(action.payload.data)
-
-        // Преобразование входных данных в формат TreeMap[]
         const formattedData: TreeMap = {
-          children: action.payload.data.map((request: any) => ({
-            children: request.data.map((item: any) => ({
-              name: item.key_display_name,
-              score: item.count,
-            })),
-            name: request.id, // Если name нужно задавать как-то иначе, укажите нужное поле здесь
-          })),
+          children: action.payload.data.map((request: any) => {
+            const filteredChildren = request.data
+              .filter((item: any) => item.key_display_name !== 'unknown' && item.count !== 0)
+              .map((item: any) => ({
+                name: item.key_display_name,
+                score: item.count,
+              }))
+
+            return {
+              children: filteredChildren,
+              name: request.id,
+            }
+          }),
         }
 
         console.log(formattedData)
@@ -190,9 +193,9 @@ const fetchTreeMapData = createAppAsyncThunk(
   `${slice.name}/fetchTreeMapData`,
   async (param: any) => {
     try {
-      const { countries, ids } = param
+      const { ids, types } = param
       const requests = ids.map((id: string, index: number) =>
-        editionsPubKeyAnalysisApi.getTreeMapData(id, countries[index])
+        editionsPubKeyAnalysisApi.getTreeMapData(id, types[index])
       )
       const responses = await Promise.all(requests)
 

@@ -7,6 +7,10 @@ type PieChartProps = {
   data: { id: string; label?: string; value: string }[]
 }
 
+type ColorMapping = {
+  [key: string]: string
+}
+
 const colors = [
   'var(--color-green-60)',
   'var(--color-lime)',
@@ -17,9 +21,21 @@ const colors = [
   'var(--color-lime-pastel)',
 ]
 
+const getColor = (data: { id: string }[], colors: string[]): ColorMapping => {
+  const colorMapping: ColorMapping = {}
+
+  data.forEach((item, index) => {
+    colorMapping[item.id] = colors[index % colors.length]
+  })
+
+  return colorMapping
+}
+
 export const PieChart = ({ data }: PieChartProps) => {
+  const colorMapping: ColorMapping = getColor(data, colors)
+
   return (
-    <div>
+    <div className={s.container}>
       <div className={s.pieChart}>
         <ResponsivePie
           activeOuterRadiusOffset={5}
@@ -27,7 +43,7 @@ export const PieChart = ({ data }: PieChartProps) => {
           arcLabelsTextColor={'var(--color-white)'}
           arcLinkLabelsColor={{ from: 'color' }}
           arcLinkLabelsSkipAngle={10}
-          colors={colors}
+          colors={({ id }) => colorMapping[id]}
           cornerRadius={6}
           data={data}
           enableArcLinkLabels={false}
@@ -37,7 +53,7 @@ export const PieChart = ({ data }: PieChartProps) => {
           sortByValue
         />
       </div>
-      <Legend colors={colors} data={data} />
+      <Legend colorMapping={colorMapping} colors={colors} data={data} />
     </div>
   )
 }

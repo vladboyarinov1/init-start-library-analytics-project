@@ -1,6 +1,4 @@
-import { data } from '@/common/data'
 import { createAppAsyncThunk } from '@/common/utils/create-app-async-thunk'
-import { orgAnalysisApi } from '@/components/ui/pages/org-analysis/api/org-analysis-api.ts'
 import { publicationsKeywordsApi } from '@/components/ui/pages/publications-keywords/api/publications-keywords-api'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
@@ -52,7 +50,7 @@ export const slice = createSlice({
         (state, action: PayloadAction<FetchPublicationDataPayload>) => {
           const { data } = action.payload
 
-          const formattedData: LinearData[] = data.map(({ country, data, id }, index) => ({
+          const formattedData: LinearData[] = data.map(({ country, data }, index) => ({
             country,
             data: data
               .sort((a, b) => a.key.localeCompare(b.key))

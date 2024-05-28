@@ -133,7 +133,7 @@ export const MenuItem = ({ collapsed }: MenuItemProps) => {
   const handleMenuClick = ({ keyPath }: any) => {
     const russianTitles = keyPath.map((key: string) => breadcrumbMapping[key] || key)
 
-    dispatch(changeLink({ path: russianTitles }))
+    dispatch(changeLink({ path: russianTitles.reverse() }))
     // getBreadcrumb({ path: russianTitles.reverse() })
   }
 

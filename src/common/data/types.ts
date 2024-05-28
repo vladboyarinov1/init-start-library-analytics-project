@@ -6,6 +6,7 @@ export type SelectedValue =
   | 'publications'
   | 'publishing'
   | 'types'
+  | 'years'
 export type Linear = {
   data: {
     x: string

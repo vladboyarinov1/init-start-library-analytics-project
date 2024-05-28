@@ -1,4 +1,4 @@
-import { Legend } from '@/components/ui/diagrams/line-graph/legend/legend.tsx'
+import { Legend } from '@/components/ui/diagrams/line-graph/legend/legend'
 import { ResponsiveLine } from '@nivo/line'
 
 import s from './line-graph.module.scss'
@@ -32,6 +32,23 @@ export const LineGraph = (props: LineGraphProps) => {
     'var(--color-purple-light)',
   ]
 
+  // Найти минимальное и максимальное значение y в данных
+  // const yValues = data.flatMap(d => d.data.map(point => point.y))
+  // const minY = Math.min(...yValues)
+  // const maxY = Math.max(...yValues)
+  //
+  // // Добавить отступы к минимальным и максимальным значениям
+  // const padding = (maxY - minY) * 0.1 // 10% от диапазона данных
+  // const adjustedMinY = Math.floor((minY - padding) / 10) * 10 // Округляем до ближайших 10 вниз
+  // const adjustedMaxY = Math.ceil((maxY + padding) / 10) * 10 // Округляем до ближайших 10 вверх
+
+  // Создать массив значений с шагом 10
+  // const tickValues = []
+  //
+  // for (let i = adjustedMinY; i <= adjustedMaxY; i += 10) {
+  //   tickValues.push(i)
+  // }
+
   return (
     <>
       <div className={s.wrapper}>
@@ -49,6 +66,7 @@ export const LineGraph = (props: LineGraphProps) => {
               tickPadding: 10,
               tickRotation: 0,
               tickSize: 0,
+              // tickValues: tickValues, // Устанавливаем значения с шагом 10
             }}
             colors={colors}
             curve={variant}
@@ -60,12 +78,12 @@ export const LineGraph = (props: LineGraphProps) => {
             pointColor={{ from: 'color', modifiers: [] }}
             pointSize={10}
             theme={theme}
-            // tooltip={point => isTooltip && <Tooltip point={point.point} />}
             useMesh={isTooltip}
             xScale={{ type: 'point' }}
             yFormat={' >-.2f'}
             yScale={{
-              min: 0,
+              // max: adjustedMaxY,
+              // min: adjustedMinY,
               type: 'linear',
             }}
           />

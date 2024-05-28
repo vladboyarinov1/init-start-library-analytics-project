@@ -12,6 +12,7 @@ import { EditionsPubKeyAnalysisApi } from '@/components/ui/pages/editions-pub-ke
 import { KeywordNetwork } from '@/components/ui/pages/keyword-network'
 import { OrgAnalysis } from '@/components/ui/pages/org-analysis'
 import { PresentationPage } from '@/components/ui/pages/presentation-page/presentation-page'
+import { PublicationsKeywords } from '@/components/ui/pages/publications-keywords'
 import { Breadcrumb, Layout } from 'antd'
 import { Content } from 'antd/es/layout/layout'
 
@@ -89,6 +90,7 @@ export function App() {
               />
               <Route element={<Navigate to={'/about_search'} />} path={'/'} />
               <Route element={<OrgAnalysis />} path={'/analysis_publications'} />
+              <Route element={<PublicationsKeywords />} path={'/publications_by_keywords'} />
               <Route
                 element={<EditionsPubKeyAnalysisApi />}
                 path={'/analysis_publications_and_keywords'}

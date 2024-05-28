@@ -30,6 +30,9 @@
 .menuSwitchItems {
   margin: 20px 0;
 }
+.fieldRow {
+  display: flex;
+}
 .form {
   display: grid;
   grid-template-columns: 3fr 1.5fr 1fr 0.4fr;
@@ -40,4 +43,52 @@
   @media screen and (max-width: 930px) {
     grid-template-columns: 1fr 1fr;
   }
+}
+//.fieldRow {
+//  border: 1px solid;
+//  display: grid;
+//  grid-template-columns: 1fr 1fr;
+//  grid-template-rows: 1fr;
+//  grid-column-gap: 0px;
+//  grid-row-gap: 0px;
+//  gap: 8px;
+//  @media screen and (max-width: 930px) {
+//    grid-template-columns: 1fr 1fr;
+//  }
+//}
+
+.form_years {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.initialRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 8px;
+  align-items: center;
+  @media screen and (max-width: 930px) {
+    grid-template-columns: 1fr 1fr;
+    order: revert;
+  }
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fieldRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.buttons {
+  display: flex;
+  gap: 8px;
+  //margin-top: 16px;
+  justify-content: flex-end;
 }

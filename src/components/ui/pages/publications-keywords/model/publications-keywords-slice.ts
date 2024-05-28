@@ -9,8 +9,10 @@ interface DataPoint {
 }
 
 interface LinearData {
+  country: string // исправим на country
   data: DataPoint[]
   id: string
+  key: string
 }
 
 interface PublicationsKeywordsState {
@@ -24,24 +26,43 @@ const initialState: PublicationsKeywordsState = {
   publicationsData: [],
 }
 
+interface PublicationData {
+  country: string
+  data: {
+    count: number
+    key: string
+    key_display_name: string
+  }[]
+  id: string
+}
+
+interface FetchPublicationDataPayload {
+  countries: string[]
+  data: PublicationData[]
+}
+
 export const slice = createSlice({
   extraReducers: builder => {
+    // Обновленная обработка полезной нагрузки в `fetchPublicationData.fulfilled`
     builder.addCase(
       fetchPublicationData.fulfilled,
       (
         state,
-        action: PayloadAction<
-          { data: { count: number; key: string; key_display_name: string }[]; id: string }[]
-        >
+        action: PayloadAction<FetchPublicationDataPayload> // Отразить обновленную структуру полезной нагрузки
       ) => {
-        const formattedData: LinearData[] = action.payload.map(({ data, id }) => ({
+        const { data } = action.payload
+
+        // Обновление структуры данных
+        const formattedData: LinearData[] = data.map(({ country, data, id }, index) => ({
+          country,
           data: data
-            .sort((a, b) => a.key.localeCompare(b.key)) // Сортировка по годам
+            .sort((a, b) => a.key.localeCompare(b.key))
             .map(item => ({
               x: item.key_display_name,
               y: item.count,
             })),
-          id,
+          id: country,
+          key: `${country}-${index}`,
         }))
 
         console.log(formattedData)
@@ -59,17 +80,21 @@ export const slice = createSlice({
 
 const fetchPublicationData = createAppAsyncThunk(
   `${slice.name}/fetchPublicationData`,
-  async (ids: string[]) => {
+  async (param: { countries: string[]; endYear: string; ids: string[]; startYear: string }) => {
     try {
-      const requests = ids.map(id => publicationsKeywordsApi.getData(id))
+      const { countries, endYear, ids, startYear } = param
+      const requests = ids.map((id, index) =>
+        publicationsKeywordsApi.getData(id, countries[index], startYear, endYear)
+      )
       const responses = await Promise.all(requests)
 
-      const data = responses.map((res, index) => ({
+      const data: PublicationData[] = responses.map((res, index) => ({
+        country: countries[index],
         data: res.data['group_by'],
         id: ids[index],
       }))
 
-      return data
+      return { countries, data } as FetchPublicationDataPayload // Возвращаем обновленный тип данных
     } catch (e: any) {
       throw new Error(e)
     }

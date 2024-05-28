@@ -8,6 +8,7 @@ import { ChartSection } from '@/components/ui/components/chart-section'
 import { DashboardButton } from '@/components/ui/components/dashboard-button'
 import { Input } from '@/components/ui/components/input'
 import { SelectButton } from '@/components/ui/components/select-button'
+import { BarChar } from '@/components/ui/diagrams/bar-chart'
 import { LineGraph } from '@/components/ui/diagrams/line-graph'
 import { pubKeywordsSliceActions } from '@/components/ui/pages/publications-keywords'
 import { publicationsKeywordsSelectors } from '@/components/ui/pages/publications-keywords/model/publications-keywords-selectors.ts'
@@ -22,14 +23,10 @@ const buttonConfigs = [
 ]
 
 export const PublicationsKeywords = () => {
-  const { fetchPublicationData } = useActions(pubKeywordsSliceActions)
+  const { fetchCountriesData, fetchPublicationData } = useActions(pubKeywordsSliceActions)
   const [type, setType] = useState<SelectedValue>('countries')
   const data = useAppSelector(publicationsKeywordsSelectors)
 
-  console.log(data.citationsData)
-
-  const [value, setValue] = useState('')
-  const allOptions = ['Аффиляция ROR']
   const changeSelectedValue = (value: SelectedValue) => {
     setType(value)
   }
@@ -40,6 +37,8 @@ export const PublicationsKeywords = () => {
   const startYear = Array.from({ length: 2024 - 2012 + 1 }, (_, i) => ({
     label: (2012 + i).toString(),
   }))
+
+  console.log(data.linearData)
 
   return (
     <div>
@@ -64,6 +63,11 @@ export const PublicationsKeywords = () => {
               initialValues={{ endYear: '', id: '', startYear: '' }}
               onSubmit={values => {
                 alert(JSON.stringify(values, null, 2))
+                fetchCountriesData({
+                  endYear: values.endYear,
+                  id: values.id,
+                  startYear: values.startYear,
+                })
               }}
             >
               {({ handleChange, handleSubmit, setFieldValue, values }) => (
@@ -223,9 +227,14 @@ export const PublicationsKeywords = () => {
         )}
       </div>
       <div>
-        {type === 'years' && data.citationsData.length > 0 && (
-          <ChartSection data={data.citationsData} title={'Количество изданий по издательствам'}>
-            <LineGraph data={data.citationsData} isTooltip points variant={'catmullRom'} />
+        {type === 'years' && data.linearData.length > 0 && (
+          <ChartSection data={data.linearData} title={'Количество изданий по издательствам'}>
+            <LineGraph data={data.linearData} isTooltip points variant={'catmullRom'} />
+          </ChartSection>
+        )}
+        {type === 'countries' && data.countries.data.length > 0 && (
+          <ChartSection data={data.countries.exportData} title={'По странам'}>
+            <BarChar data={data.countries.data} />
           </ChartSection>
         )}
       </div>

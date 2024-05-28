@@ -1,3 +1,4 @@
+import { TreeMap } from '@/common/data'
 import { createAppAsyncThunk } from '@/common/utils/create-app-async-thunk'
 import { paramsToQueryString } from '@/common/utils/params-to-query-string'
 import { editionsPubKeyAnalysisApi } from '@/components/ui/pages/editions-pub-key-analysis-api/api/editions-pub-key-analysis-api'
@@ -54,28 +55,22 @@ export const slice = createSlice({
         }
       })
       .addCase(fetchTreeMapData.fulfilled, (state, action) => {
-        const newData = action.payload.data.slice(0, 7)
+        console.log(action.payload.data)
 
-        const newTreeMapData = newData
-          .filter(
-            (item: any) => item['key_display_name'] !== 'unknown' && item['key'] !== 'unknown'
-          )
-          .map((item: any) => ({
-            children: [
-              {
-                name: item['key_display_name'],
-                score: item['count'],
-              },
-            ],
-            name: item['key_display_name'],
-          }))
-
-        return {
-          ...state,
-          treeMapData: {
-            children: newTreeMapData,
-          },
+        // Преобразование входных данных в формат TreeMap[]
+        const formattedData: TreeMap = {
+          children: action.payload.data.map((request: any) => ({
+            children: request.data.map((item: any) => ({
+              name: item.key_display_name,
+              score: item.count,
+            })),
+            name: request.id, // Если name нужно задавать как-то иначе, укажите нужное поле здесь
+          })),
         }
+
+        console.log(formattedData)
+
+        state.treeMapData = formattedData
       })
       .addCase(fetchOpenAccessData.fulfilled, (state, action) => {
         console.log(action)
@@ -194,12 +189,21 @@ const fetchPieChartData = createAppAsyncThunk(
 const fetchTreeMapData = createAppAsyncThunk(
   `${slice.name}/fetchTreeMapData`,
   async (param: any) => {
-    const transformedParams = paramsToQueryString(param)
-
     try {
-      const res = await editionsPubKeyAnalysisApi.getTreeMapData(transformedParams.queryString)
+      const { countries, ids } = param
+      const requests = ids.map((id: string, index: number) =>
+        editionsPubKeyAnalysisApi.getTreeMapData(id, countries[index])
+      )
+      const responses = await Promise.all(requests)
 
-      return { data: res.data['group_by'] }
+      const data = responses.map((res, index) => ({
+        data: res.data['group_by'],
+        id: ids[index],
+      }))
+
+      console.log(data)
+
+      return { data }
     } catch (e: any) {
       throw new Error(e)
     }

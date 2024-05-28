@@ -230,6 +230,7 @@ export const CirclePackingData: CirclePacking = {
 export const treeMapData: TreeMap = {
   children: [
     {
+      //1 запрос пользователя
       children: [
         {
           name: 'Europe',
@@ -259,6 +260,7 @@ export const treeMapData: TreeMap = {
       name: 'Computer science',
     },
     {
+      //2 запрос пользователя
       children: [
         {
           name: 'Europe',
@@ -286,35 +288,6 @@ export const treeMapData: TreeMap = {
         },
       ],
       name: 'Chemical engineering',
-    },
-    {
-      children: [
-        {
-          name: 'Europe',
-          score: 1204,
-        },
-        {
-          name: 'Asia',
-          score: 738,
-        },
-        {
-          name: 'North America',
-          score: 652,
-        },
-        {
-          name: 'Africa',
-          score: 87,
-        },
-        {
-          name: 'South America',
-          score: 14,
-        },
-        {
-          name: 'Oceania',
-          score: 8,
-        },
-      ],
-      name: 'Thermodynamics',
     },
   ],
 }

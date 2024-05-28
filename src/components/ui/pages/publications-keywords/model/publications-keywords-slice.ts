@@ -1,29 +1,32 @@
+import { data } from '@/common/data'
 import { createAppAsyncThunk } from '@/common/utils/create-app-async-thunk'
+import { orgAnalysisApi } from '@/components/ui/pages/org-analysis/api/org-analysis-api.ts'
 import { publicationsKeywordsApi } from '@/components/ui/pages/publications-keywords/api/publications-keywords-api'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-// Определение интерфейсов
 interface DataPoint {
   x: string
   y: number
 }
 
 interface LinearData {
-  country: string // исправим на country
+  country: string
   data: DataPoint[]
   id: string
   key: string
 }
 
 interface PublicationsKeywordsState {
-  citationsData: LinearData[]
-  publicationsData: LinearData[]
+  countries: any
+  linearData: LinearData[]
 }
 
-// Начальное состояние
 const initialState: PublicationsKeywordsState = {
-  citationsData: [],
-  publicationsData: [],
+  countries: {
+    data: [],
+    exportData: [],
+  },
+  linearData: [],
 }
 
 interface PublicationData {
@@ -43,35 +46,49 @@ interface FetchPublicationDataPayload {
 
 export const slice = createSlice({
   extraReducers: builder => {
-    // Обновленная обработка полезной нагрузки в `fetchPublicationData.fulfilled`
-    builder.addCase(
-      fetchPublicationData.fulfilled,
-      (
-        state,
-        action: PayloadAction<FetchPublicationDataPayload> // Отразить обновленную структуру полезной нагрузки
-      ) => {
-        const { data } = action.payload
+    builder
+      .addCase(
+        fetchPublicationData.fulfilled,
+        (state, action: PayloadAction<FetchPublicationDataPayload>) => {
+          const { data } = action.payload
 
-        // Обновление структуры данных
-        const formattedData: LinearData[] = data.map(({ country, data, id }, index) => ({
-          country,
-          data: data
-            .sort((a, b) => a.key.localeCompare(b.key))
-            .map(item => ({
-              x: item.key_display_name,
-              y: item.count,
-            })),
-          id: country,
-          key: `${country}-${index}`,
-        }))
+          const formattedData: LinearData[] = data.map(({ country, data, id }, index) => ({
+            country,
+            data: data
+              .sort((a, b) => a.key.localeCompare(b.key))
+              .map(item => ({
+                x: item.key_display_name,
+                y: item.count,
+              })),
+            id: country,
+            key: `${country}-${index}`,
+          }))
 
-        console.log(formattedData)
+          state.linearData = formattedData
+        }
+      )
+      .addCase(fetchCountriesData.fulfilled, (state, action) => {
+        const newBarChartData = action.payload.data
+          .slice(0, 9)
+          .map((item: any) => ({
+            id: item['key_display_name'],
+            value: item['count'],
+          }))
+          .filter(
+            (item: any) => item.id !== 'unknown' && item.value !== 'unknown' && item.value !== 0
+          )
 
-        // Обновление state
-        state.publicationsData = formattedData
-        state.citationsData = formattedData // Если необходимо также для citationsData
-      }
-    )
+        console.log(newBarChartData)
+
+        //добавить переменную для экспорта
+        return {
+          ...state,
+          countries: {
+            data: newBarChartData,
+            exportData: action.payload.data,
+          },
+        }
+      })
   },
   initialState,
   name: 'publicationsKeywords',
@@ -100,7 +117,22 @@ const fetchPublicationData = createAppAsyncThunk(
     }
   }
 )
+const fetchCountriesData = createAppAsyncThunk(
+  `${slice.name}/fetchCountriesData`,
+  async (param: { endYear: string; id: string; startYear: string }) => {
+    const { endYear, id, startYear } = param
+
+    try {
+      const res = await publicationsKeywordsApi.getCountriesData(id, startYear, endYear)
+
+      return { data: res.data['group_by'] }
+    } catch (e: any) {
+      throw new Error(e)
+    }
+  }
+)
 
 export const asyncActions = {
+  fetchCountriesData,
   fetchPublicationData,
 }

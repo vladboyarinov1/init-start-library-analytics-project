@@ -29,6 +29,8 @@ const buttonConfigs = [
 export const EditionsPubKeyAnalysisApi = () => {
   const data = useAppSelector(editionsPubKeyAnalysisSelectors)
 
+  console.log(data.barChartData)
+
   const [type, setType] = useState<SelectedValue>('publications')
 
   const changeSelectedValue = (value: SelectedValue) => {

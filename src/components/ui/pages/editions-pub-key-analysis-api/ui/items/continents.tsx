@@ -1,10 +1,94 @@
 import { useActions } from '@/common/hooks/use-actions'
+import { Button } from '@/components/ui/components/button'
 import { FormWithFieldArray } from '@/components/ui/components/form-with-field-array'
+import { Input } from '@/components/ui/components/input'
+import { SelectButton } from '@/components/ui/components/select-button'
 import { editionsPubKeyAnalysisActions } from '@/components/ui/pages/editions-pub-key-analysis-api'
+import { Search } from '@/icons'
+import { FieldArray, Form, Formik } from 'formik'
+
+import s from '@/components/ui/pages/publications-keywords/ui/publications-keywords.module.scss'
 
 export const Continents = () => {
   const allOptions = ['ID направления', 'Тип публикации']
   const { fetchTreeMapData } = useActions(editionsPubKeyAnalysisActions)
 
-  return <FormWithFieldArray allOptions={allOptions} onSubmit={fetchTreeMapData} />
+  return (
+    <div>
+      <Formik
+        initialValues={{ countries: [''], endYear: '', ids: [''], startYear: '' }}
+        onSubmit={values => {
+          alert(JSON.stringify(values, null, 2))
+          fetchTreeMapData({
+            countries: values.countries,
+            ids: values.ids,
+          })
+        }}
+      >
+        {({ handleChange, handleSubmit, setFieldValue, values }) => (
+          <Form>
+            <div className={s.form_years}>
+              <div className={s.initialRow}>
+                <Input
+                  name={`ids[0]`}
+                  onChange={handleChange}
+                  placeholder={`ID направления 1`}
+                  value={values.ids[0] || ''}
+                />
+                <Input
+                  name={`countries[0]`}
+                  onChange={handleChange}
+                  placeholder={`Код страны 1`}
+                  value={values.countries[0] || ''}
+                />
+              </div>
+              <FieldArray name={'fields'}>
+                {({ push, remove }) => (
+                  <>
+                    <div className={s.wrapper}>
+                      {values.ids.slice(1).map((id, index) => (
+                        <div className={s.fieldRow} key={`${id}-${index + 1}`}>
+                          <Input
+                            name={`ids[${index + 1}]`}
+                            onChange={handleChange}
+                            placeholder={`ID направления ${index + 2}`}
+                            value={id || ''}
+                          />
+                          <Input
+                            name={`countries[${index + 1}]`}
+                            onChange={handleChange}
+                            placeholder={`Код страны ${index + 2}`}
+                            value={values.countries[index + 1] || ''}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                    <div className={s.buttons}>
+                      {values.ids.length < 4 && (
+                        <Button
+                          onClick={() => {
+                            push('')
+                            setFieldValue('ids', [...values.ids, ''])
+                            setFieldValue('countries', [...values.countries, ''])
+                          }}
+                          type={'button'}
+                          variant={'primary'}
+                        >
+                          Добавить поле
+                        </Button>
+                      )}
+                      <Button onClick={handleSubmit} type={'submit'}>
+                        Поиск <Search />
+                      </Button>
+                    </div>
+                  </>
+                )}
+              </FieldArray>
+            </div>
+          </Form>
+        )}
+      </Formik>
+    </div>
+  )
+  // <FormWithFieldArray allOptions={allOptions} onSubmit={fetchTreeMapData} />
 }

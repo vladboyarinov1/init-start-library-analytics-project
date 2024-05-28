@@ -16,7 +16,9 @@ export const editionsPubKeyAnalysisApi = {
   getPieChartData(queryString: any) {
     return instance.get(`sources?filter=${queryString}&group_by=type`)
   },
-  getTreeMapData(queryString: any) {
-    return instance.get(`sources?filter=${queryString}&group_by=continent`)
+  getTreeMapData(id: string, type: string) {
+    return instance.get(`sources?filter=x_concepts.id:${id},type:${type}&group_by=continent`)
   },
 }
+
+//sources?filter=${queryString}&group_by=continent

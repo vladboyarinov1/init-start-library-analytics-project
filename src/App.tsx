@@ -8,6 +8,7 @@ import { PagesFooter } from '@/components/ui/components/footer'
 import { MainHeader } from '@/components/ui/components/header/header'
 import { Sidebar } from '@/components/ui/components/sidebar'
 import { AboutSearch } from '@/components/ui/pages/about-search'
+import { Dynamics } from '@/components/ui/pages/dynamics'
 import { EditionsPubKeyAnalysisApi } from '@/components/ui/pages/editions-pub-key-analysis-api/ui'
 import { KeywordNetwork } from '@/components/ui/pages/keyword-network'
 import { OrgAnalysis } from '@/components/ui/pages/org-analysis'
@@ -90,6 +91,7 @@ export function App() {
               />
               <Route element={<Navigate to={'/about_search'} />} path={'/'} />
               <Route element={<OrgAnalysis />} path={'/analysis_publications'} />
+              <Route element={<Dynamics />} path={'/dynamics'} />
               <Route element={<PublicationsKeywords />} path={'/publications_by_keywords'} />
               <Route
                 element={<EditionsPubKeyAnalysisApi />}

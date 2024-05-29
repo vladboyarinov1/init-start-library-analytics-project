@@ -50,6 +50,8 @@ export const slice = createSlice({
         (state, action: PayloadAction<FetchPublicationDataPayload>) => {
           const { data } = action.payload
 
+          console.log(data)
+
           const formattedData: LinearData[] = data.map(({ country, data }, index) => ({
             country,
             data: data
@@ -109,7 +111,7 @@ const fetchPublicationData = createAppAsyncThunk(
         id: ids[index],
       }))
 
-      return { countries, data } as FetchPublicationDataPayload // Возвращаем обновленный тип данных
+      return { countries, data } as FetchPublicationDataPayload
     } catch (e: any) {
       throw new Error(e)
     }

@@ -1,3 +1,4 @@
+import { Legend } from '@/components/ui/diagrams/line-graph/legend/legend.tsx'
 import { ResponsiveLine } from '@nivo/line'
 
 import s from './line-graph.module.scss'
@@ -17,7 +18,7 @@ type LineGraphProps = {
 }
 
 export const LineGraph = (props: LineGraphProps) => {
-  const { data, isTooltip = false, points = false, variant = 'linear' } = props
+  const { data, isTooltip = false, legend, points = false, variant = 'linear' } = props
   const theme = {
     fontSize: 12,
     textColor: 'var(--color-black-60)',
@@ -30,23 +31,6 @@ export const LineGraph = (props: LineGraphProps) => {
     'var(--color-pink)',
     'var(--color-purple-light)',
   ]
-
-  // Найти минимальное и максимальное значение y в данных
-  // const yValues = data.flatMap(d => d.data.map(point => point.y))
-  // const minY = Math.min(...yValues)
-  // const maxY = Math.max(...yValues)
-  //
-  // // Добавить отступы к минимальным и максимальным значениям
-  // const padding = (maxY - minY) * 0.1 // 10% от диапазона данных
-  // const adjustedMinY = Math.floor((minY - padding) / 10) * 10 // Округляем до ближайших 10 вниз
-  // const adjustedMaxY = Math.ceil((maxY + padding) / 10) * 10 // Округляем до ближайших 10 вверх
-
-  // Создать массив значений с шагом 10
-  // const tickValues = []
-  //
-  // for (let i = adjustedMinY; i <= adjustedMaxY; i += 10) {
-  //   tickValues.push(i)
-  // }
 
   return (
     <>
@@ -87,7 +71,7 @@ export const LineGraph = (props: LineGraphProps) => {
             }}
           />
         </div>
-        {/*{legend && <Legend colors={colors} data={data} />}*/}
+        {legend && <Legend colors={colors} data={data} />}
       </div>
     </>
   )

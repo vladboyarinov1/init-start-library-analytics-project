@@ -5,6 +5,7 @@ import s from './pie-chart.module.scss'
 
 type PieChartProps = {
   data: { id: string; label?: string; value: string }[]
+  showPercentage?: boolean // Новый параметр
 }
 
 type ColorMapping = {
@@ -31,7 +32,7 @@ const getColor = (data: { id: string }[], colors: string[]): ColorMapping => {
   return colorMapping
 }
 
-export const PieChart = ({ data }: PieChartProps) => {
+export const PieChart = ({ data, showPercentage = false }: PieChartProps) => {
   const colorMapping: ColorMapping = getColor(data, colors)
 
   return (
@@ -53,7 +54,15 @@ export const PieChart = ({ data }: PieChartProps) => {
           sortByValue
         />
       </div>
-      <Legend colorMapping={colorMapping} colors={colors} data={data} />
+      <Legend
+        colors={colors}
+        data={data.map(({ id, value }) => ({
+          colorMapping: colorMapping[id],
+          id,
+          value,
+        }))}
+        showPercentage={showPercentage} // Передаем параметр
+      />
     </div>
   )
 }

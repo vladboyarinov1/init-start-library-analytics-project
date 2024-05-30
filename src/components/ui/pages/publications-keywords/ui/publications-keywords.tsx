@@ -38,8 +38,6 @@ export const PublicationsKeywords = () => {
     label: (2012 + i).toString(),
   }))
 
-  console.log(data.linearData)
-
   return (
     <div>
       <div className={s.dashboard}>

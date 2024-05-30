@@ -6,6 +6,7 @@ type LegendDataType1 = {
 }
 
 type LegendDataType2 = {
+  colorMapping: any
   id: string
   label?: string
   value: string
@@ -14,15 +15,17 @@ type LegendDataType2 = {
 type LegendProps = {
   colors: string[]
   data: LegendDataType1[] | LegendDataType2[]
+  showPercentage?: boolean // Новый параметр
 }
 
-export const Legend = ({ colors, data }: LegendProps) => {
+export const Legend = ({ colors, data, showPercentage = false }: LegendProps) => {
   // Determine the type of data and transform it if necessary
   const isDataType2 = (item: any): item is LegendDataType2 => 'value' in item
 
   const transformedData: LegendDataType2[] =
     Array.isArray(data) && data.length > 0 && 'data' in data[0]
       ? (data as LegendDataType1[]).map(item => ({
+          colorMapping: {}, // Provide a default colorMapping or modify this line to suit your logic
           id: item.id,
           value: item.data.reduce((total, d) => total + d.y, 0).toString(),
         }))
@@ -38,7 +41,7 @@ export const Legend = ({ colors, data }: LegendProps) => {
       {transformedData.map((item, index: number) => {
         // Calculate the percentage for each item if data is of LegendDataType2
         const percentage =
-          isDataType2(item) && totalValue > 0
+          showPercentage && isDataType2(item) && totalValue > 0
             ? ((parseFloat(item.value) / totalValue) * 100).toFixed(2)
             : null
 

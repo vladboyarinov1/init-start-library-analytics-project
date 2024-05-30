@@ -90,7 +90,7 @@ export const EditionsPubKeyAnalysisApi = () => {
           data={data.pieChartData}
           title={'Научное направление: количество изданий по типам'}
         >
-          <PieChart data={data.pieChartData} />
+          <PieChart data={data.pieChartData} showPercentage />
         </ChartSection>
       )}
       {type === 'OA' && data.openAcceessData.data.length > 0 && (
@@ -99,7 +99,7 @@ export const EditionsPubKeyAnalysisApi = () => {
           data={data.openAcceessData.exportData}
           title={'Научное направление: издания в отношении ОА'}
         >
-          <PieChart data={data.openAcceessData.data} />
+          <PieChart data={data.openAcceessData.data} showPercentage />
         </ChartSection>
       )}
       {type === 'countries' && data.barChartCountryData.data.length > 0 && (

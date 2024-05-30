@@ -46,7 +46,7 @@ export const slice = createSlice({
     builder.addCase(fetchData.fulfilled, (state, action) => {
       // Преобразование данных с сервера в формат Linear
       let newData = action.payload.data.map((response, index) => ({
-        data: response.data.map(item => ({
+        data: response.data.map((item: any) => ({
           x: item.key_display_name,
           y: item.count,
         })),
@@ -56,7 +56,7 @@ export const slice = createSlice({
       // Сортировка данных по значению x (год)
       newData = newData.map(item => ({
         ...item,
-        data: item.data.sort((a, b) => a.x - b.x),
+        data: item.data.sort((a: any, b: any) => a.x - b.x),
       }))
 
       state.data = newData

@@ -28,7 +28,7 @@ export const Dynamics = () => {
     <div>
       <div className={s.dashboard}>
         <div className={s.title}>
-          <h2>Издания: анализ публикаций и ключевых слов</h2>
+          <h2>Динамика публикаций/цитирований</h2>
         </div>
         <Formik
           initialValues={{

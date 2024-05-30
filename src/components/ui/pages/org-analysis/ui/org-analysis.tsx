@@ -44,7 +44,7 @@ export const OrgAnalysis = () => {
     <div>
       <div className={s.dashboard}>
         <div className={s.title}>
-          <h2>Издания: анализ публикаций и ключевых слов</h2>
+          <h2>Организации: анализ публикаций</h2>
         </div>
         <div className={s.menuSwitchItems}>
           {buttonConfigs.map(config => (

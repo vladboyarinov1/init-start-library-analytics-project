@@ -11,7 +11,7 @@ import { SelectButton } from '@/components/ui/components/select-button'
 import { BarChar } from '@/components/ui/diagrams/bar-chart'
 import { LineGraph } from '@/components/ui/diagrams/line-graph'
 import { pubKeywordsSliceActions } from '@/components/ui/pages/publications-keywords'
-import { publicationsKeywordsSelectors } from '@/components/ui/pages/publications-keywords/model/publications-keywords-selectors.ts'
+import { publicationsKeywordsSelectors } from '@/components/ui/pages/publications-keywords/model/publications-keywords-selectors'
 import { Search } from '@/icons'
 import { FieldArray, Form, Formik } from 'formik'
 
@@ -42,7 +42,7 @@ export const PublicationsKeywords = () => {
     <div>
       <div className={s.dashboard}>
         <div className={s.title}>
-          <h2>Издания: анализ публикаций и ключевых слов</h2>
+          <h2>Публикации по ключевым словам</h2>
         </div>
         <div className={s.menuSwitchItems}>
           {buttonConfigs.map(config => (

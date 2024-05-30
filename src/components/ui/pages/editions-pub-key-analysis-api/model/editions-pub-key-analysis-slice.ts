@@ -71,12 +71,9 @@ export const slice = createSlice({
           }),
         }
 
-        console.log(formattedData)
-
         state.treeMapData = formattedData
       })
       .addCase(fetchOpenAccessData.fulfilled, (state, action) => {
-        console.log(action)
         const newData = action.payload.data
           .slice(0, 9)
           .map((item: any) => ({
@@ -203,8 +200,6 @@ const fetchTreeMapData = createAppAsyncThunk(
         data: res.data['group_by'],
         id: ids[index],
       }))
-
-      console.log(data)
 
       return { data }
     } catch (e: any) {

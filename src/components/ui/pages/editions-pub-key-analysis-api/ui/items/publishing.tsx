@@ -4,7 +4,7 @@ import { editionsPubKeyAnalysisActions } from '@/components/ui/pages/editions-pu
 
 export const Publishing = () => {
   const { fetchBarChartData } = useActions(editionsPubKeyAnalysisActions)
-  const allOptions = ['ID направления', 'Кoд страны', 'Тип публикации']
+  const allOptions = ['ID направления', 'Код страны', 'Тип публикации']
 
   return <FormWithFieldArray allOptions={allOptions} onSubmit={fetchBarChartData} />
 }

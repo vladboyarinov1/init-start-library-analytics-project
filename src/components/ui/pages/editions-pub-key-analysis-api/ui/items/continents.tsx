@@ -15,7 +15,6 @@ export const Continents = () => {
       <Formik
         initialValues={{ endYear: '', ids: [''], startYear: '', types: [''] }}
         onSubmit={values => {
-          alert(JSON.stringify(values, null, 2))
           fetchTreeMapData({
             ids: values.ids,
             types: values.types,
@@ -52,9 +51,9 @@ export const Continents = () => {
                             value={id || ''}
                           />
                           <Input
-                            name={`countries[${index + 1}]`}
+                            name={`types[${index + 1}]`}
                             onChange={handleChange}
-                            placeholder={`Код страны ${index + 2}`}
+                            placeholder={`Тип публикации ${index + 2}`}
                             value={values.types[index + 1] || ''}
                           />
                         </div>

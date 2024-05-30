@@ -60,7 +60,6 @@ export const PublicationsKeywords = () => {
             <Formik
               initialValues={{ endYear: '', id: '', startYear: '' }}
               onSubmit={values => {
-                alert(JSON.stringify(values, null, 2))
                 fetchCountriesData({
                   endYear: values.endYear,
                   id: values.id,
@@ -111,7 +110,6 @@ export const PublicationsKeywords = () => {
             <Formik
               initialValues={{ countries: [''], endYear: '', ids: [''], startYear: '' }}
               onSubmit={values => {
-                alert(JSON.stringify(values, null, 2))
                 fetchPublicationData({
                   countries: values.countries,
                   endYear: values.endYear,

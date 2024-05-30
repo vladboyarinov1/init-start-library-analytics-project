@@ -130,8 +130,6 @@ export const slice = createSlice({
         }))
         const displayName = action.payload.data[0]['display_name']
 
-        console.log(displayName)
-
         return {
           ...state,
           circlePacking: {

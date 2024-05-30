@@ -8,7 +8,7 @@ interface FormData {
   type?: string
 }
 const filterMappings: Record<string, string> = {
-  'ID направления': '',
+  'ID направления': 'x_concepts.id:',
   Издатель: 'display_name.search:x_concepts.id:',
   'Кoд страны': 'country_codes:',
   'Код страны': 'country_code:',

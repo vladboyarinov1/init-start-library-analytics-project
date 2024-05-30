@@ -33,14 +33,13 @@ export const Dynamics = () => {
         <Formik
           initialValues={{
             authorId: ['a5055075513'],
-            endYear: '2024',
+            endYear: '2016',
             ror: ['I45812101'],
             sourcesId: ['3At10097'],
-            startYear: '',
+            startYear: '2012',
             type: 'Количество публикаций',
           }}
           onSubmit={values => {
-            alert(JSON.stringify(values, null, 2))
             fetchData({
               authorId: values.authorId,
               endYear: values.endYear,

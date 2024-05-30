@@ -60,7 +60,7 @@ export const OrgAnalysis = () => {
         {type === 'publications' && (
           <div>
             <Formik
-              initialValues={{ endYear: '', iso: '', startYear: '', type: '' }}
+              initialValues={{ endYear: '2024', iso: '', startYear: '', type: '' }}
               onSubmit={values => {
                 fetchData({
                   endYear: +values.endYear,
@@ -120,9 +120,8 @@ export const OrgAnalysis = () => {
         {type === 'keyword' && (
           <div>
             <Formik
-              initialValues={{ pairs: [{ inputValue: '', selectValue: '' }] }}
+              initialValues={{ pairs: [{ inputValue: '040a2r459', selectValue: 'Аффиляция ROR' }] }}
               onSubmit={values => {
-                alert(JSON.stringify(values, null, 2))
                 fetchCirclePacking(values.pairs)
               }}
             >

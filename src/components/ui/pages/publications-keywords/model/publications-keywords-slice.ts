@@ -50,8 +50,6 @@ export const slice = createSlice({
         (state, action: PayloadAction<FetchPublicationDataPayload>) => {
           const { data } = action.payload
 
-          console.log(data)
-
           const formattedData: LinearData[] = data.map(({ country, data }, index) => ({
             country,
             data: data
@@ -78,9 +76,6 @@ export const slice = createSlice({
             (item: any) => item.id !== 'unknown' && item.value !== 'unknown' && item.value !== 0
           )
 
-        console.log(newBarChartData)
-
-        //добавить переменную для экспорта
         return {
           ...state,
           countries: {

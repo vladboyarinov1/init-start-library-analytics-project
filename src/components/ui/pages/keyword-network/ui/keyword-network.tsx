@@ -1,6 +1,7 @@
 import { useActions } from '@/common/hooks/use-actions'
 import { useAppSelector } from '@/common/hooks/use-app-selector'
 import { ChartSection } from '@/components/ui/components/chart-section'
+import { Circular } from '@/components/ui/components/circular'
 import { FormWithFieldArray } from '@/components/ui/components/form-with-field-array'
 import { CirclePacking } from '@/components/ui/diagrams/circle-packing'
 import { keywordNetworkActions } from '@/components/ui/pages/keyword-network'
@@ -15,6 +16,7 @@ export const KeywordNetwork = () => {
 
   return (
     <div>
+      <Circular />
       <div className={s.dashboard}>
         <h2 className={s.title}>Сеть ключевого слова</h2>
         <div>

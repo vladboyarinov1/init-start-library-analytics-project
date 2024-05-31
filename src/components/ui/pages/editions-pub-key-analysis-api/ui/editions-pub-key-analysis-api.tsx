@@ -2,11 +2,18 @@ import { useState } from 'react'
 
 import { SelectedValue } from '@/common/data'
 import { useAppSelector } from '@/common/hooks/use-app-selector'
+import { RequestStatus, RootState } from '@/common/types/common-types'
 import { ChartSection } from '@/components/ui/components/chart-section'
+import { Circular } from '@/components/ui/components/circular'
 import { DashboardButton } from '@/components/ui/components/dashboard-button'
 import { BarChar } from '@/components/ui/diagrams/bar-chart'
 import { PieChart } from '@/components/ui/diagrams/pie-chart'
 import { TreeMap } from '@/components/ui/diagrams/tree-map'
+import {
+  applicationSelectors,
+  selectIsLinearProgress,
+  selectRequestStatus,
+} from '@/components/ui/features/application/application-selectors.ts'
 import { editionsPubKeyAnalysisSelectors } from '@/components/ui/pages/editions-pub-key-analysis-api/model/editions-pub-key-analysis-selectors'
 import { Continents } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/items/continents'
 import { Countries } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/items/countries'
@@ -14,6 +21,7 @@ import { OpenAccess } from '@/components/ui/pages/editions-pub-key-analysis-api/
 import { Publications } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/items/publications'
 import { Publishing } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/items/publishing'
 import { Types } from '@/components/ui/pages/editions-pub-key-analysis-api/ui/items/types'
+import { Box, CircularProgress, LinearProgress, Stack } from '@mui/material'
 
 import s from './editions-pub-key-analysis-api.module.scss'
 
@@ -59,6 +67,7 @@ export const EditionsPubKeyAnalysisApi = () => {
         {type === 'publications' && <Publications />}
         {type === 'types' && <Types />}
       </div>
+      <Circular />
       {type === 'publications' && (
         <div>
           {data.publicationsData.length ? (

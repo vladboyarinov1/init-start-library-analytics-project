@@ -1,8 +1,10 @@
 import { TreeMap } from '@/common/data'
 import { createAppAsyncThunk } from '@/common/utils/create-app-async-thunk'
 import { paramsToQueryString } from '@/common/utils/params-to-query-string'
+import { appActions } from '@/components/ui/features/common-actions'
 import { editionsPubKeyAnalysisApi } from '@/components/ui/pages/editions-pub-key-analysis-api/api/editions-pub-key-analysis-api'
 import { createSlice } from '@reduxjs/toolkit'
+const { setLinearProgress } = appActions
 
 export const slice = createSlice({
   extraReducers: builder => {
@@ -132,17 +134,23 @@ export const slice = createSlice({
   reducers: {},
 })
 
-const fetchData = createAppAsyncThunk(`${slice.name}/fetchData`, async (param: any) => {
-  const transformedParams = paramsToQueryString(param)
+const fetchData = createAppAsyncThunk(
+  `${slice.name}/fetchData`,
+  async (param: any, { dispatch }) => {
+    const transformedParams = paramsToQueryString(param)
 
-  try {
-    const res = await editionsPubKeyAnalysisApi.getData(transformedParams.queryString)
+    dispatch(setLinearProgress({ value: true }))
+    try {
+      const res = await editionsPubKeyAnalysisApi.getData(transformedParams.queryString)
 
-    return { data: res.data.results }
-  } catch (e: any) {
-    throw new Error(e)
+      dispatch(setLinearProgress({ value: false }))
+
+      return { data: res.data.results }
+    } catch (e: any) {
+      throw new Error(e)
+    }
   }
-})
+)
 
 const fetchBarChartData = createAppAsyncThunk(
   `${slice.name}/fetchBarChartData`,

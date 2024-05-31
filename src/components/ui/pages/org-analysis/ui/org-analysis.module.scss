@@ -45,3 +45,23 @@
     grid-template-columns: 1fr 1fr;
   }
 }
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+
+  &__items {
+    @media screen and (max-width: 540px) {
+      margin: 0 10px;
+    }
+    background-color: white;
+    border-radius: 12px;
+    padding: 10px;
+    width: 560px;
+
+    & > h2 {
+      margin: 20px 0 40px 20px;
+    }
+  }
+}

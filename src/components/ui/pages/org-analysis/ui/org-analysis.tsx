@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/components/button'
 import { ChartSection } from '@/components/ui/components/chart-section'
 import { Circular } from '@/components/ui/components/circular'
 import { DashboardButton } from '@/components/ui/components/dashboard-button'
+import { ErrorSnackbar } from '@/components/ui/components/error-snackbar'
 import { Input } from '@/components/ui/components/input'
 import { SelectButton } from '@/components/ui/components/select-button'
 import { CirclePacking } from '@/components/ui/diagrams/circle-packing'
@@ -44,6 +45,7 @@ export const OrgAnalysis = () => {
   return (
     <div>
       <Circular />
+      <ErrorSnackbar />
       <div className={s.dashboard}>
         <div className={s.title}>
           <h2>Организации: анализ публикаций</h2>

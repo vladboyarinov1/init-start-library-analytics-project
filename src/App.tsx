@@ -4,6 +4,7 @@ import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { searchPageData, visualizationData } from '@/common/data'
 import { useAppSelector } from '@/common/hooks/use-app-selector'
 import { useWindowSize } from '@/common/hooks/use-window-size'
+import { ErrorSnackbar } from '@/components/ui/components/error-snackbar'
 import { PagesFooter } from '@/components/ui/components/footer'
 import { MainHeader } from '@/components/ui/components/header/header'
 import { Sidebar } from '@/components/ui/components/sidebar'
@@ -103,6 +104,7 @@ export function App() {
         </Content>
         {isPathNotInSearchPages && <PagesFooter />}
       </Layout>
+      <ErrorSnackbar />
     </Layout>
   )
 }

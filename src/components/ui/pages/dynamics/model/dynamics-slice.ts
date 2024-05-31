@@ -14,13 +14,16 @@ export type Linear = {
 // AsyncThunk для получения данных с сервера
 const fetchData = createAppAsyncThunk(
   'dynamics/fetchData',
-  async (param: {
-    authorId: string[]
-    endYear: string
-    ror: string[]
-    sourcesId: string[]
-    startYear: string
-  }) => {
+  async (
+    param: {
+      authorId: string[]
+      endYear: string
+      ror: string[]
+      sourcesId: string[]
+      startYear: string
+    },
+    { rejectWithValue }
+  ) => {
     const { authorId, endYear, ror, sourcesId, startYear } = param
 
     try {
@@ -33,7 +36,11 @@ const fetchData = createAppAsyncThunk(
         ror: ror[index],
       }))
 
-      return { data }
+      if (responses[0].data.meta.count > 0 || responses[1].data.meta.count > 0) {
+        return { data }
+      } else {
+        return rejectWithValue({ errors: 'Нет данных для отображения' })
+      }
     } catch (e: any) {
       throw new Error(e)
     }

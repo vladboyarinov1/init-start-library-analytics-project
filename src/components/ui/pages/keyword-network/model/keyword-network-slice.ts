@@ -33,19 +33,26 @@ export const slice = createSlice({
   name: 'keywordNetwork',
   reducers: {},
 })
-const fetchData = createAppAsyncThunk(`${slice.name}/fetchData`, async (param: any) => {
-  const transformedParams = paramsToQueryString(param, {
-    'ID направления': 'openalex_id:',
-    Wikidata: 'wikidata_id:',
-  })
+const fetchData = createAppAsyncThunk(
+  `${slice.name}/fetchData`,
+  async (param: any, { rejectWithValue }) => {
+    const transformedParams = paramsToQueryString(param, {
+      'ID направления': 'openalex_id:',
+      Wikidata: 'wikidata_id:',
+    })
 
-  try {
-    const res = await keywordNetworkApi.getData(transformedParams.queryString)
+    try {
+      const res = await keywordNetworkApi.getData(transformedParams.queryString)
 
-    return { data: res.data.results }
-  } catch (e: any) {
-    throw new Error(e)
+      if (res.data.meta.count > 0) {
+        return { data: res.data.results }
+      } else {
+        return rejectWithValue({ errors: 'Нет данных для отображения' })
+      }
+    } catch (e: any) {
+      throw new Error(e)
+    }
   }
-})
+)
 
 export const asyncActions = { fetchData }

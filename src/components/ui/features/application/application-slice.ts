@@ -1,4 +1,3 @@
-import { RequestStatus } from '@/common/types/common-types'
 import { appActions } from '@/components/ui/features/common-actions'
 import { createSlice, isFulfilled, isPending, isRejected } from '@reduxjs/toolkit'
 import { AnyAction } from 'redux'
@@ -6,16 +5,13 @@ import { AnyAction } from 'redux'
 export const slice = createSlice({
   extraReducers: builder => {
     builder
-      .addCase(appActions.setLoadingStatus, (state, action) => {
-        state.status = action.payload.status
-      })
       .addCase(appActions.setError, (state, action) => {
         state.error = action.payload.error
       })
       .addCase(appActions.setLinearProgress, (state, action) => {
         state.isLinearProgress = action.payload.value
       })
-      .addMatcher(isPending, (state, action) => {
+      .addMatcher(isPending, (state, _action) => {
         state.isLinearProgress = true
       })
       .addMatcher(isRejected, (state, action: AnyAction) => {
@@ -29,7 +25,7 @@ export const slice = createSlice({
           state.error = action.error.message ?? 'Some error occurred'
         }
       })
-      .addMatcher(isFulfilled, (state, action) => {
+      .addMatcher(isFulfilled, (state, _action) => {
         state.isLinearProgress = false
       })
   },

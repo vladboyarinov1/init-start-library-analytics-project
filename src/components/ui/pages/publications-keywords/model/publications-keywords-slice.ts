@@ -92,7 +92,10 @@ export const slice = createSlice({
 
 const fetchPublicationData = createAppAsyncThunk(
   `${slice.name}/fetchPublicationData`,
-  async (param: { countries: string[]; endYear: string; ids: string[]; startYear: string }) => {
+  async (
+    param: { countries: string[]; endYear: string; ids: string[]; startYear: string },
+    { rejectWithValue }
+  ) => {
     try {
       const { countries, endYear, ids, startYear } = param
       const requests = ids.map((id, index) =>
@@ -106,7 +109,11 @@ const fetchPublicationData = createAppAsyncThunk(
         id: ids[index],
       }))
 
-      return { countries, data } as FetchPublicationDataPayload
+      if (responses[0].data.meta.count > 0) {
+        return { countries, data } as FetchPublicationDataPayload
+      } else {
+        return rejectWithValue({ errors: 'Нет данных для отображения' })
+      }
     } catch (e: any) {
       throw new Error(e)
     }
@@ -114,13 +121,17 @@ const fetchPublicationData = createAppAsyncThunk(
 )
 const fetchCountriesData = createAppAsyncThunk(
   `${slice.name}/fetchCountriesData`,
-  async (param: { endYear: string; id: string; startYear: string }) => {
+  async (param: { endYear: string; id: string; startYear: string }, { rejectWithValue }) => {
     const { endYear, id, startYear } = param
 
     try {
       const res = await publicationsKeywordsApi.getCountriesData(id, startYear, endYear)
 
-      return { data: res.data['group_by'] }
+      if (res.data.meta.count > 0) {
+        return { data: res.data['group_by'] }
+      } else {
+        return rejectWithValue({ errors: 'Нет данных для отображения' })
+      }
     } catch (e: any) {
       throw new Error(e)
     }

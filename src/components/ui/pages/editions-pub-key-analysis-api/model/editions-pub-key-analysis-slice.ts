@@ -4,6 +4,7 @@ import { paramsToQueryString } from '@/common/utils/params-to-query-string'
 import { appActions } from '@/components/ui/features/common-actions'
 import { editionsPubKeyAnalysisApi } from '@/components/ui/pages/editions-pub-key-analysis-api/api/editions-pub-key-analysis-api'
 import { createSlice } from '@reduxjs/toolkit'
+
 const { setLinearProgress } = appActions
 
 export const slice = createSlice({
@@ -136,7 +137,7 @@ export const slice = createSlice({
 
 const fetchData = createAppAsyncThunk(
   `${slice.name}/fetchData`,
-  async (param: any, { dispatch }) => {
+  async (param: any, { dispatch, rejectWithValue }) => {
     const transformedParams = paramsToQueryString(param)
 
     dispatch(setLinearProgress({ value: true }))
@@ -144,8 +145,11 @@ const fetchData = createAppAsyncThunk(
       const res = await editionsPubKeyAnalysisApi.getData(transformedParams.queryString)
 
       dispatch(setLinearProgress({ value: false }))
-
-      return { data: res.data.results }
+      if (res.data.meta.count > 0) {
+        return { data: res.data.results }
+      } else {
+        return rejectWithValue({ errors: 'Нет данных для отображения' })
+      }
     } catch (e: any) {
       throw new Error(e)
     }
@@ -154,13 +158,18 @@ const fetchData = createAppAsyncThunk(
 
 const fetchBarChartData = createAppAsyncThunk(
   `${slice.name}/fetchBarChartData`,
-  async (param: any) => {
+  async (param: any, { rejectWithValue }) => {
     const transformedParams = paramsToQueryString(param)
 
+    debugger
     try {
       const res = await editionsPubKeyAnalysisApi.getBarChartData(transformedParams.queryString)
 
-      return { data: res.data.results }
+      if (res.data.meta.count > 0) {
+        return { data: res.data.results }
+      } else {
+        return rejectWithValue({ errors: 'Нет данных для отображения' })
+      }
     } catch (e: any) {
       throw new Error(e)
     }
@@ -168,13 +177,17 @@ const fetchBarChartData = createAppAsyncThunk(
 )
 const fetchOpenAccessData = createAppAsyncThunk(
   `${slice.name}/fetchOpenAccessData`,
-  async (param: any) => {
+  async (param: any, { rejectWithValue }) => {
     const transformedParams = paramsToQueryString(param)
 
     try {
       const res = await editionsPubKeyAnalysisApi.getOpenAccessData(transformedParams.queryString)
 
-      return { data: res.data['group_by'] }
+      if (res.data.meta.count > 0) {
+        return { data: res.data['group_by'] }
+      } else {
+        return rejectWithValue({ errors: 'Нет данных для отображения' })
+      }
     } catch (e: any) {
       throw new Error(e)
     }
@@ -182,13 +195,17 @@ const fetchOpenAccessData = createAppAsyncThunk(
 )
 const fetchPieChartData = createAppAsyncThunk(
   `${slice.name}/fetchPieChartData`,
-  async (param: any) => {
+  async (param: any, { rejectWithValue }) => {
     const transformedParams = paramsToQueryString(param)
 
     try {
       const res = await editionsPubKeyAnalysisApi.getPieChartData(transformedParams.queryString)
 
-      return { data: res.data['group_by'] }
+      if (res.data.meta.count > 0) {
+        return { data: res.data['group_by'] }
+      } else {
+        return rejectWithValue({ errors: 'Нет данных для отображения' })
+      }
     } catch (e: any) {
       throw new Error(e)
     }
@@ -196,7 +213,7 @@ const fetchPieChartData = createAppAsyncThunk(
 )
 const fetchTreeMapData = createAppAsyncThunk(
   `${slice.name}/fetchTreeMapData`,
-  async (param: any) => {
+  async (param: any, { rejectWithValue }) => {
     try {
       const { ids, types } = param
       const requests = ids.map((id: string, index: number) =>
@@ -209,7 +226,11 @@ const fetchTreeMapData = createAppAsyncThunk(
         id: ids[index],
       }))
 
-      return { data }
+      if (responses[0].data.meta.count > 0 || responses[1].data.meta.count > 0) {
+        return { data }
+      } else {
+        return rejectWithValue({ errors: 'Нет данных для отображения' })
+      }
     } catch (e: any) {
       throw new Error(e)
     }
@@ -217,7 +238,7 @@ const fetchTreeMapData = createAppAsyncThunk(
 )
 const fetchBarChartCountryData = createAppAsyncThunk(
   `${slice.name}/fetchBarChartCountryData`,
-  async (param: any) => {
+  async (param: any, { rejectWithValue }) => {
     const transformedParams = paramsToQueryString(param)
 
     try {
@@ -225,7 +246,11 @@ const fetchBarChartCountryData = createAppAsyncThunk(
         transformedParams.queryString
       )
 
-      return { data: res.data['group_by'] }
+      if (res.data.meta.count > 0) {
+        return { data: res.data['group_by'] }
+      } else {
+        return rejectWithValue({ errors: 'Нет данных для отображения' })
+      }
     } catch (e: any) {
       throw new Error(e)
     }

@@ -37,29 +37,39 @@ const initialState: OrgAnalysisState = {
   publicationsData: [],
 }
 
-const fetchData = createAppAsyncThunk('orgAnalysis/fetchData', async (params: FetchDataParams) => {
-  const { endYear, iso, startYear, type } = params
+const fetchData = createAppAsyncThunk(
+  'orgAnalysis/fetchData',
+  async (params: FetchDataParams, { rejectWithValue }) => {
+    const { endYear, iso, startYear, type } = params
 
-  try {
-    const res = await orgAnalysisApi.getData(iso, type)
+    try {
+      const res = await orgAnalysisApi.getData(iso, type)
 
-    return { data: res.data.results, endYear, startYear }
-  } catch (e: any) {
-    throw new Error(e.message)
+      if (res.data.meta.count > 0) {
+        return { data: res.data.results, endYear, startYear }
+      } else {
+        return rejectWithValue({ errors: 'Нет данных для отображения' })
+      }
+    } catch (e: any) {
+      throw new Error(e.message)
+    }
   }
-})
+)
 const fetchCirclePacking = createAppAsyncThunk(
   'orgAnalysis/fetchCirclePacking',
-  async (param: any) => {
+  async (param: any, { rejectWithValue }) => {
     const transformedParams = paramsToQueryString(param, {
       'Аффиляция ROR': 'ror:https://ror.org/',
     })
 
-    //040a2r459
     try {
       const res = await orgAnalysisApi.getCirclePackingData(transformedParams.queryString)
 
-      return { data: res.data.results }
+      if (res.data.meta.count > 0) {
+        return { data: res.data.results }
+      } else {
+        return rejectWithValue({ errors: 'Нет данных для отображения' })
+      }
     } catch (e: any) {
       throw new Error(e.message)
     }

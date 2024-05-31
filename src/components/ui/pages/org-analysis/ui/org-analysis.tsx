@@ -5,10 +5,12 @@ import { useActions } from '@/common/hooks/use-actions'
 import { useAppSelector } from '@/common/hooks/use-app-selector'
 import { Button } from '@/components/ui/components/button'
 import { ChartSection } from '@/components/ui/components/chart-section'
+import { Circular } from '@/components/ui/components/circular'
 import { DashboardButton } from '@/components/ui/components/dashboard-button'
 import { Input } from '@/components/ui/components/input'
 import { SelectButton } from '@/components/ui/components/select-button'
 import { CirclePacking } from '@/components/ui/diagrams/circle-packing'
+import { PieChart } from '@/components/ui/diagrams/pie-chart'
 import { RadialBar } from '@/components/ui/diagrams/radial-bar'
 import { orgAnalysisSliceActions } from '@/components/ui/pages/org-analysis'
 import { orgAnalysisSelectors } from '@/components/ui/pages/org-analysis/model/org-analysis-selectors'
@@ -42,6 +44,7 @@ export const OrgAnalysis = () => {
 
   return (
     <div>
+      <Circular />
       <div className={s.dashboard}>
         <div className={s.title}>
           <h2>Организации: анализ публикаций</h2>
@@ -195,18 +198,19 @@ export const OrgAnalysis = () => {
                 variant={'export'}
               />
             </div>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, justifyContent: 'center' }}>
-              <div style={{ backgroundColor: 'white', borderRadius: 12, padding: 10, width: 560 }}>
+            <div className={s.wrapper}>
+              <div className={s.wrapper__items}>
                 <h2>Количество публикаций</h2>
                 <RadialBar data={data.publicationsData} />
               </div>
-              <div style={{ backgroundColor: 'white', borderRadius: 12, padding: 10, width: 560 }}>
+              <div className={s.wrapper__items}>
                 <h2>Количество цитирований</h2>
                 <RadialBar data={data.citationsData} />
               </div>
             </div>
           </div>
         ) : (
+          //
           ''
         )}
         {type === 'keyword' && Object.keys(data.circlePacking.data).length > 0 && (

@@ -2,6 +2,7 @@ import { useActions } from '@/common/hooks/use-actions.ts'
 import { useAppSelector } from '@/common/hooks/use-app-selector.ts'
 import { Button } from '@/components/ui/components/button'
 import { ChartSection } from '@/components/ui/components/chart-section'
+import { Circular } from '@/components/ui/components/circular'
 import { Input } from '@/components/ui/components/input'
 import { SelectButton } from '@/components/ui/components/select-button'
 import { LineGraph } from '@/components/ui/diagrams/line-graph'
@@ -26,6 +27,7 @@ export const Dynamics = () => {
 
   return (
     <div>
+      <Circular />
       <div className={s.dashboard}>
         <div className={s.title}>
           <h2>Динамика публикаций/цитирований</h2>

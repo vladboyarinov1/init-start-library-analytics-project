@@ -11,6 +11,7 @@ import { Sidebar } from '@/components/ui/components/sidebar'
 import { AboutSearch } from '@/components/ui/pages/about-search'
 import { Dynamics } from '@/components/ui/pages/dynamics'
 import { EditionsPubKeyAnalysisApi } from '@/components/ui/pages/editions-pub-key-analysis-api/ui'
+import { ErrorPage } from '@/components/ui/pages/error-page'
 import { KeywordNetwork } from '@/components/ui/pages/keyword-network'
 import { OrgAnalysis } from '@/components/ui/pages/org-analysis'
 import { PresentationPage } from '@/components/ui/pages/presentation-page/presentation-page'
@@ -50,7 +51,13 @@ export function App() {
         style={{
           backgroundColor: 'var(--color-green-desaturated)',
           marginLeft: `${
-            isMobile ? '0' : collapsed ? '80px' : !isPathNotInSearchPages ? '0' : '250px'
+            isMobile
+              ? '0'
+              : collapsed && isPathNotInSearchPages
+              ? '80px'
+              : !isPathNotInSearchPages
+              ? '0'
+              : '250px'
           }`,
           marginTop: `${isMobile && isPathNotInSearchPages ? '30px' : 0}`,
           // overflowY: 'auto',
@@ -99,6 +106,8 @@ export function App() {
                 path={'/analysis_publications_and_keywords'}
               />
               <Route element={<KeywordNetwork />} path={'/keyword_network'} />
+              <Route element={<ErrorPage />} path={'/404'} />
+              <Route element={<Navigate to={'/404'} />} path={'*'} />
             </Routes>
           </div>
         </Content>

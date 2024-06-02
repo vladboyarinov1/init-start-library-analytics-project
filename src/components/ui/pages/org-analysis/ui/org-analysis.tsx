@@ -15,10 +15,18 @@ import { RadialBar } from '@/components/ui/diagrams/radial-bar'
 import { orgAnalysisSliceActions } from '@/components/ui/pages/org-analysis'
 import { orgAnalysisSelectors } from '@/components/ui/pages/org-analysis/model/org-analysis-selectors'
 import { Search } from '@/icons'
-import { Field, FieldArray, Form, Formik } from 'formik'
+import { FieldArray, Form, Formik, FormikErrors, FormikTouched } from 'formik'
 import * as Yup from 'yup'
 
 import s from './org-analysis.module.scss'
+interface Pair {
+  inputValue: string
+  selectValue: string
+}
+
+interface FormValues {
+  pairs: Pair[]
+}
 
 const buttonConfigs = [
   { title: 'По публикациям', value: 'publications' },
@@ -148,75 +156,74 @@ export const OrgAnalysis = () => {
           </div>
         )}
         {type === 'keyword' && (
-          <div>
-            <Formik
-              initialValues={{ pairs: [{ inputValue: '040a2r459', selectValue: 'Аффиляция ROR' }] }}
-              onSubmit={values => {
-                fetchCirclePacking(values.pairs)
-              }}
-              validationSchema={validationSchemaKeyword}
-            >
-              {({ errors, handleChange, handleSubmit, setFieldValue, touched, values }) => (
-                <Form className={s.formik_form}>
-                  {Object.keys(errors).length > 0 && Object.keys(touched).length > 0 && (
-                    <div className={s.error_title}>Заполните все обязательные поля!</div>
-                  )}
-                  <FieldArray
-                    name={'pairs'}
-                    render={arrayHelpers => (
-                      <div>
-                        {values.pairs.map((pair, index) => (
-                          <div className={s.item} key={index}>
-                            <SelectButton
-                              activeValueName={values.pairs[index].selectValue || ''}
-                              error={
-                                errors?.pairs?.[index]?.selectValue &&
-                                touched?.pairs?.[index]?.selectValue
-                              }
-                              itemsData={[
-                                {
-                                  items: allOptions.map(option => ({
-                                    label: option,
-                                    value: option,
-                                  })),
-                                },
-                              ]}
-                              name={`pairs.${index}.selectValue`}
-                              onChange={value => {
-                                arrayHelpers.replace(index, {
-                                  ...pair,
-                                  selectValue: value,
-                                })
-                              }}
-                              setFieldValue={setFieldValue}
-                              title={'Категории поиска'}
-                              variant={'primary'}
-                            />
-                            <Input
-                              error={
-                                errors?.pairs?.[index]?.inputValue &&
-                                touched?.pairs?.[index]?.inputValue
-                              }
-                              name={`pairs.${index}.inputValue`}
-                              onChange={handleChange}
-                              placeholder={'Введите значение ROR'}
-                              required
-                              value={pair.inputValue}
-                            />
-                            <div className={s.buttons}>
-                              <Button onClick={handleSubmit} type={'submit'}>
-                                Поиск <Search />
-                              </Button>
-                            </div>
+          <Formik<FormValues>
+            initialValues={{ pairs: [{ inputValue: '040a2r459', selectValue: 'Аффиляция ROR' }] }}
+            onSubmit={values => {
+              fetchCirclePacking(values.pairs)
+            }}
+            validationSchema={validationSchemaKeyword}
+          >
+            {({ errors, handleChange, handleSubmit, setFieldValue, touched, values }) => (
+              <Form className={s.formik_form}>
+                {Object.keys(errors).length > 0 && Object.keys(touched).length > 0 && (
+                  <div className={s.error_title}>Заполните все обязательные поля!</div>
+                )}
+                <FieldArray
+                  name={'pairs'}
+                  render={arrayHelpers => (
+                    <div>
+                      {values.pairs.map((pair, index) => (
+                        <div className={s.item} key={index}>
+                          <SelectButton
+                            activeValueName={values.pairs[index].selectValue || ''}
+                            error={
+                              (errors.pairs?.[index] as FormikErrors<Pair>)?.selectValue &&
+                              (touched.pairs?.[index] as unknown as FormikTouched<Pair>)
+                                ?.selectValue
+                            }
+                            itemsData={[
+                              {
+                                items: allOptions.map(option => ({
+                                  label: option,
+                                  value: option,
+                                })),
+                              },
+                            ]}
+                            name={`pairs.${index}.selectValue`}
+                            onChange={value => {
+                              arrayHelpers.replace(index, {
+                                ...pair,
+                                selectValue: value,
+                              })
+                            }}
+                            setFieldValue={setFieldValue}
+                            title={'Категории поиска'}
+                            variant={'primary'}
+                          />
+                          <Input
+                            error={
+                              (errors.pairs?.[index] as FormikErrors<Pair>)?.inputValue &&
+                              (touched.pairs?.[index] as unknown as FormikTouched<Pair>)?.inputValue
+                            }
+                            name={`pairs.${index}.inputValue`}
+                            onChange={handleChange}
+                            placeholder={'Введите значение ROR'}
+                            required
+                            value={pair.inputValue}
+                          />
+                          <div className={s.buttons}>
+                            <Button onClick={handleSubmit} type={'submit'}>
+                              Поиск <Search />
+                            </Button>
                           </div>
-                        ))}
-                      </div>
-                    )}
-                  ></FieldArray>
-                </Form>
-              )}
-            </Formik>
-          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                />
+              </Form>
+            )}
+          </Formik>
         )}
       </div>
       <div>

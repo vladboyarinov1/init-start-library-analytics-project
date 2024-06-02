@@ -1,7 +1,5 @@
 import { InputHTMLAttributes } from 'react'
 
-import clsx from 'clsx'
-
 import s from './input.module.scss'
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {

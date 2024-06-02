@@ -14,6 +14,8 @@ import { LineGraph } from '@/components/ui/diagrams/line-graph'
 import { pubKeywordsSliceActions } from '@/components/ui/pages/publications-keywords'
 import { publicationsKeywordsSelectors } from '@/components/ui/pages/publications-keywords/model/publications-keywords-selectors'
 import { Search } from '@/icons'
+import { CloseOutlined } from '@ant-design/icons'
+import { Button as AntButton } from 'antd'
 import { FieldArray, Form, Formik, FormikErrors, FormikTouched } from 'formik'
 import * as Yup from 'yup'
 
@@ -181,7 +183,7 @@ export const PublicationsKeywords = () => {
                         />
                       </div>
                       <FieldArray name={'fields'}>
-                        {({ push }) => (
+                        {({ push, remove }) => (
                           <>
                             <div className={s.wrapper}>
                               {values.ids.slice(1).map((id, index) => (
@@ -205,26 +207,22 @@ export const PublicationsKeywords = () => {
                                     placeholder={`Код страны ${index + 2}`}
                                     value={values.countries[index + 1] || ''}
                                   />
-                                  {/* Uncomment to enable removal of fields */}
-                                  {/* {index > 0 && (
-                          <Button
-                            onClick={() => {
-                              remove(index + 1);
-                              setFieldValue(
-                                `ids`,
-                                values.ids.filter((_, i) => i !== index + 1)
-                              );
-                              setFieldValue(
-                                `countries`,
-                                values.countries.filter((_, i) => i !== index + 1)
-                              );
-                            }}
-                            type={'button'}
-                            variant={'primary'}
-                          >
-                            Удалить
-                          </Button>
-                        )} */}
+                                  <AntButton
+                                    icon={<CloseOutlined />}
+                                    onClick={() => {
+                                      remove(index + 1)
+                                      setFieldValue(
+                                        `ids`,
+                                        values.ids.filter((_, i) => i !== index + 1)
+                                      )
+                                      setFieldValue(
+                                        `countries`,
+                                        values.countries.filter((_, i) => i !== index + 1)
+                                      )
+                                    }}
+                                    style={{ color: 'var(--color-green-hover)' }}
+                                    type={'text'}
+                                  ></AntButton>
                                 </div>
                               ))}
                             </div>

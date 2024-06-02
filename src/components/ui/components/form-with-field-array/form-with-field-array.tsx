@@ -4,6 +4,8 @@ import { Button } from '@/components/ui/components/button'
 import { Input } from '@/components/ui/components/input'
 import { SelectButton } from '@/components/ui/components/select-button'
 import { Search } from '@/icons'
+import { CloseOutlined } from '@ant-design/icons'
+import { Button as AntButton } from 'antd'
 import { FieldArray, Form, Formik, FormikErrors, FormikTouched } from 'formik'
 import * as Yup from 'yup'
 
@@ -62,7 +64,7 @@ export const FormWithFieldArray: React.FC<FormWithFieldArrayProps> = ({ allOptio
               <FieldArray
                 name={'pairs'}
                 render={arrayHelpers => (
-                  <div className={s.form}>
+                  <div>
                     {values.pairs.map((pair, index) => (
                       <div className={s.item} key={index}>
                         <SelectButton
@@ -99,6 +101,14 @@ export const FormWithFieldArray: React.FC<FormWithFieldArrayProps> = ({ allOptio
                           onChange={handleChange}
                           value={pair.inputValue}
                         />
+                        {index > 0 && (
+                          <AntButton
+                            icon={<CloseOutlined />}
+                            onClick={() => arrayHelpers.remove(index)}
+                            style={{ color: 'var(--color-green-hover)' }}
+                            type={'text'}
+                          />
+                        )}
                       </div>
                     ))}
                     <div className={s.buttons}>

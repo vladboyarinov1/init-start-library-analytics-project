@@ -4,25 +4,47 @@ import { Button } from '@/components/ui/components/button'
 import { Input } from '@/components/ui/components/input'
 import { SelectButton } from '@/components/ui/components/select-button'
 import { Search } from '@/icons'
-import { FieldArray, Form, Formik } from 'formik'
+import { FieldArray, Form, Formik, FormikErrors, FormikTouched } from 'formik'
+import * as Yup from 'yup'
 
-import s from './form-with-field-array.module.scss' // Создайте соответствующий файл стилей
+import s from './form-with-field-array.module.scss'
 
 type FormWithFieldArrayProps = {
   allOptions: string[]
-  onSubmit: (pairs: any) => void
+  onSubmit: (pairs: { inputValue: string; selectValue: string }[]) => void
 }
+
+interface FormValues {
+  pairs: {
+    inputValue: string
+    selectValue: string
+  }[]
+}
+
+const validationSchema = Yup.object().shape({
+  pairs: Yup.array().of(
+    Yup.object().shape({
+      inputValue: Yup.string().required('Input value is required'),
+      selectValue: Yup.string().required('Select value is required'),
+    })
+  ),
+})
 
 export const FormWithFieldArray: React.FC<FormWithFieldArrayProps> = ({ allOptions, onSubmit }) => {
   return (
     <div>
-      <Formik
+      <Formik<FormValues>
         initialValues={{ pairs: [{ inputValue: '', selectValue: '' }] }}
         onSubmit={values => {
           onSubmit(values.pairs)
         }}
+        validationSchema={validationSchema}
       >
-        {({ handleChange, handleSubmit, setFieldValue, values }) => {
+        {({ errors, handleChange, handleSubmit, setFieldValue, touched, values }) => {
+          // Type assertion for errors and touched
+          const typedErrors: any = errors as FormikErrors<FormValues>
+          const typedTouched: any = touched as FormikTouched<FormValues>
+
           const getAvailableOptions = (index: number) => {
             const selectedValues = values.pairs.map(pair => pair.selectValue)
 
@@ -33,7 +55,10 @@ export const FormWithFieldArray: React.FC<FormWithFieldArrayProps> = ({ allOptio
           }
 
           return (
-            <Form>
+            <Form className={s.formik_form}>
+              {Object.keys(typedErrors).length > 0 && Object.keys(typedTouched).length > 0 && (
+                <div className={s.error_title}>Заполните все обязательные поля!</div>
+              )}
               <FieldArray
                 name={'pairs'}
                 render={arrayHelpers => (
@@ -42,6 +67,10 @@ export const FormWithFieldArray: React.FC<FormWithFieldArrayProps> = ({ allOptio
                       <div className={s.item} key={index}>
                         <SelectButton
                           activeValueName={values.pairs[index].selectValue || ''}
+                          error={Boolean(
+                            typedErrors.pairs?.[index]?.selectValue &&
+                              typedTouched.pairs?.[index]?.selectValue
+                          )}
                           itemsData={[
                             {
                               items: getAvailableOptions(index).map(option => ({
@@ -62,6 +91,10 @@ export const FormWithFieldArray: React.FC<FormWithFieldArrayProps> = ({ allOptio
                           variant={'primary'}
                         />
                         <Input
+                          error={Boolean(
+                            typedErrors.pairs?.[index]?.inputValue &&
+                              typedTouched.pairs?.[index]?.inputValue
+                          )}
                           name={`pairs.${index}.inputValue`}
                           onChange={handleChange}
                           value={pair.inputValue}
@@ -96,5 +129,3 @@ export const FormWithFieldArray: React.FC<FormWithFieldArrayProps> = ({ allOptio
     </div>
   )
 }
-// https://api.openalex.org/publishers?filter=type:journal
-//https://api.openalex.org/sources?filter=type:journal

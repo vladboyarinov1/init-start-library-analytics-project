@@ -15,7 +15,8 @@ import { RadialBar } from '@/components/ui/diagrams/radial-bar'
 import { orgAnalysisSliceActions } from '@/components/ui/pages/org-analysis'
 import { orgAnalysisSelectors } from '@/components/ui/pages/org-analysis/model/org-analysis-selectors'
 import { Search } from '@/icons'
-import { FieldArray, Form, Formik } from 'formik'
+import { Field, FieldArray, Form, Formik } from 'formik'
+import * as Yup from 'yup'
 
 import s from './org-analysis.module.scss'
 
@@ -31,6 +32,22 @@ const endYear = Array.from({ length: currentYear - 2012 + 1 }, (_, i) => ({
 const startYear = Array.from({ length: 2024 - 2012 + 1 }, (_, i) => ({
   label: (2012 + i).toString(),
 }))
+
+const validationSchemaPublications = Yup.object().shape({
+  endYear: Yup.string().required('Конечный год обязателен'),
+  iso: Yup.string().required('Код страны обязателен'),
+  startYear: Yup.string().required('Год начала обязателен'),
+  type: Yup.string().required('Тип обязателен'),
+})
+
+const validationSchemaKeyword = Yup.object().shape({
+  pairs: Yup.array().of(
+    Yup.object().shape({
+      inputValue: Yup.string().required('Значение ROR обязательно'),
+      selectValue: Yup.string().required('Категория поиска обязательна'),
+    })
+  ),
+})
 
 export const OrgAnalysis = () => {
   const { fetchCirclePacking, fetchData } = useActions(orgAnalysisSliceActions)
@@ -73,12 +90,17 @@ export const OrgAnalysis = () => {
                   type: values.type,
                 })
               }}
+              validationSchema={validationSchemaPublications}
             >
-              {({ handleChange, handleSubmit, setFieldValue, values }) => (
-                <Form>
+              {({ errors, handleChange, handleSubmit, setFieldValue, touched, values }) => (
+                <Form className={s.formik_form}>
+                  {Object.keys(errors).length > 0 && Object.keys(touched).length > 0 && (
+                    <div className={s.error_title}>Заполните все обязательные поля!</div>
+                  )}
                   <div className={s.form}>
                     <SelectButton
                       activeValueName={values.type}
+                      error={errors.type && touched.type}
                       itemsData={[{ items: [{ label: 'government' }, { label: 'education' }] }]}
                       name={'type'}
                       onChange={e => setFieldValue('type', e)}
@@ -87,13 +109,16 @@ export const OrgAnalysis = () => {
                       variant={'primary'}
                     />
                     <Input
+                      error={errors.iso && touched.iso}
                       name={'iso'}
                       onChange={handleChange}
                       placeholder={'Код страны'}
+                      required
                       value={values.iso}
                     />
                     <SelectButton
                       activeValueName={values.startYear}
+                      error={errors.startYear && touched.startYear}
                       itemsData={[{ items: startYear }]}
                       name={'startYear'}
                       onChange={e => setFieldValue('startYear', e)}
@@ -103,6 +128,7 @@ export const OrgAnalysis = () => {
                     />
                     <SelectButton
                       activeValueName={values.endYear}
+                      error={errors.endYear && touched.endYear}
                       itemsData={[{ items: endYear }]}
                       name={'endYear'}
                       onChange={e => setFieldValue('endYear', e)}
@@ -128,9 +154,13 @@ export const OrgAnalysis = () => {
               onSubmit={values => {
                 fetchCirclePacking(values.pairs)
               }}
+              validationSchema={validationSchemaKeyword}
             >
-              {({ handleChange, handleSubmit, setFieldValue, values }) => (
-                <Form>
+              {({ errors, handleChange, handleSubmit, setFieldValue, touched, values }) => (
+                <Form className={s.formik_form}>
+                  {Object.keys(errors).length > 0 && Object.keys(touched).length > 0 && (
+                    <div className={s.error_title}>Заполните все обязательные поля!</div>
+                  )}
                   <FieldArray
                     name={'pairs'}
                     render={arrayHelpers => (
@@ -139,6 +169,10 @@ export const OrgAnalysis = () => {
                           <div className={s.item} key={index}>
                             <SelectButton
                               activeValueName={values.pairs[index].selectValue || ''}
+                              error={
+                                errors?.pairs?.[index]?.selectValue &&
+                                touched?.pairs?.[index]?.selectValue
+                              }
                               itemsData={[
                                 {
                                   items: allOptions.map(option => ({
@@ -159,9 +193,14 @@ export const OrgAnalysis = () => {
                               variant={'primary'}
                             />
                             <Input
+                              error={
+                                errors?.pairs?.[index]?.inputValue &&
+                                touched?.pairs?.[index]?.inputValue
+                              }
                               name={`pairs.${index}.inputValue`}
                               onChange={handleChange}
                               placeholder={'Введите значение ROR'}
+                              required
                               value={pair.inputValue}
                             />
                             <div className={s.buttons}>
@@ -211,7 +250,6 @@ export const OrgAnalysis = () => {
             </div>
           </div>
         ) : (
-          //
           ''
         )}
         {type === 'keyword' && Object.keys(data.circlePacking.data).length > 0 && (

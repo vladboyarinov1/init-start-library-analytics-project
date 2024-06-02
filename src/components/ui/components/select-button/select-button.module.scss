@@ -42,7 +42,8 @@ button {
   }
 }
 
-.PrimarySelectTrigger {
+.PrimarySelectTrigger,
+.error {
   width: 100%;
   color: var(--color-black);
   background-color: white;
@@ -118,4 +119,8 @@ button {
     color: var(--color-green-primary);
     background-color: var(--color-green-20);
   }
+}
+
+.error {
+  border: 1px solid red;
 }

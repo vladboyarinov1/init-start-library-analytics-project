@@ -14,6 +14,7 @@ type SelectItem = { items: { label: string }[]; label?: string }
 type SelectButtonProps = {
   activeValueName: any
   data?: any
+  error?: '' | boolean | undefined
   itemsData: SelectItem[]
   name: any
   onChange?: (e: any) => void
@@ -25,6 +26,7 @@ type SelectButtonProps = {
 export const SelectButton = ({
   activeValueName,
   data,
+  error,
   itemsData,
   name,
   onChange,
@@ -32,6 +34,7 @@ export const SelectButton = ({
   title,
   variant,
 }: SelectButtonProps) => {
+  console.log(error)
   const [open, setOpen] = useState<boolean>(false)
 
   const toggleOpen = () => {
@@ -48,13 +51,15 @@ export const SelectButton = ({
   const WrapperClass = clsx(s.SelectTrigger, {
     [s.ExportSelectTrigger]: variant === 'export',
     [s.PrimarySelectTrigger]: variant === 'primary',
+    [s.error]: error, // Добавляет класс s.error, если error истинно
   })
+
   const SelectClass = clsx(s.SelectContent, {
     [s.ExportSelectContent]: variant === 'export',
   })
 
   return (
-    <div className={WrapperClass}>
+    <div className={!error ? WrapperClass : s.error}>
       {variant === 'export' && (
         <div>
           <Select.Icon>

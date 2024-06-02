@@ -5,16 +5,16 @@ import clsx from 'clsx'
 import s from './input.module.scss'
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
-  required?: boolean
+  error?: '' | boolean | undefined
 }
 
-export const Input = ({ placeholder, required = true, ...props }: InputProps) => {
-  const containerClassName = required ? clsx(s.container, s.required) : s.container
+export const Input = ({ error, placeholder, ...props }: InputProps) => {
+  //const containerClassName = required ? clsx(s.container, s.required) : s.container
 
   return (
-    <div className={containerClassName}>
-      <input {...props} className={s.input} placeholder={placeholder} required={required} />
-      {required && <span className={s.requiredStar}>*</span>}
+    <div>
+      <input {...props} className={!error ? s.input : s.error} placeholder={placeholder} required />
     </div>
   )
 }
+//{required && <span className={s.requiredStar}>*</span>}

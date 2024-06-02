@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { SelectedValue } from '@/common/data'
 import { useActions } from '@/common/hooks/use-actions'
-import { useAppSelector } from '@/common/hooks/use-app-selector.ts'
+import { useAppSelector } from '@/common/hooks/use-app-selector'
 import { Button } from '@/components/ui/components/button'
 import { ChartSection } from '@/components/ui/components/chart-section'
 import { Circular } from '@/components/ui/components/circular'

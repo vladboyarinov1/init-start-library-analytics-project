@@ -53,7 +53,6 @@ export const Dynamics = () => {
             type: 'Количество публикаций',
           }}
           onSubmit={values => {
-            alert(JSON.stringify(values))
             fetchData({
               authorId: values.authorId,
               endYear: values.endYear,

@@ -34,7 +34,6 @@ export const SelectButton = ({
   title,
   variant,
 }: SelectButtonProps) => {
-  console.log(error)
   const [open, setOpen] = useState<boolean>(false)
 
   const toggleOpen = () => {

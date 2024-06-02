@@ -13,3 +13,11 @@
   gap: 8px;
   margin-bottom: 8px;
 }
+.formik_form {
+  position: relative;
+}
+.error_title {
+  color: red;
+  position: absolute;
+  top: -17px;
+}

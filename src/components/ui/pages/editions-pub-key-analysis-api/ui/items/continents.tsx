@@ -33,7 +33,7 @@ export const Continents = () => {
         }}
         validationSchema={validationSchema}
       >
-        {({ errors, handleChange, handleSubmit, setFieldValue, touched, values }) => {
+        {({ errors, handleChange, handleSubmit, touched, values }) => {
           // Type assertion for errors and touched
           const typedErrors = errors as FormikErrors<FormValues>
           const typedTouched: any = touched as FormikTouched<FormValues>
@@ -65,7 +65,7 @@ export const Continents = () => {
                     <>
                       <div className={s.wrapper}>
                         {values.ids.slice(1).map((id, index) => (
-                          <div className={s.fieldRow} key={`${id}-${index + 1}`}>
+                          <div className={s.fieldRow} key={index}>
                             <Input
                               error={Boolean(
                                 typedErrors.ids?.[index + 1] && typedTouched.ids?.[index + 1]
@@ -92,8 +92,6 @@ export const Continents = () => {
                           <Button
                             onClick={() => {
                               push('')
-                              setFieldValue('ids', [...values.ids, ''])
-                              setFieldValue('types', [...values.types, ''])
                             }}
                             type={'button'}
                             variant={'primary'}

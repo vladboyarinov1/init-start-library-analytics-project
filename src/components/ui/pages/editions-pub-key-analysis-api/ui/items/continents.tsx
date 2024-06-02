@@ -3,6 +3,8 @@ import { Button } from '@/components/ui/components/button'
 import { Input } from '@/components/ui/components/input'
 import { editionsPubKeyAnalysisActions } from '@/components/ui/pages/editions-pub-key-analysis-api'
 import { Search } from '@/icons'
+import { CloseOutlined } from '@ant-design/icons'
+import { Button as AntButton } from 'antd'
 import { FieldArray, Form, Formik, FormikErrors, FormikTouched } from 'formik'
 import * as Yup from 'yup'
 
@@ -61,7 +63,7 @@ export const Continents = () => {
                   />
                 </div>
                 <FieldArray name={'ids'}>
-                  {({ push }) => (
+                  {({ push, remove }) => (
                     <>
                       <div className={s.wrapper}>
                         {values.ids.slice(1).map((id, index) => (
@@ -84,6 +86,12 @@ export const Continents = () => {
                               placeholder={`Тип публикации ${index + 2}`}
                               value={values.types[index + 1] || ''}
                             />
+                            <AntButton
+                              icon={<CloseOutlined />}
+                              onClick={() => remove(index + 1)}
+                              style={{ color: 'var(--color-green-hover)' }}
+                              type={'text'}
+                            ></AntButton>
                           </div>
                         ))}
                       </div>

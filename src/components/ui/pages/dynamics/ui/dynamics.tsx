@@ -9,6 +9,8 @@ import { LineGraph } from '@/components/ui/diagrams/line-graph'
 import { dynamicsSliceActions } from '@/components/ui/pages/dynamics'
 import { dynamicsSelectors } from '@/components/ui/pages/dynamics/model/dynamics-selectors'
 import { Search } from '@/icons'
+import { CloseOutlined } from '@ant-design/icons'
+import { Button as AntButton } from 'antd'
 import { FieldArray, Form, Formik, FormikErrors, FormikTouched } from 'formik'
 import * as Yup from 'yup'
 
@@ -114,7 +116,7 @@ export const Dynamics = () => {
                     />
                   </div>
                   <FieldArray name={'fields'}>
-                    {({ push }) => (
+                    {({ push, remove }) => (
                       <>
                         <div className={s.wrapper}>
                           {values.ror.slice(1).map((i, index) => (
@@ -148,26 +150,26 @@ export const Dynamics = () => {
                                 placeholder={`ID издания ${index + 2}`}
                                 value={values.sourcesId[index + 1] || ''}
                               />
-                              {/* Uncomment to enable removal of fields */}
-                              {/* {index > 0 && (
-                          <Button
-                            onClick={() => {
-                              remove(index + 1);
-                              setFieldValue(
-                                `ids`,
-                                values.ids.filter((_, i) => i !== index + 1)
-                              );
-                              setFieldValue(
-                                `countries`,
-                                values.countries.filter((_, i) => i !== index + 1)
-                              );
-                            }}
-                            type={'button'}
-                            variant={'primary'}
-                          >
-                            Удалить
-                          </Button>
-                        )} */}
+                              <AntButton
+                                icon={<CloseOutlined />}
+                                onClick={() => {
+                                  remove(index + 1)
+                                  setFieldValue(
+                                    'ror',
+                                    values.ror.filter((_, i) => i !== index + 1)
+                                  )
+                                  setFieldValue(
+                                    'authorId',
+                                    values.authorId.filter((_, i) => i !== index + 1)
+                                  )
+                                  setFieldValue(
+                                    'sourcesId',
+                                    values.sourcesId.filter((_, i) => i !== index + 1)
+                                  )
+                                }}
+                                style={{ color: 'var(--color-green-hover)' }}
+                                type={'text'}
+                              ></AntButton>
                             </div>
                           ))}
                         </div>

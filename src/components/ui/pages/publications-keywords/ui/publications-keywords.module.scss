@@ -95,8 +95,9 @@
 }
 
 .fieldRow {
+  align-items: center;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 2fr 2fr 0.1fr;
   gap: 8px;
 }
 
